@@ -8,6 +8,8 @@ public class ViewScene : MonoBehaviour {
 
     Scene modelScene;
 
+   public FixedJoystick Joystick;
+    public Camera Camera;
 
     // Use this for initialization
     void Start () {
@@ -30,13 +32,15 @@ public class ViewScene : MonoBehaviour {
 
 
 
-    int tick = 0;
+    //int tick = 0;
     // Update is called once per frame
     void Update () {
-        tick++;
+
+        Debug.Log("========" + Joystick.Horizontal + "_____" + Joystick.Vertical);
+        //tick+=20;
  
-        if (tick % 2 == 0)
-        {
+       // if (tick % 2 == 0)
+       // {
            
             modelScene.Update();
 
@@ -50,7 +54,13 @@ public class ViewScene : MonoBehaviour {
                 // Анимация. 
                 modelScene._unit_ar[i].getAnimation();
             }
-        }
+        //}
+
+        Camera.transform.position = new Vector3(
+            Camera.transform.position.x+Joystick.Horizontal,
+            Camera.transform.position.y+Joystick.Vertical,
+            Camera.transform.position.z);
+
     }
 
     
