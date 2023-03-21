@@ -60,16 +60,17 @@
   <ItemGroup>
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\pathFinder\Cell.cs" />
-    <Compile Include="Assets\ViewScene.cs" />
+    <Compile Include="Assets\MainScript\element\TaskA.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\pathFinder\Board.cs" />
+    <Compile Include="Assets\MainScript\Scene.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
-    <Compile Include="Assets\ViewUnit.cs" />
     <Compile Include="Assets\pathFinder\AStar.cs" />
-    <Compile Include="Assets\Unit.cs" />
+    <Compile Include="Assets\MainScript\Unit.cs" />
+    <Compile Include="Assets\MainScript\ViewScene.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
-    <Compile Include="Assets\Scene.cs" />
+    <Compile Include="Assets\MainScript\ViewUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

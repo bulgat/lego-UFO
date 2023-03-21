@@ -358,13 +358,14 @@
 "Assets/Joystick Pack/Scripts/Joysticks/FixedJoystick.cs"
 "Assets/Joystick Pack/Scripts/Joysticks/FloatingJoystick.cs"
 "Assets/Joystick Pack/Scripts/Joysticks/VariableJoystick.cs"
+"Assets/MainScript/element/TaskA.cs"
+"Assets/MainScript/Scene.cs"
+"Assets/MainScript/Unit.cs"
+"Assets/MainScript/ViewScene.cs"
+"Assets/MainScript/ViewUnit.cs"
 "Assets/pathFinder/AStar.cs"
 "Assets/pathFinder/Board.cs"
 "Assets/pathFinder/Cell.cs"
-"Assets/Scene.cs"
-"Assets/Unit.cs"
-"Assets/ViewScene.cs"
-"Assets/ViewUnit.cs"
 -langversion:9.0
 
 /deterministic
