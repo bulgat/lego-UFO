@@ -10,7 +10,7 @@ public class Unit  {
 	// Движение персонажа.
 	private bool Moving = false;
 
-	private bool Die = false;
+	private bool Dead = false;
 
     private int factX = 1;
     private int factY = 1;
@@ -62,7 +62,7 @@ public class Unit  {
             OnMoving ();
 			return;
 		}
-		if (Die) {
+		if (Dead) {
 			OnDie ();
 			return;
 		}
@@ -221,7 +221,7 @@ public class Unit  {
     }
     public void _Die() {
         _life = 0;
-        Die = true;
+        Dead = true;
 
     }
     public void PlayAnimation(string state,int offset,bool loop) {

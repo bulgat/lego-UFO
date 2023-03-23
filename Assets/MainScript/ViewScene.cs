@@ -5,6 +5,7 @@ using System.Threading;
 using Assets.MainScript;
 using System.Threading.Tasks;
 
+
 public class ViewScene : MonoBehaviour {
 
     public GameObject Unit;
@@ -35,7 +36,8 @@ public class ViewScene : MonoBehaviour {
         Task.Run(()=> taskA.Count(syncLock));
         Task.Run(() => taskB.Count(syncLock));
 
-        
+
+        ThreadA threadA = new ThreadA();
     }
 
 

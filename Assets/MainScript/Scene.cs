@@ -24,10 +24,15 @@ public class Scene  {
         // Иницилизировать юниты.
         //foreach (Unit un in _unit_ar)
         //{
-        _unit_ar[0].OnInit(1,1,false);
-        _unit_ar[1].OnInit(3,3,true);
+        AddUnitToScene();
         //}
 
+    }
+
+    private void AddUnitToScene()
+    {
+        _unit_ar[0].OnInit(1, 1, false);
+        _unit_ar[1].OnInit(3, 3, true);
     }
 
     // Update is called once per frame

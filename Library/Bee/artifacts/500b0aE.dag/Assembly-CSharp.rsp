@@ -359,6 +359,7 @@
 "Assets/Joystick Pack/Scripts/Joysticks/FloatingJoystick.cs"
 "Assets/Joystick Pack/Scripts/Joysticks/VariableJoystick.cs"
 "Assets/MainScript/element/TaskA.cs"
+"Assets/MainScript/element/ThreadA.cs"
 "Assets/MainScript/Scene.cs"
 "Assets/MainScript/Unit.cs"
 "Assets/MainScript/ViewScene.cs"
