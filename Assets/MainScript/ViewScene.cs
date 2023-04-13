@@ -15,6 +15,8 @@ public class ViewScene : MonoBehaviour {
    public FixedJoystick Joystick;
     public Camera Camera;
 
+   public GameObject ImageShield;
+
     // Use this for initialization
     void Start () {
  
@@ -48,11 +50,11 @@ public class ViewScene : MonoBehaviour {
 
         
         //tick+=20;
- 
-       // if (tick % 2 == 0)
-       // {
-           
-            modelScene.Update();
+
+        // if (tick % 2 == 0)
+        // {
+
+        modelScene.Update();
 
             var chip_ar = GameObject.FindGameObjectsWithTag("chip");
 
@@ -63,6 +65,13 @@ public class ViewScene : MonoBehaviour {
 
                 // Анимация. 
                 modelScene._unit_ar[i].getAnimation();
+
+                if (i == 0)
+                {
+                    Vector3 coordinates = Camera.main.WorldToScreenPoint(chip_ar[i].transform.position);
+                    Debug.Log("Coordinate = " + coordinates);
+                    ImageShield.transform.position = coordinates;
+                }
             }
         //}
 

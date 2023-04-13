@@ -20,7 +20,7 @@ namespace Assets.MainScript
             
             ReadIdDelegate(UnPrintId,77);
            var stop =  FuncIdDelegate(FuncPrintId, 77777);
-Debug.Log("0000 === == ____" + stop);
+
         }
         public TaskA()
         {
