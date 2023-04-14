@@ -16,12 +16,15 @@ public class ViewScene : MonoBehaviour {
     public Camera Camera;
 
    public GameObject ImageShield;
+    public GameObject CanvasMap;
 
+    List<GameObject> ImageShieldList;
     // Use this for initialization
     void Start () {
- 
-        // Запускаем модель.
-        modelScene = new Scene();
+        ImageShieldList = new List<GameObject>();
+
+               // Запускаем модель.
+               modelScene = new Scene();
         modelScene.OnInit();
         
         foreach (Unit un in modelScene._unit_ar)
@@ -29,8 +32,10 @@ public class ViewScene : MonoBehaviour {
             Instantiate(Unit);
             Unit.transform.position = new Vector3(un.GetTileX(), 4, un.GetTileY());
             Unit.tag = "chip";
-   
-            
+
+            GameObject CardWing = Instantiate(ImageShield, new Vector2(100, 100), Quaternion.identity);
+            CardWing.transform.parent = CanvasMap.transform;
+            ImageShieldList.Add(CardWing);
         }
         object syncLock = new object();
         TaskA taskA = new TaskA();
@@ -62,17 +67,19 @@ public class ViewScene : MonoBehaviour {
             {
                 chip_ar[i].transform.position = new Vector3(modelScene._unit_ar[i].GetTileX() + ((float)modelScene._unit_ar[i].GetX() / 100), 4, modelScene._unit_ar[i].GetTileY() + ((float)modelScene._unit_ar[i].GetY() / 100));
 
-
+                
                 // Анимация. 
                 modelScene._unit_ar[i].getAnimation();
 
-                if (i == 0)
-                {
+               // if (i == 0)
+               // {
                     Vector3 coordinates = Camera.main.WorldToScreenPoint(chip_ar[i].transform.position);
-                    Debug.Log("Coordinate = " + coordinates);
-                    ImageShield.transform.position = coordinates;
-                }
-            }
+                    Debug.Log(ImageShieldList.Count+"  Coordinate = " + coordinates);
+                   // ImageShield.transform.position = coordinates;
+
+            ImageShieldList[i].transform.position = new Vector3(coordinates.x, coordinates.y-100, coordinates.z);
+            //}
+        }
         //}
 
         Camera.transform.position = new Vector3(
