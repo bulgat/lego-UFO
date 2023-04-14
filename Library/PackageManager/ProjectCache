@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638155062891576664
-    m_Hash: 1259929080
+      ticks: 638170999784449833
+    m_Hash: 2385778141
   m_LockFileStatus:
     m_FilePath: C:/Users/bulga/Documents/GitHub/legoAI/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638155062891596651
-    m_Hash: 797210935
+      ticks: 638170999785235082
+    m_Hash: 3000862001
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -22,6 +22,64 @@ m_LocalPackages:
 m_ProjectPath: C:/Users/bulga/Documents/GitHub/legoAI/Packages
 m_EditorVersion: 2022.2.0b16 (3c3b3e6cd1d7)
 m_ResolvedPackages:
+- packageId: com.unity.2d.sprite@1.0.0
+  testable: 0
+  isDirectDependency: 1
+  version: 1.0.0
+  source: 2
+  resolvedPath: C:\Users\bulga\Documents\GitHub\legoAI\Library\PackageCache\com.unity.2d.sprite@1.0.0
+  assetPath: Packages/com.unity.2d.sprite
+  name: com.unity.2d.sprite
+  displayName: 2D Sprite
+  author:
+    name: 
+    email: 
+    url: 
+  category: 2D
+  type: 
+  description: Use Unity Sprite Editor Window to create and edit Sprite asset properties
+    like pivot, borders and Physics shape
+  status: 0
+  errors: []
+  versions:
+    all:
+    - 1.0.0
+    compatible:
+    - 1.0.0
+    recommended: 1.0.0
+    deprecated: []
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - 2d
+  - sprite
+  - sprite editor window
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 1.0.0
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
 - packageId: com.unity.ai.navigation@1.1.1
   testable: 0
   isDirectDependency: 1
@@ -171,6 +229,7 @@ m_ResolvedPackages:
     - 2.0.0-preview.22
     - 2.0.0
     - 2.0.1
+    - 2.0.3
     - 2.1.0-preview.3
     - 2.1.0-preview.5
     - 2.1.0-preview.6
@@ -186,6 +245,7 @@ m_ResolvedPackages:
     - 2.0.0-preview.22
     - 2.0.0
     - 2.0.1
+    - 2.0.3
     - 2.1.0-preview.3
     - 2.1.0-preview.5
     - 2.1.0-preview.6
@@ -550,6 +610,7 @@ m_ResolvedPackages:
     - 1.3.1
     - 1.3.2
     - 1.3.3
+    - 1.3.4
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
@@ -560,6 +621,7 @@ m_ResolvedPackages:
     - 1.3.1
     - 1.3.2
     - 1.3.3
+    - 1.3.4
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
@@ -881,14 +943,18 @@ m_ResolvedPackages:
     - 1.7.1
     - 1.7.2
     - 1.7.3
+    - 1.7.4
     - 1.8.0
     - 1.8.1
+    - 1.8.2
     compatible:
     - 1.7.2
     - 1.7.3
+    - 1.7.4
     - 1.8.0
     - 1.8.1
-    recommended: 1.7.3
+    - 1.8.2
+    recommended: 1.7.4
     deprecated: []
   dependencies:
   - name: com.unity.modules.director
@@ -3021,11 +3087,13 @@ m_ResolvedPackages:
     - 1.7.0
     - 1.7.1
     - 1.8.1
+    - 1.8.2
     compatible:
     - 1.6.0
     - 1.7.0
     - 1.7.1
     - 1.8.1
+    - 1.8.2
     recommended: 1.6.0
     deprecated: []
   dependencies:
@@ -3111,8 +3179,10 @@ m_ResolvedPackages:
     - 2.0.2
     - 3.0.1
     - 3.0.2
+    - 3.1.0
     compatible:
     - 3.0.2
+    - 3.1.0
     recommended: 3.0.2
     deprecated: []
   dependencies: []
