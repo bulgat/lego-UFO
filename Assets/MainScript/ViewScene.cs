@@ -19,7 +19,7 @@ public class ViewScene : MonoBehaviour {
     public GameObject CanvasMap;
 
     List<GameObject> ImageShieldList;
-    // Use this for initialization
+
     void Start () {
         ImageShieldList = new List<GameObject>();
 
@@ -78,9 +78,9 @@ public class ViewScene : MonoBehaviour {
                    // ImageShield.transform.position = coordinates;
 
             ImageShieldList[i].transform.position = new Vector3(coordinates.x, coordinates.y-100, coordinates.z);
-            //}
+      
         }
-        //}
+
 
         Camera.transform.position = new Vector3(
             Camera.transform.position.x+Joystick.Horizontal,

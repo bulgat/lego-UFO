@@ -70,6 +70,7 @@
     <Compile Include="Assets\pathFinder\AStar.cs" />
     <Compile Include="Assets\MainScript\Unit.cs" />
     <Compile Include="Assets\MainScript\ViewScene.cs" />
+    <Compile Include="Assets\MainScript\water2D\MainWater.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\MainScript\ViewUnit.cs" />
   </ItemGroup>
@@ -742,6 +743,9 @@
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
