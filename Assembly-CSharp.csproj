@@ -61,6 +61,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\pathFinder\Cell.cs" />
     <Compile Include="Assets\MainScript\element\ThreadA.cs" />
+    <Compile Include="Assets\MainScript\water2D\Cube.cs" />
     <Compile Include="Assets\MainScript\element\TaskA.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\pathFinder\Board.cs" />
