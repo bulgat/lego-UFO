@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Threading;
 using Assets.MainScript;
 using System.Threading.Tasks;
-
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ViewScene : MonoBehaviour {
 
+    public Button ButtonWater;
     public GameObject Unit;
 
     Scene modelScene;
@@ -45,8 +48,15 @@ public class ViewScene : MonoBehaviour {
 
 
         ThreadA threadA = new ThreadA();
-    }
 
+        ButtonWater.onClick.AddListener(SceneWater);
+    }
+    void SceneWater()
+    {
+        Debug.Log("======= ke -");
+        SceneManager.LoadScene("Water2D", LoadSceneMode.Single);
+        Debug.Log( "  Coordina " );
+    }
 
 
     //int tick = 0;
@@ -74,7 +84,7 @@ public class ViewScene : MonoBehaviour {
                // if (i == 0)
                // {
                     Vector3 coordinates = Camera.main.WorldToScreenPoint(chip_ar[i].transform.position);
-                    Debug.Log(ImageShieldList.Count+"  Coordinate = " + coordinates);
+                    
                    // ImageShield.transform.position = coordinates;
 
             ImageShieldList[i].transform.position = new Vector3(coordinates.x, coordinates.y-100, coordinates.z);

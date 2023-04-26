@@ -19,6 +19,11 @@ namespace Assets.MainScript.water2D
         {
             return this.Stone + this.Water;
         }
-        
+        /*
+        public int GetKey()
+        {
+
+        }
+        */
 }
 }

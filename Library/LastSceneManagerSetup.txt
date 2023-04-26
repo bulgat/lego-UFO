@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scene/Water2D.unity
+- path: Assets/Scene/unit_ai.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

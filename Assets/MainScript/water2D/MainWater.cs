@@ -8,19 +8,18 @@ public class MainWater : MonoBehaviour
 {
     public GameObject WaterCube;
 
-    List<Cube> LandscapeList;
+    List<Cube> Landscape_List;
+    Dictionary<string,Cube> LandscapeDictionary;
     Cube LeakCube;
-    int indexFontain = 6;
-    //List<int> CubeStoneList;
-    //List<int> WaterCubeList;
+    Point indexFontain = new Point(6,0);
+
     int xStart = -3;
     int yStart = -3;
     List<GameObject> GraphicList;
     void Start()
     {
-        //CubeStoneList = new List<int>() { 0, 0, 1, 2, 3, 2, 1, 2, 3 };
-        //WaterCubeList = new List<int>() { 1, 2, 3, 2, 1, 2, 3, 3, 3 };
-        LandscapeList = new List<Cube>()
+
+        Landscape_List = new List<Cube>()
         {
             new Cube(0,1),
             new Cube(0,2),
@@ -34,33 +33,41 @@ public class MainWater : MonoBehaviour
             new Cube(2,3),
             new Cube(3,3)
         };
+
+        LandscapeDictionary = new Dictionary<string, Cube>();
+        for (int i= 0; i < 11; i++)
+        {
+            Point p = new Point(i, 0);
+            LandscapeDictionary.Add(p.ToString(), Landscape_List[i]);
+            
+        }
+        
+
+
         GraphicList = new List<GameObject>();
         DrawWater();
-        //RemoveWater();
 
     }
     private void DrawWater()
     {
         int count = 0;
-        foreach(var item in LandscapeList)
+        foreach(var item in LandscapeDictionary)
         {
             GameObject waterStone = Instantiate(WaterCube, new Vector2(xStart+ count, yStart), Quaternion.identity);
-            waterStone.transform.localScale = new Vector3(1, item.Stone, 1);
-            waterStone.transform.position = new Vector3(xStart + count, yStart+(float)item.Stone/2,1);
+            waterStone.transform.localScale = new Vector3(1, item.Value.Stone, 1);
+            waterStone.transform.position = new Vector3(xStart + count, yStart+(float)item.Value.Stone/2,1);
             waterStone.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.red;
             GraphicList.Add(waterStone);
-            //set water
-            //if (WaterCubeList[count] > 0)
-            //{
+
                 GameObject waterCube = Instantiate(WaterCube, new Vector2(xStart + count, yStart), Quaternion.identity);
-                waterCube.transform.localScale = new Vector3(1, item.Water, 1);
-                //waterCube.transform.position = new Vector3(xStart + count, item  + .5f, 1);
-                waterCube.transform.position = new Vector3(xStart + count, yStart+item.Stone + (float) item.Water/2, 1);
+                waterCube.transform.localScale = new Vector3(1, item.Value.Water, 1);
+
+                waterCube.transform.position = new Vector3(xStart + count, yStart+item.Value.Stone + (float)item.Value.Water/2, 1);
                 GraphicList.Add(waterCube);
-            //}
+
             count++;
         }
-        //LeakWater();
+
     }
     void RemoveWater() {
         foreach(var item in GraphicList)
@@ -71,15 +78,17 @@ public class MainWater : MonoBehaviour
     }
     bool LeakWater()
     {
-        var sumWater = LandscapeList.Sum(a=>a.Water);
+        
+        var sumWater = LandscapeDictionary.Values.ToList().Sum(a=>a.Water);
         if (5<sumWater)
         {
-            //var t = WaterCubeList.Select((a, index) =>  new {height = CubeStoneList[index] + a,water=a}).Where().ToList();
-            var list = LandscapeList.Where(a => a.Water > 0).OrderBy(a => a.Stone).ToList();
+
+            var list = LandscapeDictionary.Values.Where(a => a.Water > 0).OrderBy(a => a.Stone).ToList();
             Debug.Log(list[0].Stone+"========"+list.Last().Stone);
             LeakCube = list.First();
             return true;
         }
+        
         return false;
     }
     List<int> CheckCubeList = new List<int>() { -1, 1 };
@@ -87,20 +96,22 @@ public class MainWater : MonoBehaviour
     {
         bool changeView=false;
         int count = 0;
-        foreach (var item in LandscapeList)
+        foreach (var item in LandscapeDictionary)
         {
-            if (item.Water > 0) {
-                //var height = item.GetSum();
+            if (item.Value.Water > 0) {
+
                 foreach (var check in CheckCubeList)
                 {
                     var checkCount = count + check;
-                    if (0<=checkCount && LandscapeList.Count> checkCount)
+                    Point checkPoint = new Point(checkCount, 0);
+                    if (0<=checkCount && LandscapeDictionary.Count> checkCount)
                     {
-                        if (LandscapeList[checkCount].GetSum() < item.GetSum())
+                        Debug.Log("check = "+ checkPoint.x+"-"+ checkPoint.z);
+                        if (LandscapeDictionary[checkPoint.ToString()].GetSum() < item.Value.GetSum())
                         {
                             //перенос
-                            LandscapeList[count].Water -= 1;
-                            LandscapeList[checkCount].Water += 1;
+                            item.Value.Water -= 1;
+                            LandscapeDictionary[checkPoint.ToString()].Water += 1;
                             changeView = true;
                             break;
                         }
@@ -112,7 +123,7 @@ public class MainWater : MonoBehaviour
         if (LeakWater())
         {
             LeakCube.Water-=1;
-            //LandscapeList[indexFontain].Water += 1;
+            //LandscapeDictionary[indexFontain.ToString()].Water += 1;
         }
 
         if (changeView)
@@ -124,9 +135,5 @@ public class MainWater : MonoBehaviour
 
         
     }
-    /*
-    private int GetHeightTotal(int Index) { 
-        return LandscapeList[Index].Stone + LandscapeList[Index].Water;
-    }
-    */
+
 }
