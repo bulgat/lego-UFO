@@ -75,6 +75,8 @@
     <Compile Include="Assets\MainScript\water2D\MainWater.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\MainScript\ViewUnit.cs" />
+    <Compile Include="Assets\MainScript\water3D\ViewMain3D.cs" />
+    <Compile Include="Assets\MainScript\water3D\Column.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

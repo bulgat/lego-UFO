@@ -367,6 +367,8 @@
 "Assets/MainScript/water2D/Cube.cs"
 "Assets/MainScript/water2D/MainWater.cs"
 "Assets/MainScript/water2D/Point.cs"
+"Assets/MainScript/water3D/Column.cs"
+"Assets/MainScript/water3D/ViewMain3D.cs"
 "Assets/pathFinder/AStar.cs"
 "Assets/pathFinder/Board.cs"
 "Assets/pathFinder/Cell.cs"

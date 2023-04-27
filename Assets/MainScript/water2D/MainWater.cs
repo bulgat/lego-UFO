@@ -84,7 +84,7 @@ public class MainWater : MonoBehaviour
         {
 
             var list = LandscapeDictionary.Values.Where(a => a.Water > 0).OrderBy(a => a.Stone).ToList();
-            Debug.Log(list[0].Stone+"========"+list.Last().Stone);
+            
             LeakCube = list.First();
             return true;
         }
