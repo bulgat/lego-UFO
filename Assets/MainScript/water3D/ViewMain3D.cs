@@ -38,7 +38,8 @@ public class ViewMain3D : MonoBehaviour
             Landscape_List.Add(xList);
                
         }
-        indexFontain = new Point(SizeMap / 3+1, SizeMap / 3+1);
+        indexFontain = new Point(SizeMap / 3+1, SizeMap / 3+5);
+
         CreateIslandVulcan(SizeMap / 4, SizeMap / 4, SizeMap / 4, SizeMap / 2);
         CreateIslandPlato(SizeMap / 2, SizeMap / 5, SizeMap - 1);
 
@@ -71,27 +72,27 @@ public class ViewMain3D : MonoBehaviour
     {
         for (int i = Start; i < Start+EndX; i++)
         {
-            for (int z = StartY; z < EndY; z++)
+            for (int z = StartY; z < StartY+EndY; z++)
             {
-                if (EndX-1 == i && z == StartY+2) 
+                if (Start + EndX -1 == i && z == StartY + 2) 
                 {
                     
-                    Landscape_List[i][z] = new Column(10, 1);
+                    Landscape_List[i][z] = new Column(10, 0);
                     continue;
                 }
                 if (i == Start || i == Start + EndX - 1)
                 {
                    // Debug.Log((i == SizeMap / 3) + "=== ===" + (i == SizeMap / 2 - 2));
-                    Landscape_List[i][z] = new Column(15, 1);
+                    Landscape_List[i][z] = new Column(15, 0);
                     continue;
                 }
-                if (z == StartY || z == EndY - 1)
+                if (z == StartY || z == StartY+EndY - 1)
                 {
-                    Landscape_List[i][z] = new Column(15, 1);
+                    Landscape_List[i][z] = new Column(15, 0);
                     continue;
                 }
                 
-                Landscape_List[i][z] = new Column(12, 1);
+                Landscape_List[i][z] = new Column(12, 0);
             }
         }
         //leak
@@ -230,8 +231,8 @@ public class ViewMain3D : MonoBehaviour
             }
         }
      
-        return gradeList.OrderByDescending(a=>a.GetSum()).ToList();
-        //return gradeList.OrderBy(a => a.GetSum()).ToList();
+        //return gradeList.OrderByDescending(a=>a.GetSum()).ToList();
+        return gradeList.OrderBy(a => a.GetSum()).ToList();
     }
     bool LeakWater()
     {
