@@ -31,15 +31,18 @@ public class ViewMain3D : MonoBehaviour
             List<Column> xList = new List<Column>();
             for (int z = 0; z < SizeMap; z++)
             {
-                xList.Add(new Column(1, 1));
+                xList.Add(new Column(1, 7));
             }
             Landscape_List.Add(xList);
                
         }
-     
-        Landscape_List[1][0] = new Column(2, 1);
-        Landscape_List[1][1] = new Column(3, 1);
-            Landscape_List[1][2] = new Column(2, 1);
+        CreateIslandVulcan(SizeMap / 3, SizeMap / 3, SizeMap / 2);
+        CreateIslandPlato(SizeMap / 2, SizeMap / 3, SizeMap - 1);
+
+
+            Landscape_List[1][0] = new Column(12, 11);
+        Landscape_List[1][1] = new Column(13, 1);
+            Landscape_List[1][2] = new Column(12, 1);
 
        
      
@@ -61,13 +64,43 @@ public class ViewMain3D : MonoBehaviour
         GraphicList = new List<GameObject>();
         DrawWater();
     }
-
+    void CreateIslandVulcan(int Start, int StartY, int End)
+    {
+        for (int i = Start; i < End; i++)
+        {
+            for (int z = StartY; z < End; z++)
+            {
+                if (i == Start || i == End - 2)
+                {
+                   // Debug.Log((i == SizeMap / 3) + "=== ===" + (i == SizeMap / 2 - 2));
+                    Landscape_List[i][z] = new Column(15, 11);
+                    continue;
+                }
+                if (z == StartY || z == End - 2)
+                {
+                    Landscape_List[i][z] = new Column(15, 11);
+                    continue;
+                }
+                Landscape_List[i][z] = new Column(12, 1);
+            }
+        }
+    }
+    void CreateIslandPlato(int StartX,int StartY, int End) {
+        for (int i = StartX; i < End; i++)
+        {
+            for (int z = StartY; z < End; z++)
+            {
+                
+                Landscape_List[i][z] = new Column(11, 1);
+            }
+        }
+    }
     void DrawWater()
     {
         //int count = 0;
         foreach (var item in LandscapeDictionary)
         {
-Debug.Log("========"+ item.Value);
+
             GameObject waterStone = Instantiate(WaterColumn, new Vector2(xStart + item.Value.Position.x, yStart), Quaternion.identity);
             waterStone.transform.localScale = new Vector3(1, item.Value.Stone, 1);
             waterStone.transform.position = new Vector3(xStart + item.Value.Position.x, yStart + (float)item.Value.Stone / 2, item.Value.Position.z);
