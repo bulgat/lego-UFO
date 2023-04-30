@@ -350,6 +350,7 @@
 "Assets/MainScript/element/ThreadA.cs"
 "Assets/MainScript/Scene.cs"
 "Assets/MainScript/Unit.cs"
+"Assets/MainScript/View/WaterCube.cs"
 "Assets/MainScript/ViewScene.cs"
 "Assets/MainScript/ViewUnit.cs"
 "Assets/MainScript/water2D/Cube.cs"

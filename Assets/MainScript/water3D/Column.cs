@@ -14,6 +14,8 @@ namespace Assets.MainScript.water3D
         public Point Position { set; get; }
         public Point VectorInertia { set; get; }
         public int VectorForce { set; get; }
+        public bool DebugWater;
+        public bool TurnMove { set; get; }
         public Column(int stone, int water)
         {
             this.Stone = stone;

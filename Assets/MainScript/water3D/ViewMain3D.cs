@@ -17,14 +17,17 @@ public class ViewMain3D : MonoBehaviour
         new Point(0,1),
         new Point(-1,0),
         new Point(1,0),
-        new Point(-1,0)
+        new Point(0,-1)
     };
     int SizeMap = 29;
     Column LeakCube;
-    Point indexFontain ;
+    Point IndexFontain ;
     bool LeakWaterOn = true;
     int LeakWaterSum = 20;
-    
+
+    private float nextActionTime = 0.0f;
+    public float period = 10000.1f;
+
     void Start()
     {
         Landscape_List = new List<List<Column>>();
@@ -38,7 +41,8 @@ public class ViewMain3D : MonoBehaviour
             Landscape_List.Add(xList);
                
         }
-        indexFontain = new Point(SizeMap / 3+1, SizeMap / 3+5);
+        IndexFontain = new Point(SizeMap / 3+1, SizeMap / 3+5);
+        Debug.Log("Start  IndexFontain = " + IndexFontain.ToString());
 
         CreateIslandVulcan(SizeMap / 4, SizeMap / 4, SizeMap / 4, SizeMap / 2);
         CreateIslandPlato(SizeMap / 2, SizeMap / 5, SizeMap - 1);
@@ -68,6 +72,22 @@ public class ViewMain3D : MonoBehaviour
         GraphicList = new List<GameObject>();
         DrawWater();
     }
+    void Update()
+    {
+        //if (Time.time > nextActionTime)
+        //{
+            //nextActionTime += period;
+            // execute block of code here
+            if (StepUpdateModel())
+            {
+                RemoveWater();
+                DrawWater();
+            }
+        //}
+
+
+    }
+
     void CreateIslandVulcan(int Start, int StartY, int EndX, int EndY)
     {
         for (int i = Start; i < Start+EndX; i++)
@@ -77,7 +97,7 @@ public class ViewMain3D : MonoBehaviour
                 if (Start + EndX -1 == i && z == StartY + 2) 
                 {
                     
-                    Landscape_List[i][z] = new Column(10, 0);
+                    Landscape_List[i][z] = new Column(11, 0);
                     continue;
                 }
                 if (i == Start || i == Start + EndX - 1)
@@ -118,6 +138,7 @@ public class ViewMain3D : MonoBehaviour
             waterStone.transform.localScale = new Vector3(1, item.Value.Stone, 1);
             waterStone.transform.position = new Vector3(xStart + item.Value.Position.x, yStart + (float)item.Value.Stone / 2, item.Value.Position.z);
             waterStone.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.red;
+           
             GraphicList.Add(waterStone);
 
             if (item.Value.Water > 0)
@@ -126,10 +147,18 @@ public class ViewMain3D : MonoBehaviour
                 waterCube.transform.localScale = new Vector3(1, item.Value.Water, 1);
 
                 waterCube.transform.position = new Vector3(xStart + item.Value.Position.x, yStart + item.Value.Stone + (float)item.Value.Water / 2, item.Value.Position.z);
-                if (item.Key == indexFontain.ToString())
+                
+                if (item.Value.DebugWater)
+                {
+
+                    waterCube.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.yellow;
+                }
+                if (item.Key == IndexFontain.ToString())
                 {
                     waterCube.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.green;
                 }
+                WaterCube water = waterCube.transform.GetChild(0).GetComponent<WaterCube>();
+                water.Name = item.Value.Position.ToString();
                 GraphicList.Add(waterCube);
             }
         }
@@ -143,35 +172,40 @@ public class ViewMain3D : MonoBehaviour
         GraphicList.Clear();
     }
     // Update is called once per frame
-    void Update()
-    {
+
+   bool StepUpdateModel() {
         bool changeView = false;
         foreach (var item in LandscapeDictionary)
         {
             if (item.Value.Water > 0)
             {
-                List<Column> checkCubeList = GradeColumn(item.Value, item.Value);
-                if (0 < checkCubeList.Count)
+                if (item.Value.TurnMove==false)
                 {
-                    Column checkColumn = GetColumn(item.Value,checkCubeList);
-                    //foreach (var checkColumn in checkCubeList)
-                    //{
-                    checkColumn.VectorForce = item.Value.Water - checkColumn.Water;
-                    //перенос
-                    item.Value.Water -= 1;
-                    item.Value.VectorForce -= 1;
-                    checkColumn.Water += 1;
-                    checkColumn.VectorInertia = new Point(
-                        checkColumn.Position.x + (checkColumn.Position.x-item.Value.Position.x),
-                        checkColumn.Position.z + (checkColumn.Position.z - item.Value.Position.z)
-                    );
-                    
+                    List<Column> checkCubeList = GradeColumnList(item.Value).OrderBy(a => a.GetSum()).ToList(); ;
+                    if (0 < checkCubeList.Count)
+                    {
+                        Column checkColumn = GetColumn(item.Value, checkCubeList);
 
-                    changeView = true;
+                        checkColumn.VectorForce = item.Value.Water - checkColumn.Water;
 
-                    //break;
+                        PrintState(item.Value, checkColumn, checkCubeList);
 
-                    //}
+                        //перенос
+                        item.Value.Water -= 1;
+                        item.Value.VectorForce -= 1;
+                        checkColumn.DebugWater = item.Value.DebugWater;
+                        checkColumn.Water += 1;
+                        checkColumn.TurnMove = true;
+                        checkColumn.VectorInertia = new Point(
+                            checkColumn.Position.x + (checkColumn.Position.x - item.Value.Position.x),
+                            checkColumn.Position.z + (checkColumn.Position.z - item.Value.Position.z)
+                        );
+
+
+
+                        changeView = true;
+
+                    }
                 }
             }
         }
@@ -179,19 +213,40 @@ public class ViewMain3D : MonoBehaviour
         {
             if (LeakWater())
             {
-                Debug.Log(LeakCube.Water+"  gap = " + LeakCube.Position.x+"==" + LeakCube.Position.z);
+                Debug.Log("AddWater --------------------------");
+                LandscapeDictionary[IndexFontain.ToString()].DebugWater = true;
                 //LeakCube.Water -= 1;
-                LandscapeDictionary[indexFontain.ToString()].Water += 1;
+                LandscapeDictionary[IndexFontain.ToString()].Water += 1;
             }
         }
-        if (changeView)
+        foreach (var item in LandscapeDictionary)
         {
-            RemoveWater();
-            DrawWater();
+            item.Value.TurnMove = false;
         }
+            return changeView;
+    }
+    void PrintState(Column itemValue,Column checkColumn, List<Column> checkCubeList)
+    {
+        var parent = itemValue.GetSum();
+        var child = checkColumn.GetSum();
+        var kol = "";
+        foreach (var i in checkCubeList)
+        {
+            kol += "_" + i.GetSum();
+        }
+        if (itemValue.DebugWater)
+        {
+            Debug.Log("position = " + itemValue.Position.ToString() + " water =" + itemValue.Water +
+                " stone =" + itemValue.Stone +
+                "  ap = " + checkColumn.Position.ToString() +
+                          " =  count = " + checkCubeList.Count + " [" + kol + "] L parent "
+                          + parent + " => " + child + " DebugWater = " + itemValue.DebugWater);
+        }
+
     }
     Column GetColumn(Column columnParent, List<Column> gradeList)
     {
+        
         if (columnParent.VectorForce>0)
         {
             if (columnParent.VectorInertia != null)
@@ -203,7 +258,9 @@ public class ViewMain3D : MonoBehaviour
                 }
             }
         }
+        
         //Random.Range(0, 1)
+        
         if (0== Random.Range(0, 12))
         {
             int rnd = Random.Range(0, gradeList.Count);
@@ -211,28 +268,28 @@ public class ViewMain3D : MonoBehaviour
         }
         return gradeList.First();
     }
-    List<Column> GradeColumn(Column Parent, Column item)
+    List<Column> GradeColumnList(Column ParentItem)
     {
         
         List<Column> gradeList = new List<Column>();
         foreach (var check in CheckCubeList)
         {
-            Point checkCount = new Point(item.Position.x + check.x, item.Position.z + check.z);
+            Point checkCount = new Point(ParentItem.Position.x + check.x, ParentItem.Position.z + check.z);
             //Point checkPoint = check;
             if (0 <= checkCount.x && SizeMap > checkCount.x)
             {
                 if (0 <= checkCount.z && SizeMap > checkCount.z)
                 {
-                    if (LandscapeDictionary[checkCount.ToString()].GetSum() < item.GetSum())
+                    if (ParentItem.GetSum()>LandscapeDictionary[checkCount.ToString()].GetSum())
                     {
                         gradeList.Add(LandscapeDictionary[checkCount.ToString()]);
                     }
                 }
             }
         }
-     
+
         //return gradeList.OrderByDescending(a=>a.GetSum()).ToList();
-        return gradeList.OrderBy(a => a.GetSum()).ToList();
+        return gradeList;
     }
     bool LeakWater()
     {

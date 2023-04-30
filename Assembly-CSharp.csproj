@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\pathFinder\Cell.cs" />
+    <Compile Include="Assets\MainScript\View\WaterCube.cs" />
     <Compile Include="Assets\MainScript\water2D\Point.cs" />
     <Compile Include="Assets\MainScript\element\ThreadA.cs" />
     <Compile Include="Assets\MainScript\water2D\Cube.cs" />
