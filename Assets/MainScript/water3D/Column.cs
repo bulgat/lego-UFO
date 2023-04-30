@@ -16,6 +16,7 @@ namespace Assets.MainScript.water3D
         public int VectorForce { set; get; }
         public bool DebugWater;
         public bool TurnMove { set; get; }
+        public bool Mud { set; get; }
         public Column(int stone, int water)
         {
             this.Stone = stone;

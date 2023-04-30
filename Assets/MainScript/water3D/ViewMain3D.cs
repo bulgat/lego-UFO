@@ -25,8 +25,11 @@ public class ViewMain3D : MonoBehaviour
     bool LeakWaterOn = true;
     int LeakWaterSum = 20;
 
-    private float nextActionTime = 0.0f;
-    public float period = 10000.1f;
+    //private float nextActionTime = 0.0f;
+    //public float period = 10000.1f;
+    //55
+    int AlluviumRandom = 15;
+    int PrecipitationMudRandom = 10;
 
     void Start()
     {
@@ -124,7 +127,7 @@ public class ViewMain3D : MonoBehaviour
             for (int z = StartY; z < End; z++)
             {
                 
-                Landscape_List[i][z] = new Column(11, 1);
+                Landscape_List[i][z] = new Column(11, 0);
             }
         }
     }
@@ -152,6 +155,10 @@ public class ViewMain3D : MonoBehaviour
                 {
 
                     waterCube.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.yellow;
+                }
+                if (item.Value.Mud)
+                {
+                    waterCube.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.cyan;
                 }
                 if (item.Key == IndexFontain.ToString())
                 {
@@ -193,6 +200,11 @@ public class ViewMain3D : MonoBehaviour
                         //перенос
                         item.Value.Water -= 1;
                         item.Value.VectorForce -= 1;
+                        if (item.Value.Mud)
+                        {
+                            item.Value.Mud = false;
+                            checkColumn.Mud = true;
+                        }
                         checkColumn.DebugWater = item.Value.DebugWater;
                         checkColumn.Water += 1;
                         checkColumn.TurnMove = true;
@@ -200,8 +212,13 @@ public class ViewMain3D : MonoBehaviour
                             checkColumn.Position.x + (checkColumn.Position.x - item.Value.Position.x),
                             checkColumn.Position.z + (checkColumn.Position.z - item.Value.Position.z)
                         );
-
-
+                        PrecipitationMud(checkColumn);
+                        //перенос земли.
+                        if (AlluviumStone(item.Value))
+                        {
+                            checkColumn.Mud = true;
+                        }
+                        
 
                         changeView = true;
 
@@ -215,7 +232,7 @@ public class ViewMain3D : MonoBehaviour
             {
                 Debug.Log("AddWater --------------------------");
                 LandscapeDictionary[IndexFontain.ToString()].DebugWater = true;
-                //LeakCube.Water -= 1;
+                LeakCube.Water -= 1;
                 LandscapeDictionary[IndexFontain.ToString()].Water += 1;
             }
         }
@@ -224,6 +241,34 @@ public class ViewMain3D : MonoBehaviour
             item.Value.TurnMove = false;
         }
             return changeView;
+    }
+    bool AlluviumStone(Column itemValue) {
+        if (itemValue.Water == 0)
+        {
+            int rnd = Random.Range(0, AlluviumRandom);
+            if(0==rnd)
+            {
+                itemValue.Stone -= 1;
+            }
+            return true;
+        }
+        return false;
+    }
+    void PrecipitationMud(Column checkColumn)
+    {
+        if (checkColumn.Mud)
+        {
+            if (checkColumn.Water > 2)
+            {
+                
+                int rnd = Random.Range(0, PrecipitationMudRandom);
+                if (0 == rnd)
+                {
+                    checkColumn.Stone += 1;
+                    checkColumn.Mud = false;
+                }
+            }
+        }
     }
     void PrintState(Column itemValue,Column checkColumn, List<Column> checkCubeList)
     {
