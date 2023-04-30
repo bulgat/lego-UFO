@@ -17,7 +17,12 @@ public class ViewMain3D : MonoBehaviour
         new Point(0,1),
         new Point(-1,0),
         new Point(1,0),
-        new Point(0,-1)
+        new Point(0,-1),
+
+        new Point(-1,1),
+        new Point(1,1),
+        new Point(-1,-1),
+        new Point(1,-1)
     };
     int SizeMap = 29;
     Column LeakCube;
