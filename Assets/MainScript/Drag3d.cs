@@ -17,6 +17,6 @@ public class Drag3d : MonoBehaviour
     private void OnMouseDrag()
     {
         transform.position = new Vector3 (GetMouseWorldPosition().x- this.mousePositionOffset.x,0,
-            GetMouseWorldPosition().z - this.mousePositionOffset.z);
+            GetMouseWorldPosition().z - this.mousePositionOffset.z+7);
     }
 }
