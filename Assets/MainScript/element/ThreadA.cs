@@ -33,11 +33,11 @@ namespace Assets.MainScript
         {
             while (true)
             {
-                Debug.Log("start");
+                
                 System.Random r = new System.Random();
                 int sleepTime = r.Next(1,15);
                 Thread.Sleep(sleepTime * 1000);
-                Debug.Log("end");
+                
             }
         }
         public void HandleCall(object StateInfo)
@@ -47,11 +47,11 @@ namespace Assets.MainScript
             {
                 lock (agent)
                 {
-                    Debug.Log("--start agent L=" + this.AgentConcurentList.Count);
+                    
                     Thread.Sleep(15 * 1000);
                     //this.AgentConcurentList.RemoveAt(0);
                     this.AgentConcurentList.TryDequeue(out agent);
-                    Debug.Log("--end agent L" + this.AgentConcurentList.Count);
+                    
                 }
             }
         }

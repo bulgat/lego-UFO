@@ -22,10 +22,9 @@ public class Scene  {
         _unit_ar = new List<Unit>() { new Unit(), new Unit() };
 
         // Иницилизировать юниты.
-        //foreach (Unit un in _unit_ar)
-        //{
+  
         AddUnitToScene();
-        //}
+
 
     }
 

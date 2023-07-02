@@ -50,7 +50,7 @@ public class ViewMain3D : MonoBehaviour
                
         }
         IndexFontain = new Point(SizeMap / 3+1, SizeMap / 3+5);
-        Debug.Log("Start  IndexFontain = " + IndexFontain.ToString());
+        
 
         CreateIslandVulcan(SizeMap / 4, SizeMap / 4, SizeMap / 4, SizeMap / 2);
         CreateIslandPlato(SizeMap / 2, SizeMap / 5, SizeMap - 1);

@@ -37,7 +37,7 @@ public class ViewScene : MonoBehaviour {
             Unit.tag = "chip";
 
             GameObject CardWing = Instantiate(ImageShield, new Vector2(100, 100), Quaternion.identity);
-            CardWing.transform.parent = CanvasMap.transform;
+             CardWing.transform.parent = CanvasMap.transform;
             ImageShieldList.Add(CardWing);
         }
         object syncLock = new object();
