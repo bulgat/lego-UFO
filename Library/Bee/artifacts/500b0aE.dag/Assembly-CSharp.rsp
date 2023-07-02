@@ -345,6 +345,7 @@
 "Assets/Joystick Pack/Scripts/Joysticks/FixedJoystick.cs"
 "Assets/Joystick Pack/Scripts/Joysticks/FloatingJoystick.cs"
 "Assets/Joystick Pack/Scripts/Joysticks/VariableJoystick.cs"
+"Assets/MainScript/Drag3d.cs"
 "Assets/MainScript/DragAndDrop.cs"
 "Assets/MainScript/element/TaskA.cs"
 "Assets/MainScript/element/ThreadA.cs"
