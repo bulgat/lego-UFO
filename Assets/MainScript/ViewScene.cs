@@ -11,6 +11,8 @@ using UnityEngine.SceneManagement;
 public class ViewScene : MonoBehaviour {
 
     public Button ButtonWater;
+   
+
     public GameObject Unit;
 
     Scene modelScene;
@@ -39,6 +41,7 @@ public class ViewScene : MonoBehaviour {
             GameObject CardWing = Instantiate(ImageShield, new Vector2(100, 100), Quaternion.identity);
              CardWing.transform.parent = CanvasMap.transform;
             ImageShieldList.Add(CardWing);
+
         }
         object syncLock = new object();
         TaskA taskA = new TaskA();
@@ -50,12 +53,14 @@ public class ViewScene : MonoBehaviour {
         ThreadA threadA = new ThreadA();
 
         ButtonWater.onClick.AddListener(SceneWater);
+        
     }
+   
     void SceneWater()
     {
-        Debug.Log("======= ke -");
+        
         SceneManager.LoadScene("Water2D", LoadSceneMode.Single);
-        Debug.Log( "  Coordina " );
+        
     }
 
 

@@ -15,7 +15,6 @@ namespace UnityEditor.U2D.Sprites
         {
             base.DoMainGUI();
             DrawSpriteRectGizmos();
-            DrawPotentialSpriteRectGizmos();
 
             if (!spriteEditor.editingDisabled)
             {
@@ -46,12 +45,6 @@ namespace UnityEditor.U2D.Sprites
                 }
                 spriteEditor.spriteRects = m_RectsCache.GetSpriteRects();
             }
-        }
-
-        private void DrawPotentialSpriteRectGizmos()
-        {
-            if (m_PotentialRects != null && m_PotentialRects.Count > 0)
-                DrawRectGizmos(m_PotentialRects, Color.red);
         }
 
         public override void DoToolbarGUI(Rect toolbarRect)
