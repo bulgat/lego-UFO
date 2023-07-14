@@ -21,10 +21,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -37,6 +35,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.RawImage
     - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scene/Water2D.unity:
@@ -65,9 +64,9 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 7410}
+      Script: {instanceID: 3780}
     - Class: 114
-      Script: {instanceID: 7448}
+      Script: {instanceID: 3818}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -112,41 +111,43 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 5282}
+      Script: {instanceID: 1504}
     - Class: 114
-      Script: {instanceID: 5370}
+      Script: {instanceID: 1696}
     - Class: 114
-      Script: {instanceID: 5392}
+      Script: {instanceID: 1718}
     - Class: 114
-      Script: {instanceID: 5492}
+      Script: {instanceID: 1820}
     - Class: 114
-      Script: {instanceID: 5540}
+      Script: {instanceID: 1872}
     - Class: 114
-      Script: {instanceID: 5692}
+      Script: {instanceID: 2036}
     - Class: 114
-      Script: {instanceID: 5750}
+      Script: {instanceID: 2094}
     - Class: 114
-      Script: {instanceID: 5756}
+      Script: {instanceID: 2102}
     - Class: 114
-      Script: {instanceID: 6038}
+      Script: {instanceID: 2226}
     - Class: 114
-      Script: {instanceID: 6138}
+      Script: {instanceID: 2388}
     - Class: 114
-      Script: {instanceID: 6174}
+      Script: {instanceID: 2490}
     - Class: 114
-      Script: {instanceID: 6292}
+      Script: {instanceID: 2528}
     - Class: 114
-      Script: {instanceID: 6316}
+      Script: {instanceID: 2650}
     - Class: 114
-      Script: {instanceID: 6466}
+      Script: {instanceID: 2674}
     - Class: 114
-      Script: {instanceID: 6552}
+      Script: {instanceID: 2824}
     - Class: 114
-      Script: {instanceID: 7428}
+      Script: {instanceID: 2912}
     - Class: 114
-      Script: {instanceID: 7662}
+      Script: {instanceID: 3798}
     - Class: 114
-      Script: {instanceID: 22196}
+      Script: {instanceID: 4034}
+    - Class: 114
+      Script: {instanceID: 4154}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -172,6 +173,12 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
+      Hash: a6e561615949734e9f12f9b61661f43e
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Image
+  - hash:
+      serializedVersion: 2
       Hash: 824e8d4cb47ffd88ddf959dbd4526585
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -182,12 +189,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
-  - hash:
-      serializedVersion: 2
-      Hash: a6e561615949734e9f12f9b61661f43e
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Image
   - hash:
       serializedVersion: 2
       Hash: 77aaaaa51f7a8d8ff333a879741e47d2
@@ -658,6 +659,12 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
+      Hash: b4a257d62c26658df662ac6161ca5622
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: MergeTestJs
+  - hash:
+      serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -686,14 +693,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.AI.Navigation.dll
     namespaceName: Unity.AI.Navigation
     className: NavMeshLink
-  - hash:
-      serializedVersion: 2
-      Hash: df11c106ed356fa52c0f054d84a911f6
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: 
-    className: MergeTestJs
   platform: 20
   scenePathNames:
   - Assets/Scene/unit_ai.unity
   - Assets/Scene/Water2D.unity
-  playerPath: C:/Project/13_cot
+  playerPath: D:/Project/legoAI

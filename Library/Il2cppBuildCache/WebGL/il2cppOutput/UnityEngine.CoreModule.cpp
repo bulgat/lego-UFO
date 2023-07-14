@@ -15945,6 +15945,16 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Application_get_isBatchMode_m7A58E167B99
 	bool icallRetVal = _il2cpp_icall_func();
 	return icallRetVal;
 }
+// System.String UnityEngine.Application::get_absoluteURL()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* Application_get_absoluteURL_mA948E037EF03C6A9D1EE305FDB456E0559706EE0 (const RuntimeMethod* method)
+{
+	typedef String_t* (*Application_get_absoluteURL_mA948E037EF03C6A9D1EE305FDB456E0559706EE0_ftn) ();
+	static Application_get_absoluteURL_mA948E037EF03C6A9D1EE305FDB456E0559706EE0_ftn _il2cpp_icall_func;
+	if (!_il2cpp_icall_func)
+	_il2cpp_icall_func = (Application_get_absoluteURL_mA948E037EF03C6A9D1EE305FDB456E0559706EE0_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.Application::get_absoluteURL()");
+	String_t* icallRetVal = _il2cpp_icall_func();
+	return icallRetVal;
+}
 // UnityEngine.RuntimePlatform UnityEngine.Application::get_platform()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t Application_get_platform_mAD6C941E38459EFF017EC446E2E5EFB7CDD36EE4 (const RuntimeMethod* method)
 {
