@@ -8,11 +8,15 @@ using UnityEngine.Networking;
 public class MergeTestJs : MonoBehaviour
 {
     public Button ButtonTest;
+    public Button ButtonLaunch;
     public Text TextTest;
     public RawImage RawImageTest;
 
     [DllImport("__Internal")]
     private static extern void Hello();
+
+    [DllImport("__Internal")]
+    private static extern void LaunchTest();
 
     [DllImport("__Internal")]
     private static extern void GetDataPlayer();
@@ -21,22 +25,32 @@ public class MergeTestJs : MonoBehaviour
     void Start()
     {
         ButtonTest.onClick.AddListener(TestUnity);
-        
+        ButtonLaunch.onClick.AddListener(LaunchUnity);
+
+
     }
 
     void TestUnity()
     {
         Debug.Log("TestUnity =======  ");
         Hello();
-        Debug.Log("  Coord  ");
+        Debug.Log("Button  Coo  ");
         GetDataPlayer();
+        Debug.Log("End Button Coo  ");
+    }
+    void LaunchUnity()
+    {
+        Debug.Log("000000 tUnity =======  ");
+        LaunchTest();
     }
     public void SetName(string name)
     {
+        Debug.Log("002======  "+ name);
         TextTest.text = name;
     }
     public void SetPhoto(string url)
     {
+        Debug.Log("003======  "+ url);
         StartCoroutine(DownloadImage(url));
     }
 
