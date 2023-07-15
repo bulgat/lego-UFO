@@ -9,8 +9,10 @@ public class MergeTestJs : MonoBehaviour
 {
     public Button ButtonTest;
     public Button ButtonLaunch;
+    public Button ButtonAuth;
     public Text TextTest;
     public RawImage RawImageTest;
+    public UserData user;
 
     [DllImport("__Internal")]
     private static extern void Hello();
@@ -21,12 +23,17 @@ public class MergeTestJs : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void GetDataPlayer();
 
+    [DllImport("__Internal")]
+    private static extern void AuthenticateUser();
+
+    [DllImport("__Internal")]
+    private static extern void GetUserData();
 
     void Start()
     {
         ButtonTest.onClick.AddListener(TestUnity);
         ButtonLaunch.onClick.AddListener(LaunchUnity);
-
+        ButtonAuth.onClick.AddListener(AuthUnity);
 
     }
 
@@ -43,14 +50,25 @@ public class MergeTestJs : MonoBehaviour
         Debug.Log("000000 tUnity =======  ");
         LaunchTest();
     }
+    void AuthUnity()
+    {
+        AuthenticateUser();
+        GetUserData();
+
+
+        Debug.Log("000100 tUnity =======  "+user.name);
+        Debug.Log("000101 tUnity =======  " + user.id);
+        Debug.Log("000102 tUnity =======  " + user.avatarUrlSmall);
+    }
+
     public void SetName(string name)
     {
-        Debug.Log("002======  "+ name);
+        Debug.Log("∆дем очень-очень 002   SetName======  " + name);
         TextTest.text = name;
     }
     public void SetPhoto(string url)
     {
-        Debug.Log("003======  "+ url);
+        Debug.Log("003   SetPhoto======  " + url);
         StartCoroutine(DownloadImage(url));
     }
 
@@ -66,8 +84,20 @@ public class MergeTestJs : MonoBehaviour
             RawImageTest.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
     }
-    void Update()
+    void Auth()
     {
-        
+        Debug.Log("0023456789   ======  " );
     }
+    void SetAuth(string non)
+    {
+        Debug.Log("0023456789   ======  "+ non);
+    }
+}
+public struct UserData
+{
+    public string id;
+    public string name;
+    public string avatarUrlSmall;
+    public string avatarUrlMedium;
+    public string avatarUrlLarge;
 }

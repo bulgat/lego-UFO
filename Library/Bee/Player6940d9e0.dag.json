@@ -415,7 +415,13 @@
         407,
         408,
         409,
-        410
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416
       ],
       "OverwriteOutputs": false,
       "DebugActionIndex": 0
@@ -18231,14 +18237,15 @@
       "DebugActionIndex": 388
     },
     {
-      "Annotation": "Brotli D:/Project/legoAI/Build/legoAI.framework.js.unityweb",
-      "DisplayName": "Brotli legoAI.framework.js",
-      "Action": "\"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Brotli/win_x86_64/brotli.exe\" -o \"D:/Project/legoAI/Build/legoAI.framework.js.unityweb\" -i \"Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js\" --comment \"UnityWeb Compressed Content (brotli)\"",
+      "Annotation": "7z Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js.unmarked",
+      "DisplayName": "7z build.framework.js",
+      "Action": "cd \"C:/Users/Pizza/Documents/GitHub/legoAI/Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/7z.exe\" a -tgzip \"C:/Users/Pizza/Documents/GitHub/legoAI/Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js.unmarked\" \"build.framework.js\"",
       "Inputs": [
-        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js"
+        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/7z.exe"
       ],
       "Outputs": [
-        "D:/Project/legoAI/Build/legoAI.framework.js.unityweb"
+        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js.unmarked"
       ],
       "ToBuildDependencies": [
         388
@@ -18249,14 +18256,52 @@
       "DebugActionIndex": 389
     },
     {
-      "Annotation": "Brotli D:/Project/legoAI/Build/legoAI.wasm.unityweb",
-      "DisplayName": "Brotli legoAI.wasm",
-      "Action": "\"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Brotli/win_x86_64/brotli.exe\" -o \"D:/Project/legoAI/Build/legoAI.wasm.unityweb\" -i \"Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm\" --comment \"UnityWeb Compressed Content (brotli)\"",
+      "Annotation": "WriteText Library/Bee/artifacts/csharpactions/legoAI.framework.js.unityweb_poa7.info",
+      "DisplayName": "Writing legoAI.framework.js.unityweb_poa7.info",
+      "ActionType": "WriteFile",
+      "PayloadOffset": 89399,
+      "PayloadLength": 476,
+      "PayloadDebugContentSnippet": "{\"System.Object\":null,\"Bee.Tun",
+      "Inputs": [],
+      "Outputs": [
+        "Library/Bee/artifacts/csharpactions/legoAI.framework.js.unityweb_poa7.info"
+      ],
+      "DebugActionIndex": 390
+    },
+    {
+      "Annotation": "GzipMarker D:/Project/legoAI/Build/legoAI.framework.js.unityweb",
+      "DisplayName": "GzipMarker legoAI.framework.js",
+      "Action": "\"C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.0f1\\Editor\\Data\\Tools\\netcorerun\\netcorerun.exe\" \"C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.0f1\\Editor\\Data\\PlaybackEngines\\WebGLSupport\\WebGLPlayerBuildProgram.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/Bee;C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/BuildPipeline\" invoke_static_method \"Library\\Bee\\artifacts\\csharpactions\\legoAI.framework.js.unityweb_poa7.info\"",
       "Inputs": [
-        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm"
+        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.framework.js.unmarked",
+        "Library/Bee/artifacts/csharpactions/legoAI.framework.js.unityweb_poa7.info",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/modules.asset",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.Data.dll",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.exe"
       ],
       "Outputs": [
-        "D:/Project/legoAI/Build/legoAI.wasm.unityweb"
+        "D:/Project/legoAI/Build/legoAI.framework.js.unityweb"
+      ],
+      "ToBuildDependencies": [
+        389,
+        390
+      ],
+      "OverwriteOutputs": false,
+      "AllowUnexpectedOutput": true,
+      "Env": [],
+      "DebugActionIndex": 391
+    },
+    {
+      "Annotation": "7z Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm.unmarked",
+      "DisplayName": "7z build.wasm",
+      "Action": "cd \"C:/Users/Pizza/Documents/GitHub/legoAI/Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/7z.exe\" a -tgzip \"C:/Users/Pizza/Documents/GitHub/legoAI/Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm.unmarked\" \"build.wasm\"",
+      "Inputs": [
+        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/7z.exe"
+      ],
+      "Outputs": [
+        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm.unmarked"
       ],
       "ToBuildDependencies": [
         386
@@ -18264,7 +18309,44 @@
       "OverwriteOutputs": false,
       "AllowUnexpectedOutput": true,
       "Env": [],
-      "DebugActionIndex": 390
+      "DebugActionIndex": 392
+    },
+    {
+      "Annotation": "WriteText Library/Bee/artifacts/csharpactions/legoAI.wasm.unityweb_i3d7.info",
+      "DisplayName": "Writing legoAI.wasm.unityweb_i3d7.info",
+      "ActionType": "WriteFile",
+      "PayloadOffset": 89973,
+      "PayloadLength": 460,
+      "PayloadDebugContentSnippet": "{\"System.Object\":null,\"Bee.Tun",
+      "Inputs": [],
+      "Outputs": [
+        "Library/Bee/artifacts/csharpactions/legoAI.wasm.unityweb_i3d7.info"
+      ],
+      "DebugActionIndex": 393
+    },
+    {
+      "Annotation": "GzipMarker D:/Project/legoAI/Build/legoAI.wasm.unityweb",
+      "DisplayName": "GzipMarker legoAI.wasm",
+      "Action": "\"C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.0f1\\Editor\\Data\\Tools\\netcorerun\\netcorerun.exe\" \"C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.0f1\\Editor\\Data\\PlaybackEngines\\WebGLSupport\\WebGLPlayerBuildProgram.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/Bee;C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/BuildPipeline\" invoke_static_method \"Library\\Bee\\artifacts\\csharpactions\\legoAI.wasm.unityweb_i3d7.info\"",
+      "Inputs": [
+        "Library/Bee/artifacts/WebGL/build/debug_WebGL_wasm/build.wasm.unmarked",
+        "Library/Bee/artifacts/csharpactions/legoAI.wasm.unityweb_i3d7.info",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/modules.asset",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.Data.dll",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.exe"
+      ],
+      "Outputs": [
+        "D:/Project/legoAI/Build/legoAI.wasm.unityweb"
+      ],
+      "ToBuildDependencies": [
+        392,
+        393
+      ],
+      "OverwriteOutputs": false,
+      "AllowUnexpectedOutput": true,
+      "Env": [],
+      "DebugActionIndex": 394
     },
     {
       "Annotation": "CopyFiles Temp/EditorBuildOutput/UnityLinkerToEditorData.json",
@@ -18279,7 +18361,7 @@
       "ToBuildDependencies": [
         1
       ],
-      "DebugActionIndex": 391
+      "DebugActionIndex": 395
     },
     {
       "Annotation": "CopyFiles Temp/EditorBuildOutput/MethodMap.tsv",
@@ -18294,20 +18376,20 @@
       "ToBuildDependencies": [
         2
       ],
-      "DebugActionIndex": 392
+      "DebugActionIndex": 396
     },
     {
       "Annotation": "WriteText Library/Bee/artifacts/csharpactions/webgl.data_qnm2.info",
       "DisplayName": "Writing webgl.data_qnm2.info",
       "ActionType": "WriteFile",
-      "PayloadOffset": 89381,
+      "PayloadOffset": 90521,
       "PayloadLength": 1877,
       "PayloadDebugContentSnippet": "{\"System.Collections.Generic.D",
       "Inputs": [],
       "Outputs": [
         "Library/Bee/artifacts/csharpactions/webgl.data_qnm2.info"
       ],
-      "DebugActionIndex": 393
+      "DebugActionIndex": 397
     },
     {
       "Annotation": "Assemble WebGL Data Library/Bee/artifacts/WebGL/webgl.data",
@@ -18332,35 +18414,73 @@
       ],
       "ToBuildDependencies": [
         2,
-        393
+        397
       ],
       "OverwriteOutputs": false,
       "AllowUnexpectedOutput": true,
       "Env": [],
-      "DebugActionIndex": 394
+      "DebugActionIndex": 398
     },
     {
-      "Annotation": "Brotli D:/Project/legoAI/Build/legoAI.data.unityweb",
-      "DisplayName": "Brotli legoAI.data",
-      "Action": "\"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Brotli/win_x86_64/brotli.exe\" -o \"D:/Project/legoAI/Build/legoAI.data.unityweb\" -i \"Library/Bee/artifacts/WebGL/webgl.data\" --comment \"UnityWeb Compressed Content (brotli)\"",
+      "Annotation": "7z Library/Bee/artifacts/WebGL/webgl.data.unmarked",
+      "DisplayName": "7z webgl.data",
+      "Action": "cd \"C:/Users/Pizza/Documents/GitHub/legoAI/Library/Bee/artifacts/WebGL\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/7z.exe\" a -tgzip \"C:/Users/Pizza/Documents/GitHub/legoAI/Library/Bee/artifacts/WebGL/webgl.data.unmarked\" \"webgl.data\"",
       "Inputs": [
-        "Library/Bee/artifacts/WebGL/webgl.data"
+        "Library/Bee/artifacts/WebGL/webgl.data",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/7z.exe"
+      ],
+      "Outputs": [
+        "Library/Bee/artifacts/WebGL/webgl.data.unmarked"
+      ],
+      "ToBuildDependencies": [
+        398
+      ],
+      "OverwriteOutputs": false,
+      "AllowUnexpectedOutput": true,
+      "Env": [],
+      "DebugActionIndex": 399
+    },
+    {
+      "Annotation": "WriteText Library/Bee/artifacts/csharpactions/legoAI.data.unityweb_czcr.info",
+      "DisplayName": "Writing legoAI.data.unityweb_czcr.info",
+      "ActionType": "WriteFile",
+      "PayloadOffset": 92496,
+      "PayloadLength": 437,
+      "PayloadDebugContentSnippet": "{\"System.Object\":null,\"Bee.Tun",
+      "Inputs": [],
+      "Outputs": [
+        "Library/Bee/artifacts/csharpactions/legoAI.data.unityweb_czcr.info"
+      ],
+      "DebugActionIndex": 400
+    },
+    {
+      "Annotation": "GzipMarker D:/Project/legoAI/Build/legoAI.data.unityweb",
+      "DisplayName": "GzipMarker legoAI.data",
+      "Action": "\"C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.0f1\\Editor\\Data\\Tools\\netcorerun\\netcorerun.exe\" \"C:\\Program Files\\Unity\\Hub\\Editor\\2022.2.0f1\\Editor\\Data\\PlaybackEngines\\WebGLSupport\\WebGLPlayerBuildProgram.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/Bee;C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/Tools/BuildPipeline\" invoke_static_method \"Library\\Bee\\artifacts\\csharpactions\\legoAI.data.unityweb_czcr.info\"",
+      "Inputs": [
+        "Library/Bee/artifacts/WebGL/webgl.data.unmarked",
+        "Library/Bee/artifacts/csharpactions/legoAI.data.unityweb_czcr.info",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/modules.asset",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.Data.dll",
+        "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/WebGLPlayerBuildProgram.exe"
       ],
       "Outputs": [
         "D:/Project/legoAI/Build/legoAI.data.unityweb"
       ],
       "ToBuildDependencies": [
-        394
+        399,
+        400
       ],
       "OverwriteOutputs": false,
       "AllowUnexpectedOutput": true,
       "Env": [],
-      "DebugActionIndex": 395
+      "DebugActionIndex": 401
     },
     {
       "Annotation": "PreprocessJS D:/Project/legoAI/Build/legoAI.loader.js",
       "DisplayName": "PreprocessJS legoAI.loader",
-      "Action": "cd /d \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Emscripten/node/node.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Preprocess.js\"  \"locals.cwd='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools'\"  \"locals.inputPath='UnityLoader/UnityLoader.js'\"  \"locals.outputPath='D\\x3a/Project/legoAI/Build/legoAI.loader.js'\"  \"locals.webglIncludes='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/WebGLIncludes'\"  \"locals.minifyOutput=true\"  \"COMPANY_NAME='BulgatCompany'\" \"PRODUCT_NAME='bulgat\\x5fLego\\x5fai'\" \"PRODUCT_VERSION='1.0.0.0'\" \"WIDTH=960\" \"HEIGHT=600\" \"SPLASH_SCREEN_STYLE='Dark'\" \"BACKGROUND_COLOR='\\x231F1F20'\" \"DATA_FILENAME='legoAI.data.unityweb'\" \"FRAMEWORK_FILENAME='legoAI.framework.js.unityweb'\" \"WORKER_FILENAME=''\" \"CODE_FILENAME='legoAI.wasm.unityweb'\" \"MEMORY_FILENAME=''\" \"SYMBOLS_FILENAME=''\" \"BACKGROUND_FILENAME=''\" \"USE_WASM=true\" \"USE_THREADS=false\" \"USE_WEBGL_1_0=false\" \"USE_WEBGL_2_0=true\" \"WEBGL_POWER_PREFERENCE=2\" \"USE_DATA_CACHING=false\" \"DECOMPRESSION_FALLBACK='Brotli'\" \"DEVELOPMENT_PLAYER=false\" \"UNITY_VERSION='2022.2.0f1'\" \"SHOW_DIAGNOSTICS=false\" \"CLOSE_ON_QUIT=false\" \"LOADER_FILENAME='legoAI.loader.js'\"",
+      "Action": "cd /d \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Emscripten/node/node.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Preprocess.js\"  \"locals.cwd='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools'\"  \"locals.inputPath='UnityLoader/UnityLoader.js'\"  \"locals.outputPath='D\\x3a/Project/legoAI/Build/legoAI.loader.js'\"  \"locals.webglIncludes='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/WebGLIncludes'\"  \"locals.minifyOutput=true\"  \"COMPANY_NAME='BulgatCompany'\" \"PRODUCT_NAME='bulgat\\x5fLego\\x5fai'\" \"PRODUCT_VERSION='1.0.0.0'\" \"WIDTH=960\" \"HEIGHT=600\" \"SPLASH_SCREEN_STYLE='Dark'\" \"BACKGROUND_COLOR='\\x231F1F20'\" \"DATA_FILENAME='legoAI.data.unityweb'\" \"FRAMEWORK_FILENAME='legoAI.framework.js.unityweb'\" \"WORKER_FILENAME=''\" \"CODE_FILENAME='legoAI.wasm.unityweb'\" \"MEMORY_FILENAME=''\" \"SYMBOLS_FILENAME=''\" \"BACKGROUND_FILENAME=''\" \"USE_WASM=true\" \"USE_THREADS=false\" \"USE_WEBGL_1_0=false\" \"USE_WEBGL_2_0=true\" \"WEBGL_POWER_PREFERENCE=2\" \"USE_DATA_CACHING=false\" \"DECOMPRESSION_FALLBACK='Gzip'\" \"DEVELOPMENT_PLAYER=false\" \"UNITY_VERSION='2022.2.0f1'\" \"SHOW_DIAGNOSTICS=false\" \"CLOSE_ON_QUIT=false\" \"LOADER_FILENAME='legoAI.loader.js'\"",
       "Inputs": [
         "UnityLoader/UnityLoader.js"
       ],
@@ -18369,12 +18489,12 @@
       ],
       "AllowUnexpectedOutput": true,
       "Env": [],
-      "DebugActionIndex": 396
+      "DebugActionIndex": 402
     },
     {
       "Annotation": "PreprocessJS D:/Project/legoAI/index.html",
       "DisplayName": "PreprocessJS index",
-      "Action": "cd /d \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Emscripten/node/node.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Preprocess.js\"  \"locals.cwd='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools'\"  \"locals.inputPath='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/Default/index.html'\"  \"locals.outputPath='D\\x3a/Project/legoAI/index.html'\"  \"locals.webglIncludes='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/WebGLIncludes'\"  \"locals.minifyOutput=false\"  \"COMPANY_NAME='BulgatCompany'\" \"PRODUCT_NAME='bulgat\\x5fLego\\x5fai'\" \"PRODUCT_VERSION='1.0.0.0'\" \"WIDTH=960\" \"HEIGHT=600\" \"SPLASH_SCREEN_STYLE='Dark'\" \"BACKGROUND_COLOR='\\x231F1F20'\" \"DATA_FILENAME='legoAI.data.unityweb'\" \"FRAMEWORK_FILENAME='legoAI.framework.js.unityweb'\" \"WORKER_FILENAME=''\" \"CODE_FILENAME='legoAI.wasm.unityweb'\" \"MEMORY_FILENAME=''\" \"SYMBOLS_FILENAME=''\" \"BACKGROUND_FILENAME=''\" \"USE_WASM=true\" \"USE_THREADS=false\" \"USE_WEBGL_1_0=false\" \"USE_WEBGL_2_0=true\" \"WEBGL_POWER_PREFERENCE=2\" \"USE_DATA_CACHING=false\" \"DECOMPRESSION_FALLBACK='Brotli'\" \"DEVELOPMENT_PLAYER=false\" \"UNITY_VERSION='2022.2.0f1'\" \"SHOW_DIAGNOSTICS=false\" \"CLOSE_ON_QUIT=false\" \"LOADER_FILENAME='legoAI.loader.js'\"",
+      "Action": "cd /d \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Emscripten/node/node.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Preprocess.js\"  \"locals.cwd='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools'\"  \"locals.inputPath='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/Default/index.html'\"  \"locals.outputPath='D\\x3a/Project/legoAI/index.html'\"  \"locals.webglIncludes='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/WebGLIncludes'\"  \"locals.minifyOutput=false\"  \"COMPANY_NAME='BulgatCompany'\" \"PRODUCT_NAME='bulgat\\x5fLego\\x5fai'\" \"PRODUCT_VERSION='1.0.0.0'\" \"WIDTH=960\" \"HEIGHT=600\" \"SPLASH_SCREEN_STYLE='Dark'\" \"BACKGROUND_COLOR='\\x231F1F20'\" \"DATA_FILENAME='legoAI.data.unityweb'\" \"FRAMEWORK_FILENAME='legoAI.framework.js.unityweb'\" \"WORKER_FILENAME=''\" \"CODE_FILENAME='legoAI.wasm.unityweb'\" \"MEMORY_FILENAME=''\" \"SYMBOLS_FILENAME=''\" \"BACKGROUND_FILENAME=''\" \"USE_WASM=true\" \"USE_THREADS=false\" \"USE_WEBGL_1_0=false\" \"USE_WEBGL_2_0=true\" \"WEBGL_POWER_PREFERENCE=2\" \"USE_DATA_CACHING=false\" \"DECOMPRESSION_FALLBACK='Gzip'\" \"DEVELOPMENT_PLAYER=false\" \"UNITY_VERSION='2022.2.0f1'\" \"SHOW_DIAGNOSTICS=false\" \"CLOSE_ON_QUIT=false\" \"LOADER_FILENAME='legoAI.loader.js'\"",
       "Inputs": [
         "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/Default/index.html"
       ],
@@ -18383,7 +18503,7 @@
       ],
       "AllowUnexpectedOutput": true,
       "Env": [],
-      "DebugActionIndex": 397
+      "DebugActionIndex": 403
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/favicon.ico",
@@ -18395,7 +18515,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/favicon.ico"
       ],
-      "DebugActionIndex": 398
+      "DebugActionIndex": 404
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/fullscreen-button.png",
@@ -18407,7 +18527,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/fullscreen-button.png"
       ],
-      "DebugActionIndex": 399
+      "DebugActionIndex": 405
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/MemoryProfiler.png",
@@ -18419,7 +18539,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/MemoryProfiler.png"
       ],
-      "DebugActionIndex": 400
+      "DebugActionIndex": 406
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/progress-bar-empty-dark.png",
@@ -18431,7 +18551,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/progress-bar-empty-dark.png"
       ],
-      "DebugActionIndex": 401
+      "DebugActionIndex": 407
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/progress-bar-empty-light.png",
@@ -18443,7 +18563,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/progress-bar-empty-light.png"
       ],
-      "DebugActionIndex": 402
+      "DebugActionIndex": 408
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/progress-bar-full-dark.png",
@@ -18455,7 +18575,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/progress-bar-full-dark.png"
       ],
-      "DebugActionIndex": 403
+      "DebugActionIndex": 409
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/progress-bar-full-light.png",
@@ -18467,12 +18587,12 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/progress-bar-full-light.png"
       ],
-      "DebugActionIndex": 404
+      "DebugActionIndex": 410
     },
     {
       "Annotation": "PreprocessJS D:/Project/legoAI/TemplateData/style.css",
       "DisplayName": "PreprocessJS style",
-      "Action": "cd /d \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Emscripten/node/node.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Preprocess.js\"  \"locals.cwd='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools'\"  \"locals.inputPath='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/Default/TemplateData/style.css'\"  \"locals.outputPath='D\\x3a/Project/legoAI/TemplateData/style.css'\"  \"locals.webglIncludes='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/WebGLIncludes'\"  \"locals.minifyOutput=false\"  \"COMPANY_NAME='BulgatCompany'\" \"PRODUCT_NAME='bulgat\\x5fLego\\x5fai'\" \"PRODUCT_VERSION='1.0.0.0'\" \"WIDTH=960\" \"HEIGHT=600\" \"SPLASH_SCREEN_STYLE='Dark'\" \"BACKGROUND_COLOR='\\x231F1F20'\" \"DATA_FILENAME='legoAI.data.unityweb'\" \"FRAMEWORK_FILENAME='legoAI.framework.js.unityweb'\" \"WORKER_FILENAME=''\" \"CODE_FILENAME='legoAI.wasm.unityweb'\" \"MEMORY_FILENAME=''\" \"SYMBOLS_FILENAME=''\" \"BACKGROUND_FILENAME=''\" \"USE_WASM=true\" \"USE_THREADS=false\" \"USE_WEBGL_1_0=false\" \"USE_WEBGL_2_0=true\" \"WEBGL_POWER_PREFERENCE=2\" \"USE_DATA_CACHING=false\" \"DECOMPRESSION_FALLBACK='Brotli'\" \"DEVELOPMENT_PLAYER=false\" \"UNITY_VERSION='2022.2.0f1'\" \"SHOW_DIAGNOSTICS=false\" \"CLOSE_ON_QUIT=false\" \"LOADER_FILENAME='legoAI.loader.js'\"",
+      "Action": "cd /d \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools\" && \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Emscripten/node/node.exe\" \"C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/Preprocess.js\"  \"locals.cwd='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools'\"  \"locals.inputPath='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/Default/TemplateData/style.css'\"  \"locals.outputPath='D\\x3a/Project/legoAI/TemplateData/style.css'\"  \"locals.webglIncludes='C\\x3a/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/WebGLIncludes'\"  \"locals.minifyOutput=false\"  \"COMPANY_NAME='BulgatCompany'\" \"PRODUCT_NAME='bulgat\\x5fLego\\x5fai'\" \"PRODUCT_VERSION='1.0.0.0'\" \"WIDTH=960\" \"HEIGHT=600\" \"SPLASH_SCREEN_STYLE='Dark'\" \"BACKGROUND_COLOR='\\x231F1F20'\" \"DATA_FILENAME='legoAI.data.unityweb'\" \"FRAMEWORK_FILENAME='legoAI.framework.js.unityweb'\" \"WORKER_FILENAME=''\" \"CODE_FILENAME='legoAI.wasm.unityweb'\" \"MEMORY_FILENAME=''\" \"SYMBOLS_FILENAME=''\" \"BACKGROUND_FILENAME=''\" \"USE_WASM=true\" \"USE_THREADS=false\" \"USE_WEBGL_1_0=false\" \"USE_WEBGL_2_0=true\" \"WEBGL_POWER_PREFERENCE=2\" \"USE_DATA_CACHING=false\" \"DECOMPRESSION_FALLBACK='Gzip'\" \"DEVELOPMENT_PLAYER=false\" \"UNITY_VERSION='2022.2.0f1'\" \"SHOW_DIAGNOSTICS=false\" \"CLOSE_ON_QUIT=false\" \"LOADER_FILENAME='legoAI.loader.js'\"",
       "Inputs": [
         "C:/Program Files/Unity/Hub/Editor/2022.2.0f1/Editor/Data/PlaybackEngines/WebGLSupport/BuildTools/WebGLTemplates/Default/TemplateData/style.css"
       ],
@@ -18481,7 +18601,7 @@
       ],
       "AllowUnexpectedOutput": true,
       "Env": [],
-      "DebugActionIndex": 405
+      "DebugActionIndex": 411
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/unity-logo-dark.png",
@@ -18493,7 +18613,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/unity-logo-dark.png"
       ],
-      "DebugActionIndex": 406
+      "DebugActionIndex": 412
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/unity-logo-light.png",
@@ -18505,7 +18625,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/unity-logo-light.png"
       ],
-      "DebugActionIndex": 407
+      "DebugActionIndex": 413
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/webgl-logo.png",
@@ -18517,7 +18637,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/webgl-logo.png"
       ],
-      "DebugActionIndex": 408
+      "DebugActionIndex": 414
     },
     {
       "Annotation": "CopyFiles D:/Project/legoAI/TemplateData/webmemd-icon.png",
@@ -18529,7 +18649,7 @@
       "Outputs": [
         "D:/Project/legoAI/TemplateData/webmemd-icon.png"
       ],
-      "DebugActionIndex": 409
+      "DebugActionIndex": 415
     },
     {
       "Annotation": "Player",
@@ -18539,16 +18659,10 @@
       "ToBuildDependencies": [
         1,
         382,
-        389,
-        390,
         391,
-        392,
+        394,
         395,
         396,
-        397,
-        398,
-        399,
-        400,
         401,
         402,
         403,
@@ -18557,10 +18671,16 @@
         406,
         407,
         408,
-        409
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415
       ],
       "OverwriteOutputs": false,
-      "DebugActionIndex": 410
+      "DebugActionIndex": 416
     }
   ],
   "FileSignatures": [
@@ -18927,7 +19047,7 @@
   ],
         "NamedNodes": {
           "all_tundra_nodes": 0,
-          "Player": 410
+          "Player": 416
         }
 ,  "DefaultNodes": [
     0
