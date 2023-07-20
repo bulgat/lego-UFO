@@ -13,19 +13,22 @@
 
 
 extern void ImageConversion_LoadImage_m292ADCEED268A0A0AAD532BAB8D1710CF0FC8AEF (void);
-static Il2CppMethodPointer s_methodPointers[1] = 
+extern void ImageConversion_LoadImage_Injected_mEEA577527F4540AA662B6D2A0773C277A53C956C (void);
+static Il2CppMethodPointer s_methodPointers[2] = 
 {
 	ImageConversion_LoadImage_m292ADCEED268A0A0AAD532BAB8D1710CF0FC8AEF,
+	ImageConversion_LoadImage_Injected_mEEA577527F4540AA662B6D2A0773C277A53C956C,
 };
-static const int32_t s_InvokerIndices[1] = 
+static const int32_t s_InvokerIndices[2] = 
 {
-	5128,
+	5339,
+	5331,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_ImageConversionModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_ImageConversionModule_CodeGenModule = 
 {
 	"UnityEngine.ImageConversionModule.dll",
-	1,
+	2,
 	s_methodPointers,
 	0,
 	NULL,

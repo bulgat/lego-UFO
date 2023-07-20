@@ -72,7 +72,8 @@ public class PropertyDrawerTests
         Assert.IsNotNull(window.rootVisualElement.Q("SpriteState"));
     }
 
-    [UnityTest, Ignore("Disabled for Instability https://jira.unity3d.com/browse/UUM-11060")]
+    [UnityTest]
+    [Ignore("UUM-18482")]
     public IEnumerator DropdownOptionDataListDrawer_IsVisible()
     {
         yield return null;
@@ -86,7 +87,8 @@ public class PropertyDrawerTests
         Assert.IsNotNull(window.rootVisualElement.Q("SearchContext"));
     }
 
-    [UnityTest, Ignore("Disabled for Instability https://jira.unity3d.com/browse/UUM-11060")]
+    [UnityTest]
+    [Ignore("UUM-18482")]
     public IEnumerator ExposedReferenceDrawer_IsVisible()
     {
         yield return null;

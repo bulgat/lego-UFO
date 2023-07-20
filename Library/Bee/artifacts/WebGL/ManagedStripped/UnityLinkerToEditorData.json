@@ -511,6 +511,12 @@
             "icon": "package/com.unity.modules.physics"
           },
           {
+            "name": "Required by Properties Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.properties"
+          },
+          {
             "name": "Required by RuntimeInitializeOnLoadManagerInitializer Module",
             "scenes": [],
             "dependencyType": 2,
@@ -671,6 +677,17 @@
         ]
       },
       {
+        "name": "Properties",
+        "dependencies": [
+          {
+            "name": "Required by UIElements Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.uielements"
+          }
+        ]
+      },
+      {
         "name": "RuntimeInitializeOnLoadManagerInitializer",
         "dependencies": [
           {
@@ -731,6 +748,12 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.physics"
+          },
+          {
+            "name": "Required by Properties Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.properties"
           },
           {
             "name": "Required by RuntimeInitializeOnLoadManagerInitializer Module",

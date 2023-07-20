@@ -6,10 +6,13 @@ ScriptsOnlyBuild:
     - Drag3d
     - DragAndDrop
     - FixedJoystick
+    - IntermediateScript
     - MainWater
     - ViewScene
     - ViewUnit
     - WaterCube
+    NewAssembly.dll:
+    - YandexSDK.YaSDK
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro:
@@ -40,6 +43,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.RawImage
     - UnityEngine.UI.Text
   serializedClasses:
@@ -59,7 +63,9 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Style
     - TMPro.VertexGradient
     UnityEngine.CoreModule:
+    - UnityEngine.Events.ArgumentCache
     - UnityEngine.Events.PersistentCallGroup
+    - UnityEngine.Events.PersistentListenerMode
     UnityEngine.TextCoreFontEngineModule:
     - UnityEngine.TextCore.FaceInfo
     - UnityEngine.TextCore.Glyph
@@ -70,10 +76,19 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Button/ButtonClickedEvent
     - UnityEngine.UI.ColorBlock
     - UnityEngine.UI.FontData
+    - UnityEngine.UI.InputField/EndEditEvent
+    - UnityEngine.UI.InputField/OnChangeEvent
+    - UnityEngine.UI.InputField/SubmitEvent
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.SpriteState
-  methodsToPreserve: []
+  methodsToPreserve:
+  - assembly: NewAssembly
+    fullTypeName: YandexSDK.YaSDK
+    methodName: SavePlayer
+  - assembly: NewAssembly
+    fullTypeName: YandexSDK.YaSDK
+    methodName: LoadPlayer
   sceneClasses:
     Assets/Scene/Water2D.unity:
     - Class: 1
@@ -101,9 +116,9 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 3804}
+      Script: {instanceID: 19474}
     - Class: 114
-      Script: {instanceID: 3840}
+      Script: {instanceID: 19512}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -148,43 +163,49 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1568}
+      Script: {instanceID: 17200}
     - Class: 114
-      Script: {instanceID: 1706}
+      Script: {instanceID: 17202}
     - Class: 114
-      Script: {instanceID: 1730}
+      Script: {instanceID: 17340}
     - Class: 114
-      Script: {instanceID: 1832}
+      Script: {instanceID: 17364}
     - Class: 114
-      Script: {instanceID: 1884}
+      Script: {instanceID: 17466}
     - Class: 114
-      Script: {instanceID: 2052}
+      Script: {instanceID: 17478}
     - Class: 114
-      Script: {instanceID: 2110}
+      Script: {instanceID: 17522}
     - Class: 114
-      Script: {instanceID: 2118}
+      Script: {instanceID: 17694}
     - Class: 114
-      Script: {instanceID: 2242}
+      Script: {instanceID: 17752}
     - Class: 114
-      Script: {instanceID: 2406}
+      Script: {instanceID: 17760}
     - Class: 114
-      Script: {instanceID: 2508}
+      Script: {instanceID: 17884}
     - Class: 114
-      Script: {instanceID: 2546}
+      Script: {instanceID: 18050}
     - Class: 114
-      Script: {instanceID: 2666}
+      Script: {instanceID: 18156}
     - Class: 114
-      Script: {instanceID: 2690}
+      Script: {instanceID: 18194}
     - Class: 114
-      Script: {instanceID: 2842}
+      Script: {instanceID: 18340}
     - Class: 114
-      Script: {instanceID: 2930}
+      Script: {instanceID: 18356}
     - Class: 114
-      Script: {instanceID: 3820}
+      Script: {instanceID: 18498}
     - Class: 114
-      Script: {instanceID: 4056}
+      Script: {instanceID: 18590}
     - Class: 114
-      Script: {instanceID: 4176}
+      Script: {instanceID: 19492}
+    - Class: 114
+      Script: {instanceID: 19732}
+    - Class: 114
+      Script: {instanceID: 19854}
+    - Class: 114
+      Script: {instanceID: 21668}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -214,6 +235,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 6498fc76484598db46c5c1a11bab42fa
+    assemblyName: UnityEngine.UI
+    namespaceName: UnityEngine.UI
+    className: GraphicRaycaster
   - hash:
       serializedVersion: 2
       Hash: 751e5bae2a317288c2ab58d66687092b
@@ -306,6 +333,12 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
+      Hash: 37be8e7da82321fa5b4243bb07a0bd61
+    assemblyName: NewAssembly
+    namespaceName: YandexSDK
+    className: YaSDK
+  - hash:
+      serializedVersion: 2
       Hash: 15146d050d6483434f5274d48058398e
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
@@ -316,6 +349,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: DragAndDrop
+  - hash:
+      serializedVersion: 2
+      Hash: 35aa0ba8006b1c1fa70690dba0da1414
+    assemblyName: NewAssembly
+    namespaceName: YandexSDK
+    className: Settings
   - hash:
       serializedVersion: 2
       Hash: 751e5bae2a317288c2ab58d66687092b
@@ -378,6 +417,12 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
+      Hash: f5e6fe3c9f6ff43ed6f43f470ad26290
+    assemblyName: NewAssembly
+    namespaceName: YandexSDK
+    className: YandexSDKBuilder
+  - hash:
+      serializedVersion: 2
       Hash: eb89cc9c55c1361dc02d4fea220cc023
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
@@ -418,12 +463,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner
     namespaceName: UnityEngine.TestRunner.Utils
     className: TestRunCallbackListener
-  - hash:
-      serializedVersion: 2
-      Hash: 6498fc76484598db46c5c1a11bab42fa
-    assemblyName: UnityEngine.UI
-    namespaceName: UnityEngine.UI
-    className: GraphicRaycaster
   - hash:
       serializedVersion: 2
       Hash: 0aa7e22abc34b1ccd95de9006b44442f
@@ -486,7 +525,7 @@ ScriptsOnlyBuild:
     className: NavMeshModifier
   - hash:
       serializedVersion: 2
-      Hash: 04092b92cba72b462c53f16c37533bb8
+      Hash: a03cf6f60c605d858f83449f4b4fc400
     assemblyName: UnityEngine.TestRunner
     namespaceName: UnityEngine.TestTools
     className: BeforeAfterTestCommandState
@@ -588,6 +627,12 @@ ScriptsOnlyBuild:
     className: PositionAsUV1
   - hash:
       serializedVersion: 2
+      Hash: 016eccad881689c510c451a9660d17ab
+    assemblyName: NewAssembly
+    namespaceName: 
+    className: RewardedAdEditor
+  - hash:
+      serializedVersion: 2
       Hash: bbd18fc68ceeefb10270c51811911485
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
@@ -666,7 +711,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 98db835dd0659d490ded675102354289
+      Hash: 2bd8c519be1169f620572879a5e0d390
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: ControlPlayableAsset
@@ -702,6 +747,12 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
+      Hash: 377f7a172f7cac165092193f396eac1e
+    assemblyName: NewAssembly
+    namespaceName: 
+    className: YandexPlayerPrefsManager
+  - hash:
+      serializedVersion: 2
       Hash: fcc569162a8d9bd9df34e8c9dee84212
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
@@ -718,6 +769,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp-firstpass
     namespaceName: 
     className: MergeTestJs
+  - hash:
+      serializedVersion: 2
+      Hash: bf032cb350df76f58a19f6bc119ba4c3
+    assemblyName: NewAssembly
+    namespaceName: 
+    className: InterstitialAdEditor
   - hash:
       serializedVersion: 2
       Hash: afe1800287c9574079eab3fea2622416
@@ -748,6 +805,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
     className: NavMeshLink
+  - hash:
+      serializedVersion: 2
+      Hash: 6969b23a086e4ee9a61cfcb68952a3ad
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: IntermediateScript
   platform: 20
   scenePathNames:
   - Assets/Scene/unit_ai.unity

@@ -1,0 +1,8 @@
+<linker>
+	<assembly fullname="NewAssembly" ignoreIfMissing="1">
+		<type fullname="YandexSDK.YaSDK">
+			<method name="LoadPlayer"/>
+			<method name="SavePlayer"/>
+		</type>
+	</assembly>
+</linker>

@@ -43,16 +43,16 @@ namespace UnityEditor.U2D
             ItemCreationUtility.CreateAssetObjectFromTemplate<Texture2D>("Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/IsometricDiamond.png");
         }
 
-        [MenuItem("Assets/Create/2D/Sprites/Hexagon Flat-Top", priority = k_SpriteAssetMenuPriority)]
+        [MenuItem("Assets/Create/2D/Sprites/Hexagon Point Top", priority = k_SpriteAssetMenuPriority)]
+        static void AssetsCreateSpritesHexagonPointTop(MenuCommand menuCommand)
+        {
+            ItemCreationUtility.CreateAssetObjectFromTemplate<Texture2D>("Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonPointTop.png");
+        }
+
+        [MenuItem("Assets/Create/2D/Sprites/Hexagon Flat Top", priority = k_SpriteAssetMenuPriority)]
         static void AssetsCreateSpritesHexagonFlatTop(MenuCommand menuCommand)
         {
             ItemCreationUtility.CreateAssetObjectFromTemplate<Texture2D>("Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonFlatTop.png");
-        }
-
-        [MenuItem("Assets/Create/2D/Sprites/Hexagon Pointed-Top", priority = k_SpriteAssetMenuPriority)]
-        static void AssetsCreateSpritesHexagonPointedTop(MenuCommand menuCommand)
-        {
-            ItemCreationUtility.CreateAssetObjectFromTemplate<Texture2D>("Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonPointedTop.png");
         }
 
         [MenuItem("Assets/Create/2D/Sprites/9-Sliced", priority = k_SpriteAssetMenuPriority)]
@@ -127,16 +127,16 @@ namespace UnityEditor.U2D
             CreateSpriteRendererGameObject("Isometric Diamond", "Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/IsometricDiamond.png", menuCommand);
         }
 
-        [MenuItem("GameObject/2D Object/Sprites/Hexagon Flat-Top", priority = k_SpriteGameObjectMenuPriority)]
-        static void GameObjectCreateSpritesHexagonFlatTop(MenuCommand menuCommand)
-        {
-            CreateSpriteRendererGameObject("Hexagon Flat-Top", "Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonFlatTop.png", menuCommand);
-        }
-
-        [MenuItem("GameObject/2D Object/Sprites/Hexagon Pointed-Top", priority = k_SpriteGameObjectMenuPriority)]
+        [MenuItem("GameObject/2D Object/Sprites/Hexagon Point Top", priority = k_SpriteGameObjectMenuPriority)]
         static void GameObjectCreateSpritesHexagonPointedTop(MenuCommand menuCommand)
         {
-            CreateSpriteRendererGameObject("Hexagon Pointed-Top", "Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonPointedTop.png", menuCommand);
+            CreateSpriteRendererGameObject("Hexagon Point Top", "Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonPointTop.png", menuCommand);
+        }
+
+        [MenuItem("GameObject/2D Object/Sprites/Hexagon Flat Top", priority = k_SpriteGameObjectMenuPriority)]
+        static void GameObjectCreateSpritesHexagonFlatTop(MenuCommand menuCommand)
+        {
+            CreateSpriteRendererGameObject("Hexagon Flat Top", "Packages/com.unity.2d.sprite/Editor/ObjectMenuCreation/DefaultAssets/Textures/v2/HexagonFlatTop.png", menuCommand);
         }
 
         [MenuItem("GameObject/2D Object/Sprites/9-Sliced", priority = k_SpriteGameObjectMenuPriority)]
