@@ -1,0 +1,11 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+
+
+public interface IGridScenario 
+{
+	void Init();
+	string GetMission();
+	int ImageMission();
+	string GetNameTileMap();
+}
