@@ -10,9 +10,10 @@ public class Fleet : TilePath {
 
 	public GameObject StrategShip;
 	public GameObject Flag;
+    public GameObject Pistol;
+    public GameObject Bullet;
 
-	//public string name;
-	public bool player;
+    public bool player;
 	//public bool _showName;
 	public string _nameObject="fleet strateg";
 	public StateMoveFleet StateMove;
@@ -108,30 +109,16 @@ public class Fleet : TilePath {
         }
 		return null;
     }
-	/*
-	void OnGUI()
-	{
-		if (_showName) {
-			if (!ResourceManager.tacticMap) {
-				Vector3 screenPosition = Camera.main.WorldToScreenPoint (gameObject.transform.position);
-		
-				Vector3 cameraRelative = Camera.main.transform.InverseTransformPoint (transform.position);
-				if (cameraRelative.z > 0) {
-					Rect rect = new Rect (screenPosition.x - 60f, Screen.height - screenPosition.y - 10f, 120f, 20f);
-					// считаем позицию
-
-					// создаем стиль с выравниванием по центру
-					GUIStyle label = new GUIStyle (GUI.skin.label);
-					label.alignment = TextAnchor.MiddleCenter;
-
-					GUI.Label (rect, name, label);
-				}
-			}
-		}
-		
-		
-		
-	}
-	*/
+    public void Shoot()
+    {
+        Pistol.transform.rotation = Quaternion.AngleAxis(Random.Range(-60f, 60f), Vector3.forward);
+        var bullet = Instantiate(Bullet);
+        bullet.transform.SetParent(Pistol.transform);
+        
+        // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 25);
+//bullet.transform.rotation = Quaternion.AngleAxis(Random.Range(-30f, 30f), Vector3.forward);
+        //bullet.transform.SetParent(fleet.transform);
+    }
 
 }

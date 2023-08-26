@@ -28,6 +28,7 @@ public class strategChessView : MonoBehaviour
     public GameObject PlanetIsland;
     public GameObject StrategShipUnit;
     public GameObject TilePrefab;
+   
     public Camera MainCamera;
     public Text MoneyText;
 
@@ -80,13 +81,16 @@ public class strategChessView : MonoBehaviour
     }
     void Fire()
     {
-        var fleet = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
-        Debug.Log("===== =======   G ======= fleet =" + fleet);
+        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
+        fleetUnit.Shoot();
+        Debug.Log("===== =======   G ======= fleet ="  );
         //fleet.SetActive(false);
-       var kol =  Instantiate(Bullet);
-       // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
+       //var bullet =  Instantiate(Bullet);
+        // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
+       // bullet.GetComponent<Rigidbody>().AddForce(transform.forward *20);
 
-        kol.transform.SetParent(fleet.transform);
+        //bullet.transform.SetParent(fleet.transform);
        // GameObject b = Instantiate(Bullet, transform.position, transform.rotation);
        // b.GetComponent<Rigidbody>().AddForce(Vector3.forward * Power, ForceMode.Impulse);
     }
@@ -294,7 +298,8 @@ List<PathMove> tilePathList = GetPathList();
             else
             {
                // Debug.Log(fleet+"     move  x   move  "+ modelFleet);
-                fleetUnit.SetAnimation("gogo", 1, "gogo", 5);
+                //fleetUnit.SetAnimation("gogo", 1, "gogo", 5);
+                fleetUnit.SetAnimation("gogo",3, "gogo", 7);
                 if (modelFleet != null)
                 {
                     NormalizeFleet(fleetObj, modelFleet.coordinate.x, modelFleet.coordinate.y);
