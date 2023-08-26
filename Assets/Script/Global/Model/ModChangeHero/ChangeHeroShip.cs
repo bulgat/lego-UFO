@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class ChangeHeroShip {
 
-
+	/*
 
 	public static void searchPlayer (string isPower,string obj) {
 		if (isPower == CommandState.ClickFleet.ToString ()) {
@@ -20,7 +20,7 @@ public class ChangeHeroShip {
 				ModelGlobal._RightChangeShip = fleet_ar [1].ship_ar;
 			} else {
 				ModelGlobal._clickFleetChangeHero=Vector2.zero;
-				Debug.Log ("searchPlayer  FALSE");
+				
 			}
 
 			ModelGlobal._LeftChangeShip = selectFleet.ship_ar;
@@ -29,6 +29,8 @@ public class ChangeHeroShip {
 
 		}
 	}
+	*/
+	/*
 	public static List<InfoFleet> getFleedArray (int x,int y) {
 		List<InfoFleet> fleet_ar = new List<InfoFleet> ();
 
@@ -41,6 +43,8 @@ public class ChangeHeroShip {
 		}
 		return fleet_ar;
 	}
+	*/
+	/*
 	public static void LeftChangeShipFleet(string isPower,string obj) {
 		if (isPower == CommandState.LeftChangeShipFleet.ToString ()) {
 			
@@ -56,4 +60,5 @@ public class ChangeHeroShip {
 
 		}
 	}
+	*/
 }

@@ -24,19 +24,19 @@ public class ModelGlobal : MonoBehaviour
     {
         model = this;
         EventListeren.eventListerenController += onTurn;
-        EventListeren.eventListerenController += ChangeHeroShip.searchPlayer;
-        EventListeren.eventListerenController += ChangeHeroShip.LeftChangeShipFleet;
-        EventListeren.eventListerenController += ChangeHeroShip.RightChangeShipFleet;
-        EventListeren.eventListerenController += buyShip;
+       // EventListeren.eventListerenController += ChangeHeroShip.searchPlayer;
+        //EventListeren.eventListerenController += ChangeHeroShip.LeftChangeShipFleet;
+       // EventListeren.eventListerenController += ChangeHeroShip.RightChangeShipFleet;
+     //   EventListeren.eventListerenController += buyShip;
 
         ModPlanet _ModPlanet = new ModPlanet();
 
-        EventListeren.eventListerenController += _ModPlanet.bombPlanet;
+      //  EventListeren.eventListerenController += _ModPlanet.bombPlanet;
 
 
 
         EventListeren.eventListerenController += _ModPlanet.planetChooterBattle;
-        EventListeren.eventListerenController += _ModPlanet.PlanetLanding;
+      //  EventListeren.eventListerenController += _ModPlanet.PlanetLanding;
         EventListeren.eventListerenController += _ModPlanet.GotoPlanet;
 
 

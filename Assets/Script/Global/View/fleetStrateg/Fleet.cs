@@ -24,7 +24,7 @@ public class Fleet : TilePath {
 	{
 		this.id = id;
 		this.player = player;
-		this.name = name;
+		this.name = name+"_"+id;
 		this.SetCoordinate(Coordinate);
 		this.SpotX = SpotX;
 		this.SpotY = SpotY;
@@ -54,9 +54,9 @@ public class Fleet : TilePath {
         }
 		
         _animatorMan = transform.GetChild(1).GetComponent<Animator>();
-        Debug.Log(" Coordinate ===============    " + transform.GetChild(1) + " Cl = " );
-        Debug.Log("c  fleet = "+ _animatorMan);
-        SetAnimation("gogo", 2, "gogo", 6);
+       
+        
+       // SetAnimation("gogo", 2, "gogo", 6);
     }
     public void SetAnimation(string position, int number, string positionHorse, int numberHorse)
     {
@@ -70,7 +70,10 @@ public class Fleet : TilePath {
     public void SetColorFleet()
 	{
         Renderer renderer = GetComponent<Renderer>();
-        renderer.material.color = Color.yellow;
+		if (renderer != null)
+		{
+			renderer.material.color = Color.yellow;
+		}
     }
 
 

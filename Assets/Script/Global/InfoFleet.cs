@@ -29,7 +29,7 @@ public class InfoFleet {
 			nameRegion = "Повстанцы";
 		}
 		// Ид флота.
-		id = _id;
+		this.id = _id;
 		ship_ar = _ship_ar;
 		this.nameHero = _nameHero;
 		this.imageId = _imageId;

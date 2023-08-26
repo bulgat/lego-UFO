@@ -1,5 +1,6 @@
 using Assets.Script.Global.View.fleetStrateg;
 using Assets.Script.strategChess;
+using NUnit.Framework;
 using RTS;
 using SimpleJSON;
 using System;
@@ -21,11 +22,12 @@ public class strategChessView : MonoBehaviour
     public UnityEngine.UI.Button ButtonRight;
     public UnityEngine.UI.Button ButtonTurn;
     public UnityEngine.UI.Button ButtonLanding;
+    public UnityEngine.UI.Button ButtonFire;
 
     public GameObject GlobalGround;
     public GameObject PlanetIsland;
     public GameObject StrategShipUnit;
-    public GameObject Tile;
+    public GameObject TilePrefab;
     public Camera MainCamera;
     public Text MoneyText;
 
@@ -39,9 +41,10 @@ public class strategChessView : MonoBehaviour
             new UnityEngine.Vector2(0f, 1f),
             new UnityEngine.Vector2(0f, -1f),
             new UnityEngine.Vector2(-1f, 0f) };
+    public GameObject Bullet;
 
     static strategChessView _strategChessView;
-    private List<GameObject> _pathMoveList;
+    private List<GameObject> pathMoveList;
 
     void Start()
     {
@@ -68,11 +71,24 @@ public class strategChessView : MonoBehaviour
         ButtonLeft.onClick.AddListener(() => UnitPlayerLeft());
         ButtonRight.onClick.AddListener(() => UnitPlayerRight());
         ButtonLanding.onClick.AddListener(() => TownLanding());
+       ButtonFire.onClick.AddListener(() => Fire());
 
         RusticEventTile.HappyBirthday += new EventHandler(CommandMovePlayer);
 
 
-        this._pathMoveList = new List<GameObject>();
+        this.pathMoveList = new List<GameObject>();
+    }
+    void Fire()
+    {
+        var fleet = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        Debug.Log("===== =======   G ======= fleet =" + fleet);
+        //fleet.SetActive(false);
+       var kol =  Instantiate(Bullet);
+       // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
+
+        kol.transform.SetParent(fleet.transform);
+       // GameObject b = Instantiate(Bullet, transform.position, transform.rotation);
+       // b.GetComponent<Rigidbody>().AddForce(Vector3.forward * Power, ForceMode.Impulse);
     }
 
     void TurnStrateg()
@@ -95,16 +111,28 @@ public class strategChessView : MonoBehaviour
 
     void UnitPlayerLeft()
     {
-        List<PathMove> tilePathList = GetPathList();
+        
 
         ButtonEvent buttonEvent = GetButtonEventHeoSelect();
 
         ControllerButton.EventCall(ControllerConstant.SelectHeroLeft, ControllerConstant.SelectHeroLeft, buttonEvent);
+List<PathMove> tilePathList = GetPathList();
+        changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
+   
 
-        changefleetRotation(buttonEvent.HeroFleet.GetId(), tilePathList);
-        //ViewGlobal.selectFleetCount = 0;
+        Debug.Log(" fleet = " + BattlePlanetModel.GetSelectHeroId() + "     State = " + buttonEvent.HeroFleet.GetId());
+    }
 
-        Debug.Log("===== =======   Gam ===============  id =" + GlobalConf.GetIdSelectUnit());
+    void UnitPlayerRight()
+    {
+        
+
+        ButtonEvent buttonEvent = GetButtonEventHeoSelect();
+        ControllerButton.EventCall(ControllerConstant.SelectHeroRight, ControllerConstant.SelectHeroRight, buttonEvent);
+List<PathMove> tilePathList = GetPathList();
+        changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
+
+        Debug.Log(" Coordinate ===============    " + +BattlePlanetModel.GetSelectHeroId() +  "   = ");
     }
     private ButtonEvent GetButtonEventHeoSelect()
     {
@@ -115,15 +143,15 @@ public class strategChessView : MonoBehaviour
         return buttonEvent;
     }
 
-    public void changefleetRotation(int floorId, List<PathMove> tileLevelPathList)
-    {
+    //public void changefleetRotation(int floorId, List<PathMove> tileLevelPathList)
+    //{
 
-        ClickMouseShipPlayerInstantiatePath(floorId, tileLevelPathList);
+       // ClickMouseShipPlayerInstantiatePath(floorId, tileLevelPathList);
 
 
 
-    }
-    public void ClickMouseShipPlayerInstantiatePath(int id, List<PathMove> tileLevelPathList)
+    //}
+    public void changefleetRotation(int id, List<PathMove> tileLevelPathList)
     {
 
 
@@ -146,9 +174,9 @@ public class strategChessView : MonoBehaviour
                             {
                                 if (fleet.coordinate.x + point.PathLast.X < GlobalConf.widthMap && fleet.coordinate.y + point.PathLast.Y < GlobalConf.heightMap)
                                 {
-
+                                    Debug.Log(tileLevelPathList.First().FleetId+"  pathMoveList id = " + id);
                                     GameObject tile = InstantiateCreatePathSelectMove(fleet, point, id);
-                                    this._pathMoveList.Add(tile);
+                                    this.pathMoveList.Add(tile);
                                 }
                             }
                         }
@@ -169,16 +197,6 @@ public class strategChessView : MonoBehaviour
 
     }
 
-    void UnitPlayerRight()
-    {
-        List<PathMove> tilePathList = GetPathList();
-
-        ButtonEvent buttonEvent = GetButtonEventHeoSelect();
-        ControllerButton.EventCall(ControllerConstant.SelectHeroRight, ControllerConstant.SelectHeroRight, buttonEvent);
-
-        changefleetRotation(buttonEvent.HeroFleet.GetId(), tilePathList);
-
-    }
     void TownLanding()
     {
         ViewGlobal._selectFleet.useLand = true;
@@ -188,7 +206,12 @@ public class strategChessView : MonoBehaviour
         ViewGlobal._selectPlanet = ModelGlobal.getFleedAbovePlanet((int)ViewGlobal._selectFleet.coordinate.x, (int)ViewGlobal._selectFleet.coordinate.y);
         ViewGlobal.attackPlanet(ViewGlobal._selectFleet, ViewGlobal._selectPlanet);
     }
-
+    GameObject GetFleetSceneWithId(int IdFleet)
+    {
+        GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+        GameObject fleet = GetFleetWithId(shipObj_ar, IdFleet);
+        return fleet;
+    }
     GameObject GetFleetWithId(GameObject[] ship_ar, int IdFleet)
     {
         foreach (GameObject fleet in ship_ar)
@@ -196,8 +219,8 @@ public class strategChessView : MonoBehaviour
 
             Fleet fleetUnit = fleet.GetComponent<Fleet>();
 
-            foreach (InfoFleet floor in GlobalConf.GetViewFleetList())
-            {
+            //foreach (InfoFleet floor in GlobalConf.GetViewFleetList())
+          //  {
                 if (fleetUnit.id == IdFleet)
                 {
 
@@ -205,7 +228,7 @@ public class strategChessView : MonoBehaviour
 
 
                 }
-            }
+           // }
 
 
 
@@ -223,18 +246,18 @@ public class strategChessView : MonoBehaviour
         GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
         List<int> id_ar = new List<int>();
 
-        foreach (GameObject fleet in shipObj_ar)
+        foreach (GameObject fleetObj in shipObj_ar)
         {
 
-            Fleet fleetUnit = fleet.GetComponent<Fleet>();
+            Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
 
-            GameObject fleetObj = GetFleetWithId(shipObj_ar, fleetUnit.id);
             if (fleetObj == null)
             {
-                Destroy(fleet);
+                Destroy(fleetObj);
                 return;
             }
             InfoFleet modelFleet = GlobalConf.GetViewFleetList().Where(a => a.id == fleetUnit.id).FirstOrDefault();
+        //   Debug.Log(" Player  FALSE   fleetUnit.id" + fleetUnit.id);
             if (fleetUnit.GetStateMove())
             {
                 fleetUnit.GetState().MoveX -= (fleetUnit.GetState().OldPoint.X - fleetUnit.GetState().GetFirstDestination().X) * 0.01f;
@@ -243,11 +266,11 @@ public class strategChessView : MonoBehaviour
                 float dist = GetDistance(new UnityEngine.Vector2(fleetUnit.GetState().MoveX, fleetUnit.GetState().MoveY),
                     new UnityEngine.Vector2(fleetUnit.GetState().GetFirstDestination().X, fleetUnit.GetState().GetFirstDestination().Y));
 
-                Debug.Log("dist  = " + dist + "     StateMove id = " + fleetUnit.id + "  First  GetState().x= " + fleetUnit.GetState().GetFirstDestination().X + "  First  GetState().y=  " + fleetUnit.GetState().GetFirstDestination().Y + "  move =" + fleet.transform.position);
-                //fleet.transform.position = new UnityEngine.Vector3(fleet.transform.position.x + fleetUnit.GetState().X*0.01f, 3, fleet.transform.position.y + fleetUnit.GetState().Y * 0.01f);
-                fleet.transform.position = new UnityEngine.Vector3(fleetUnit.GetState().MoveX, 3, fleetUnit.GetState().MoveY);
+                Debug.Log("d = " + BattlePlanetModel.GetSelectHeroId() + "   fleetUnit id = " + fleetUnit.id + "  First  Get modelFleet   id = " + modelFleet.id + "  First  GetState()  move =" + fleetObj.transform.position);
 
-                Debug.Log(dist + "     move  x " + fleetUnit.GetState().MoveX + " = ti move y = " + fleetUnit.GetState().MoveY);
+                fleetObj.transform.position = new UnityEngine.Vector3(fleetUnit.GetState().MoveX, 3, fleetUnit.GetState().MoveY);
+
+               
 
                 var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(fleetUnit.GetState().GetFirstDestination().X, 0, fleetUnit.GetState().GetFirstDestination().Y) - new UnityEngine.Vector3(fleetObj.transform.position.x, 0, fleetObj.transform.position.z));
                 fleetObj.transform.rotation = UnityEngine.Quaternion.RotateTowards(fleetObj.transform.rotation, aimRotation, 10);
@@ -256,22 +279,26 @@ public class strategChessView : MonoBehaviour
 
                 if (0.1f > dist)
                 {
-                    NormalizeFleet(fleet, fleetUnit.GetState().GetFirstDestination().X, fleetUnit.GetState().GetFirstDestination().Y);
+                    NormalizeFleet(fleetObj, fleetUnit.GetState().GetFirstDestination().X, fleetUnit.GetState().GetFirstDestination().Y);
                     if (fleetUnit.GetState().NextDestination() == false)
                     {
                         fleetUnit.ResetStateMove();
                     }
 
 
-                    Debug.Log(" moveX = STOP  moveY = ");
+                    Debug.Log(BattlePlanetModel.GetSelectHeroId()+" moveX = STOP  move = " + fleetUnit.id);
 
                 }
 
             }
             else
             {
+               // Debug.Log(fleet+"     move  x   move  "+ modelFleet);
                 fleetUnit.SetAnimation("gogo", 1, "gogo", 5);
-                NormalizeFleet(fleet, modelFleet.coordinate.x, modelFleet.coordinate.y);
+                if (modelFleet != null)
+                {
+                    NormalizeFleet(fleetObj, modelFleet.coordinate.x, modelFleet.coordinate.y);
+                }
             }
             id_ar.Add(fleetUnit.id);
 
@@ -310,7 +337,7 @@ public class strategChessView : MonoBehaviour
     public static void CommandMovePlayer(object sender, EventArgs e)
     {
         PathMove pathMove = sender as PathMove;
-        Debug.Log("!!!!!!!!!!!!! CommandPlayer = " + sender + "-  th PathLast.X =" + pathMove.PathLast.X + "==  PathLast.Y =" + pathMove.PathLast.Y + "    fleet id = " + pathMove.FleetId);
+        Debug.Log("!!!!!!!!!!!!! CommandPlayer = " + sender + "-  th PathLast.X =" + pathMove +"==  PathLast.   fleet id = " );
 
 
         _strategChessView.MoveFleetAnimationState(pathMove);
@@ -328,15 +355,17 @@ public class strategChessView : MonoBehaviour
 
 
         var fleetObj = GetFleetWithId(shipObj_ar, pathMove.FleetId);
-        Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
-        Debug.Log(pathMove.PathList.Count + " SpotX = " + fleetUnit.SpotX + " = tile  SpotY = " + fleetUnit.SpotY);
-        List<Point> pathMoveList = pathMove.PathList;
-        pathMoveList.RemoveAt(0);
+        if (fleetObj != null)
+        {
+            Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
+            Debug.Log(pathMove.PathList.Count + " SpotX = " + fleetUnit.SpotX + " = tile  SpotY = " + fleetUnit.SpotY);
+            List<Point> pathMoveList = pathMove.PathList;
+            pathMoveList.RemoveAt(0);
 
-        Debug.Log(pathMove.PathList.Count + " -- " + pathMoveList.Count + " Last   x" + pathMove.PathLast.X + " = Cl y = " + pathMove.PathLast.Y + "   name = " + fleetUnit.name);
+            Debug.Log(pathMove.PathList.Count + " -- " + pathMoveList.Count + " Last   x" + pathMove.PathLast.X + " = Cl y = " + pathMove.PathLast.Y + "   name = " + fleetUnit.name);
 
-        fleetUnit.StateMove = new StateMoveFleet(true, fleetUnit.SpotX, fleetUnit.SpotY, pathMoveList);
-
+            fleetUnit.StateMove = new StateMoveFleet(true, fleetUnit.SpotX, fleetUnit.SpotY, pathMoveList);
+        }
 
     }
     float GetDistance(UnityEngine.Vector2 positionTile, UnityEngine.Vector2 positionUnit)
@@ -469,22 +498,21 @@ public class strategChessView : MonoBehaviour
 
     GameObject InstantiateCreatePathSelectMove(InfoFleet fleet, PathMove point, int id)
     {
-        GameObject tile = (GameObject)Instantiate(Tile, new UnityEngine.Vector3(point.PathLast.X, 3 + 0.1f, point.PathLast.Y), UnityEngine.Quaternion.identity);
+        GameObject tile = (GameObject)Instantiate(TilePrefab, new UnityEngine.Vector3(point.PathLast.X, 3 + 0.1f, point.PathLast.Y), UnityEngine.Quaternion.identity);
         TilePath tileClass = tile.GetComponent<TilePath>();
         tileClass.SetParam(id, point);
         tileClass.SetCoordinate(new UnityEngine.Vector2(point.PathLast.X, point.PathLast.Y));
-        //tileClass.id = id;
-        //tileClass.SetParam( id, point);
+
 
         return tile;
     }
     void ResetPathMoveList()
     {
-        foreach (var item in this._pathMoveList)
+        foreach (var item in this.pathMoveList)
         {
             Destroy(item);
         }
-        this._pathMoveList.Clear();
+        this.pathMoveList.Clear();
     }
 
 
@@ -504,10 +532,12 @@ public class strategChessView : MonoBehaviour
         }
         return null;
     }
+    /*
     void resetSelectFleet()
     {
         viewPortButton = false;
     }
+    */
     public void selectFleet(InfoFleet InnerSelectFleet)
     {
         GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
@@ -515,14 +545,17 @@ public class strategChessView : MonoBehaviour
 
 
         var fleetObj = GetFleetWithId(shipObj_ar, InnerSelectFleet.id);
-        Fleet fleet = fleetObj.GetComponent<Fleet>();
+        if (fleetObj != null)
+        {
+            Fleet fleet = fleetObj.GetComponent<Fleet>();
 
-        fleet.SetColorFleet();
+            fleet.SetColorFleet();
 
 
-        var I = new JSONClass();
-        I["id"] = InnerSelectFleet.id.ToString();
-        EventListeren.eventDispatchEvent(CommandState.ClickFleet.ToString(), I.ToString());
+            var I = new JSONClass();
+            I["id"] = InnerSelectFleet.id.ToString();
+            EventListeren.eventDispatchEvent(CommandState.ClickFleet.ToString(), I.ToString());
+        }
     }
     void Update()
     {
