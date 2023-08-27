@@ -20,7 +20,7 @@ public class Fleet : TilePath {
 	public int SpotX { set; get; }
     public int SpotY { set; get; }
     public Animator _animatorMan;
-
+    private float _scatter = 15;
     public void SetParam(int id,bool player,string name, Vector2 Coordinate,int SpotX, int SpotY)
 	{
 		this.id = id;
@@ -111,14 +111,38 @@ public class Fleet : TilePath {
     }
     public void Shoot()
     {
+        Quaternion constantAngle = Pistol.transform.rotation;
+        Vector3 Angle = Pistol.transform.eulerAngles;
+        Angle.x += Random.Range(-_scatter, _scatter);
+        Angle.y += Random.Range(-_scatter, _scatter);
+        Angle.z += Random.Range(-_scatter, _scatter);
+
+        Debug.Log("Angle = " + Angle);
+
+        //Pistol.transform.rotation = Quaternion.AngleAxis(Random.Range(-60f, 60f), Vector3.forward);
+        Pistol.transform.rotation = Quaternion.Euler(Angle);
+
+        var bullet = Instantiate(Bullet, Pistol.transform.position, Quaternion.Euler(Angle));
+        //bullet.transform.SetParent(Pistol.transform);
+
+        // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
+        bullet.GetComponent<Rigidbody>().AddForce(Pistol.transform.forward * 25);
+
+        Pistol.transform.rotation = constantAngle;
+
+
+
+
+        /*
         Pistol.transform.rotation = Quaternion.AngleAxis(Random.Range(-60f, 60f), Vector3.forward);
         var bullet = Instantiate(Bullet);
         bullet.transform.SetParent(Pistol.transform);
         
         // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 25);
+        bullet.GetComponent<Rigidbody>().AddForce(Pistol.transform.forward * 25);
 //bullet.transform.rotation = Quaternion.AngleAxis(Random.Range(-30f, 30f), Vector3.forward);
         //bullet.transform.SetParent(fleet.transform);
+        */
     }
 
 }

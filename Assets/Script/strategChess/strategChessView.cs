@@ -28,6 +28,7 @@ public class strategChessView : MonoBehaviour
     public GameObject PlanetIsland;
     public GameObject StrategShipUnit;
     public GameObject TilePrefab;
+    public GameObject Chest;
    
     public Camera MainCamera;
     public Text MoneyText;
