@@ -291,6 +291,7 @@
     <Compile Include="Assets\Script\Terra\model\seaTactic\informationCustom\IShipCustom.cs" />
     <Compile Include="Assets\Script\Terra\view\seaBattlePlanet\UnitShipTexture.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\ArmUnit.cs" />
+    <Compile Include="Assets\Script\ChestBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
