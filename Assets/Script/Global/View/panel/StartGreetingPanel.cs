@@ -28,12 +28,12 @@ public class StartGreetingPanel : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        FirstLevelButton.onClick.AddListener(() => FirstLevelMethod(0));
-        SecondLevelButton.onClick.AddListener(() => FirstLevelMethod(1));
+        //FirstLevelButton.onClick.AddListener(() => FirstLevelMethod(0));
+        //SecondLevelButton.onClick.AddListener(() => FirstLevelMethod(1));
         ThreeLevelButton.onClick.AddListener(() => FirstLevelMethod(2));
-        CustomButton.onClick.AddListener(() => CustomButtonMethod());
-        StickButton.onClick.AddListener(() => StickButtonMethod());
-        CloseButton.onClick.AddListener(() => CloseMethod());
+        //CustomButton.onClick.AddListener(() => CustomButtonMethod());
+        //StickButton.onClick.AddListener(() => StickButtonMethod());
+        //CloseButton.onClick.AddListener(() => CloseMethod());
         //ButtonFPS.onClick.AddListener(() => FPSMethod());
 
 
