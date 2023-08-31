@@ -85,7 +85,7 @@ public class strategChessView : MonoBehaviour
         var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
         Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
         fleetUnit.Shoot();
-        Debug.Log("===== =======   G ======= fleet ="  );
+       
         //fleet.SetActive(false);
        //var bullet =  Instantiate(Bullet);
         // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
@@ -461,13 +461,19 @@ List<PathMove> tilePathList = GetPathList();
     }
     private void LeftMouseClick()
     {
+        
         GameObject hitObject = FindHitObject();
+
+
         if (hitObject != null)
         {
+            Fleet fleet = hitObject.GetComponent<Fleet>();
 
-            if (hitObject.name == "GlobalGround(Clone)")
+            
+
+            if (fleet !=null)
             {
-
+                Debug.Log("===== ==== === fleet ="+ fleet);
             }
 
             if (hitObject.name == "Tile(Clone)")
