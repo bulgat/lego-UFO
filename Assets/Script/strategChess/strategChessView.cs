@@ -273,14 +273,13 @@ List<PathMove> tilePathList = GetPathList();
                 float dist = GetDistance(new UnityEngine.Vector2(fleetUnit.GetState().MoveX, fleetUnit.GetState().MoveY),
                     new UnityEngine.Vector2(fleetUnit.GetState().GetFirstDestination().X, fleetUnit.GetState().GetFirstDestination().Y));
 
-                Debug.Log("d = " + BattlePlanetModel.GetSelectHeroId() + "   fleetUnit id = " + fleetUnit.id + "  First  Get modelFleet   id = " + modelFleet.id + "  First  GetState()  move =" + fleetObj.transform.position);
-
+                
                 fleetObj.transform.position = new UnityEngine.Vector3(fleetUnit.GetState().MoveX, 3, fleetUnit.GetState().MoveY);
 
-               
+                fleetUnit.RotationFleet(fleetUnit.GetState().GetFirstDestination(),10);
 
-                var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(fleetUnit.GetState().GetFirstDestination().X, 0, fleetUnit.GetState().GetFirstDestination().Y) - new UnityEngine.Vector3(fleetObj.transform.position.x, 0, fleetObj.transform.position.z));
-                fleetObj.transform.rotation = UnityEngine.Quaternion.RotateTowards(fleetObj.transform.rotation, aimRotation, 10);
+                //var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(fleetUnit.GetState().GetFirstDestination().X, 0, fleetUnit.GetState().GetFirstDestination().Y) - new UnityEngine.Vector3(fleetObj.transform.position.x, 0, fleetObj.transform.position.z));
+                //fleetObj.transform.rotation = UnityEngine.Quaternion.RotateTowards(fleetObj.transform.rotation, aimRotation, 10);
 
                 fleetUnit.SetAnimation("gogo", 2, "gogo", 6);
 
@@ -482,6 +481,7 @@ List<PathMove> tilePathList = GetPathList();
                 Debug.Log("===== Target ==== === fleet ="+ fleet);
                 //fleet.SetTarget();
                 SetTargetOnlyOne(fleet);
+                RotationSelectFleetOnTarget(fleet);
             }
 
             if (hitObject.name == "Tile(Clone)")
@@ -514,6 +514,14 @@ List<PathMove> tilePathList = GetPathList();
         }
 
         UnityEngine.Cursor.visible = true;
+    }
+    void RotationSelectFleetOnTarget(Fleet targetFleetObj)
+    {
+        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
+        Debug.Log("d =    fleetUnit   First  Get modelFleet    First  GetState()  move ="  );
+
+        fleetUnit.RotationFleet(new Point(targetFleetObj.SpotX, targetFleetObj.SpotY),360);
     }
     void SetTargetOnlyOne(Fleet fleet)
     {

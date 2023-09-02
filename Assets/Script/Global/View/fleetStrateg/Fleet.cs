@@ -65,6 +65,11 @@ public class Fleet : TilePath {
     {
         Target.SetActive(Visible);
     }
+    public void RotationFleet(Point Target, float maxDegreesDelta)
+    {
+        var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(Target.X, 0, Target.Y) - new UnityEngine.Vector3(transform.position.x, 0, transform.position.z));
+        transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, aimRotation, maxDegreesDelta);
+    }
     public void SetAnimation(string position, int number, string positionHorse, int numberHorse)
     {
 		if (_animatorMan != null)
