@@ -3,10 +3,13 @@ using System.Collections;
 using RTS;
 using Assets.Script.Global.View.fleetStrateg;
 using UnityEditor;
+using Assets.Script.Global;
+using Assets.Script.strategChess;
 //using RTS;
 
 
-public class Fleet : TilePath {
+public class Fleet : TilePath, ITargetShoot
+{
 
 	public GameObject StrategShip;
 	public GameObject Flag;
@@ -22,7 +25,7 @@ public class Fleet : TilePath {
     public int SpotY { set; get; }
     public Animator _animatorMan;
     private float _scatter = 15;
-
+    public bool Dead;
 
     void Start () {
         if (Flag != null)
@@ -50,7 +53,8 @@ public class Fleet : TilePath {
         _animatorMan = transform.GetChild(1).GetComponent<Animator>();
         Target.SetActive(false);
 
-       // SetAnimation("gogo", 2, "gogo", 6);
+        // SetAnimation("gogo", 2, "gogo", 6);
+  
     }
     public void SetParam(int id, bool player, string name, Vector2 Coordinate, int SpotX, int SpotY)
     {
@@ -70,7 +74,7 @@ public class Fleet : TilePath {
         var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(Target.X, 0, Target.Y) - new UnityEngine.Vector3(transform.position.x, 0, transform.position.z));
         transform.rotation = UnityEngine.Quaternion.RotateTowards(transform.rotation, aimRotation, maxDegreesDelta);
     }
-    public void SetAnimation(string position, int number, string positionHorse, int numberHorse)
+    public void ParamAnimation(string position, int number, string positionHorse, int numberHorse)
     {
 		if (_animatorMan != null)
 		{
@@ -128,12 +132,12 @@ public class Fleet : TilePath {
         Angle.y += Random.Range(-_scatter, _scatter);
         Angle.z += Random.Range(-_scatter, _scatter);
 
-        Debug.Log("Angle = " + Angle);
+        
 
         //Pistol.transform.rotation = Quaternion.AngleAxis(Random.Range(-60f, 60f), Vector3.forward);
         Pistol.transform.rotation = Quaternion.Euler(Angle);
 
-        var bullet = Instantiate(Bullet, Pistol.transform.position, Quaternion.Euler(Angle));
+        var bullet = Instantiate(Bullet, new Vector3( Pistol.transform.position.x+.5f, Pistol.transform.position.y, Pistol.transform.position.z), Quaternion.Euler(Angle));
         //bullet.transform.SetParent(Pistol.transform);
 
         // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
@@ -144,16 +148,35 @@ public class Fleet : TilePath {
 
 
 
-        /*
-        Pistol.transform.rotation = Quaternion.AngleAxis(Random.Range(-60f, 60f), Vector3.forward);
-        var bullet = Instantiate(Bullet);
-        bullet.transform.SetParent(Pistol.transform);
-        
-        // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
-        bullet.GetComponent<Rigidbody>().AddForce(Pistol.transform.forward * 25);
-//bullet.transform.rotation = Quaternion.AngleAxis(Random.Range(-30f, 30f), Vector3.forward);
-        //bullet.transform.SetParent(fleet.transform);
-        */
+    
     }
 
+    public void Damage()
+    {
+        Debug.Log("A  = " + name);
+        Debug.Log(" Coordi  e =============   = "+gameObject);
+        //throw new System.NotImplementedException();
+        // Destroy(transform.parent);
+        //Destroy(gameObject);
+        //  Destroy(this);
+        //Destroy(gameObject);
+        this.Dead = true;
+    }
+    public void SetAnimation(string Anim)
+    {
+        if (this.Dead)
+        {
+            Debug.Log("!!!!!!!!!!!!! Dead  CommandPlayer  th PathLast.X  =  PathLast.   fleet id = ");
+            ParamAnimation("gogo", 4, "gogo", 8);
+            return;
+        }
+        if ("move"==Anim)
+        {
+            ParamAnimation("gogo", 2, "gogo", 6);
+        }
+        if ("attack" == Anim)
+        {
+            ParamAnimation("gogo", 3, "gogo", 7);
+        }
+    }
 }

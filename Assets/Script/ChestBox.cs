@@ -1,8 +1,9 @@
+using Assets.Script.Global;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestBox : MonoBehaviour
+public class ChestBox : TilePath, ITargetShoot
 {
     // Start is called before the first frame update
     void Start()
@@ -32,5 +33,10 @@ public class ChestBox : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
        // Debug.Log("stay collision = "  );
+    }
+
+    public void Damage()
+    {
+        throw new System.NotImplementedException();
     }
 }

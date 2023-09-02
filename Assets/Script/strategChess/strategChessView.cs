@@ -137,7 +137,7 @@ List<PathMove> tilePathList = GetPathList();
 List<PathMove> tilePathList = GetPathList();
         changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
 
-        Debug.Log(" Coordinate ===============    " + +BattlePlanetModel.GetSelectHeroId() +  "   = ");
+        
     }
     private ButtonEvent GetButtonEventHeoSelect()
     {
@@ -280,8 +280,8 @@ List<PathMove> tilePathList = GetPathList();
 
                 //var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(fleetUnit.GetState().GetFirstDestination().X, 0, fleetUnit.GetState().GetFirstDestination().Y) - new UnityEngine.Vector3(fleetObj.transform.position.x, 0, fleetObj.transform.position.z));
                 //fleetObj.transform.rotation = UnityEngine.Quaternion.RotateTowards(fleetObj.transform.rotation, aimRotation, 10);
-
-                fleetUnit.SetAnimation("gogo", 2, "gogo", 6);
+                fleetUnit.SetAnimation("move");
+               // fleetUnit.SetAnimation("gogo", 2, "gogo", 6);
 
                 if (0.1f > dist)
                 {
@@ -299,9 +299,10 @@ List<PathMove> tilePathList = GetPathList();
             }
             else
             {
-               // Debug.Log(fleet+"     move  x   move  "+ modelFleet);
-              //  fleetUnit.SetAnimation("gogo", 1, "gogo", 5);
-                fleetUnit.SetAnimation("gogo",3, "gogo", 7);
+                // Debug.Log(fleet+"     move  x   move  "+ modelFleet);
+                //  fleetUnit.SetAnimation("gogo", 1, "gogo", 5);
+                fleetUnit.SetAnimation("attack");
+               // fleetUnit.SetAnimation("gogo",3, "gogo", 7);
                 if (modelFleet != null)
                 {
                     NormalizeFleet(fleetObj, modelFleet.coordinate.x, modelFleet.coordinate.y);
@@ -344,7 +345,7 @@ List<PathMove> tilePathList = GetPathList();
     public static void CommandMovePlayer(object sender, EventArgs e)
     {
         PathMove pathMove = sender as PathMove;
-        Debug.Log("!!!!!!!!!!!!! CommandPlayer = " + sender + "-  th PathLast.X =" + pathMove +"==  PathLast.   fleet id = " );
+       
 
 
         _strategChessView.MoveFleetAnimationState(pathMove);
