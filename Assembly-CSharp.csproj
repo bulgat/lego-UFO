@@ -247,6 +247,7 @@
     <Compile Include="Assets\Script\Terra\modelStrategy\ContactStateProceeding.cs" />
     <Compile Include="Assets\Script\Terra\Texture.cs" />
     <Compile Include="Assets\Script\Terra\mapWorld\model\service\ListIsland.cs" />
+    <Compile Include="Assets\Script\Bullet.cs" />
     <Compile Include="Assets\Script\sceneBattleField\CustomBattleParam.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\CommandStrategyView.cs" />
     <Compile Include="Assets\Script\Terra\ViewTerra.cs" />
@@ -292,7 +293,6 @@
     <Compile Include="Assets\Script\Terra\model\seaTactic\informationCustom\IShipCustom.cs" />
     <Compile Include="Assets\Script\Terra\view\seaBattlePlanet\UnitShipTexture.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\ArmUnit.cs" />
-    <Compile Include="Assets\Script\Bullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -929,10 +929,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NewAssembly.csproj">
-      <Project>{CFF264AF-926A-E790-8979-AA984BC62869}</Project>
-      <Name>NewAssembly</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

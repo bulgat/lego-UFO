@@ -213,7 +213,8 @@ List<PathMove> tilePathList = GetPathList();
     }
     GameObject GetFleetSceneWithId(int IdFleet)
     {
-        GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+        //GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+        GameObject[] shipObj_ar = GetAllFleetMap();
         GameObject fleet = GetFleetWithId(shipObj_ar, IdFleet);
         return fleet;
     }
@@ -248,7 +249,8 @@ List<PathMove> tilePathList = GetPathList();
         MouseActivity();
 
         // move ship
-        GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+        //GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+        GameObject[] shipObj_ar = GetAllFleetMap();
         List<int> id_ar = new List<int>();
 
         foreach (GameObject fleetObj in shipObj_ar)
@@ -354,10 +356,14 @@ List<PathMove> tilePathList = GetPathList();
 
 
     }
+    GameObject[] GetAllFleetMap()
+    {
+        return GameObject.FindGameObjectsWithTag("fleet");
+    }
     public void MoveFleetAnimationState(PathMove pathMove)
     {
-        GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
-
+        //GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+        GameObject[] shipObj_ar = GetAllFleetMap();
 
 
         var fleetObj = GetFleetWithId(shipObj_ar, pathMove.FleetId);
@@ -473,7 +479,9 @@ List<PathMove> tilePathList = GetPathList();
 
             if (fleet !=null)
             {
-                Debug.Log("===== ==== === fleet ="+ fleet);
+                Debug.Log("===== Target ==== === fleet ="+ fleet);
+                //fleet.SetTarget();
+                SetTargetOnlyOne(fleet);
             }
 
             if (hitObject.name == "Tile(Clone)")
@@ -507,7 +515,16 @@ List<PathMove> tilePathList = GetPathList();
 
         UnityEngine.Cursor.visible = true;
     }
-
+    void SetTargetOnlyOne(Fleet fleet)
+    {
+        GameObject[] shipObj_ar = GetAllFleetMap();
+        foreach(var itemFleet in shipObj_ar)
+        {
+            Fleet fleetClass = itemFleet.GetComponent<Fleet>();
+            fleetClass.VisibleTarget(false);
+        }
+        fleet.VisibleTarget(true);
+    }
     GameObject InstantiateCreatePathSelectMove(InfoFleet fleet, PathMove point, int id)
     {
         GameObject tile = (GameObject)Instantiate(TilePrefab, new UnityEngine.Vector3(point.PathLast.X, 3 + 0.1f, point.PathLast.Y), UnityEngine.Quaternion.identity);

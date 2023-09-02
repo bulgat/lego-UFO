@@ -12,6 +12,7 @@ public class Fleet : TilePath {
 	public GameObject Flag;
     public GameObject Pistol;
     public GameObject Bullet;
+    public GameObject Target;
 
     public bool player;
 	//public bool _showName;
@@ -21,15 +22,7 @@ public class Fleet : TilePath {
     public int SpotY { set; get; }
     public Animator _animatorMan;
     private float _scatter = 15;
-    public void SetParam(int id,bool player,string name, Vector2 Coordinate,int SpotX, int SpotY)
-	{
-		this.id = id;
-		this.player = player;
-		this.name = name+"_"+id;
-		this.SetCoordinate(Coordinate);
-		this.SpotX = SpotX;
-		this.SpotY = SpotY;
-	}
+
 
     void Start () {
         if (Flag != null)
@@ -55,9 +48,22 @@ public class Fleet : TilePath {
         }
 		
         _animatorMan = transform.GetChild(1).GetComponent<Animator>();
-       
-        
+        Target.SetActive(false);
+
        // SetAnimation("gogo", 2, "gogo", 6);
+    }
+    public void SetParam(int id, bool player, string name, Vector2 Coordinate, int SpotX, int SpotY)
+    {
+        this.id = id;
+        this.player = player;
+        this.name = name + "_" + id;
+        this.SetCoordinate(Coordinate);
+        this.SpotX = SpotX;
+        this.SpotY = SpotY;
+    }
+    public void VisibleTarget(bool Visible)
+    {
+        Target.SetActive(Visible);
     }
     public void SetAnimation(string position, int number, string positionHorse, int numberHorse)
     {
