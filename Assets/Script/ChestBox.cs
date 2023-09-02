@@ -18,10 +18,11 @@ public class ChestBox : TilePath, ITargetShoot
     }
     private void OnCollisionEnter3D(Collision2D collision)
     {
-        Destroy(this);
+       // Destroy(this);
     }
     private void OnCollisionEnter(Collision collision)
     {
+        /*
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
         Debug.Log(bullet+" collision = " + collision.gameObject.name);
@@ -29,6 +30,7 @@ public class ChestBox : TilePath, ITargetShoot
         {
             Destroy(gameObject);
         }
+        */
     }
     private void OnCollisionStay(Collision collision)
     {
@@ -37,6 +39,6 @@ public class ChestBox : TilePath, ITargetShoot
 
     public void Damage()
     {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
 }

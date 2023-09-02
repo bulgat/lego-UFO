@@ -28,7 +28,7 @@ public class strategChessView : MonoBehaviour
     public GameObject PlanetIsland;
     public GameObject StrategShipUnit;
     public GameObject TilePrefab;
-    public GameObject Chest;
+    public GameObject ChestPrefab;
    
     public Camera MainCamera;
     public Text MoneyText;
@@ -52,20 +52,29 @@ public class strategChessView : MonoBehaviour
     {
         _strategChessView = this;
         // Ставим землю.
-        var _globalGround = Instantiate(GlobalGround);
+        var _globalGround = (GameObject)Instantiate(GlobalGround,new UnityEngine.Vector3(5.12f,3.00f,4.9f), UnityEngine.Quaternion.identity);
 
         // Раставляем планеты.
-        foreach (InfoPlanet planet in GlobalConf.GetTownList())
+        //foreach (InfoPlanet planet in GlobalConf.GetTownList())
+       // {
+
+         //   GameObject strPlanet = (GameObject)Instantiate(PlanetIsland, new UnityEngine.Vector3(planet.coordinate.x, 2.95f, planet.coordinate.y), UnityEngine.Quaternion.identity);
+
+
+         //   Fleet fleet = strPlanet.GetComponent<Fleet>();
+
+
+         //   fleet.SetParam(planet.id, planet.player, planet.name, new UnityEngine.Vector2(planet.coordinate.x, planet.coordinate.y), 0, 0);
+       // }
+        //расставляем ящики
+        foreach(GridTileBar gridTileBar in GlobalConf.GetGridTileList())
         {
-
-            GameObject strPlanet = (GameObject)Instantiate(PlanetIsland, new UnityEngine.Vector3(planet.coordinate.x, 2.95f, planet.coordinate.y), UnityEngine.Quaternion.identity);
-
-
-            Fleet fleet = strPlanet.GetComponent<Fleet>();
-
-
-            fleet.SetParam(planet.id, planet.player, planet.name, new UnityEngine.Vector2(planet.coordinate.x, planet.coordinate.y), 0, 0);
+            if (gridTileBar.Tile == 3)
+            {
+                GameObject strPlanet = (GameObject)Instantiate(ChestPrefab, new UnityEngine.Vector3(gridTileBar.SpotX, 3.55f, gridTileBar.SpotY), UnityEngine.Quaternion.identity);
+            }
         }
+
 
         MainCamera.transform.position = new UnityEngine.Vector3(3.62f, 7.05f, -10.0f);
 
