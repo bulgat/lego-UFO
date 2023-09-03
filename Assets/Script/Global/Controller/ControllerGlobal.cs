@@ -24,9 +24,9 @@ public class ControllerGlobal {
 
    void onTurn (string isPower,string obj) {
 
-		if (isPower == CommandState.Turn.ToString ()) {
-			EventListeren.eventDispatchController(CommandState.Turn.ToString(),"");
-		}
+		//if (isPower == CommandState.Turn.ToString ()) {
+		//	EventListeren.eventDispatchController(CommandState.Turn.ToString(),"");
+		//}
 		if (isPower == CommandState.ClickPlayerShip.ToString ()) {
 
 			EventListeren.eventDispatchController(CommandState.ClickPlayerShip.ToString(),"");

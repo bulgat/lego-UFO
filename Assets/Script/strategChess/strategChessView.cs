@@ -108,7 +108,9 @@ public class strategChessView : MonoBehaviour
 
     void TurnStrateg()
     {
-        EventListeren.eventDispatchEvent(CommandState.Turn.ToString(), "");
+       // Debug.Log("!!!!!!!!!  CommandPlayer  th PathLast.X  =  PathLast.   fleet id = ");
+     //   EventListeren.eventDispatchEvent(CommandState.Turn.ToString(), "");
+        GlobalConf.Turn();
     }
 
     List<PathMove> GetPathList()
@@ -625,7 +627,7 @@ List<PathMove> tilePathList = GetPathList();
     }
     private void MoveCamera()
     {
-        Debug.Log(" --  Last   x l y =     name = ");
+        
         float xpos = Input.mousePosition.x;
         float ypos = Input.mousePosition.y;
         UnityEngine.Vector3 movement = new UnityEngine.Vector3(0, 0, 0);

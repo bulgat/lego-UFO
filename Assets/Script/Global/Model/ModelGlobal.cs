@@ -55,14 +55,14 @@ public class ModelGlobal : MonoBehaviour
 	public void onTurn(string isPower, string no)
     {
 
-        if (isPower == CommandState.Turn.ToString())
-        {
+        //if (isPower == CommandState.Turn.ToString())
+       // {
 
-            GlobalConf.TurnButtonClick();
+            //GlobalConf.TurnButtonClick();
+       // ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
 
-           
-            // Глобальная победа.
-            if (!GlobalVictory.StrategVictoryPlayer(true))
+        // Глобальная победа.
+        if (!GlobalVictory.StrategVictoryPlayer(true))
             {
                 //Message.message("Враг выиграл.");
                 var textI = new JSONClass();
@@ -82,7 +82,7 @@ public class ModelGlobal : MonoBehaviour
                 Player.restartGame();
             }
 
-        }
+       // }
     }
 
 

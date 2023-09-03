@@ -166,7 +166,7 @@ public class Fleet : TilePath, ITargetShoot
     {
         if (this.Dead)
         {
-            Debug.Log("!!!!!!!!!!!!! Dead  CommandPlayer  th PathLast.X  =  PathLast.   fleet id = ");
+            
             ParamAnimation("gogo", 4, "gogo", 8);
             return;
         }

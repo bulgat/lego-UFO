@@ -71,16 +71,21 @@ public static class GlobalConf
 
         return buttonEventList;
     }
+    public static void Turn()
+    {
+        ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
+    }
     public static int GetIdSelectUnit()
     {
         return BattlePlanetModel.GetSelectHeroId();
     }
+    /*
     public static void TurnButtonClick()
     {
 
         ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
     }
-
+    */
     public static List<InfoFleet> GetViewFleetList()
     {
         List<GridTileBar> Grid_ar = BattlePlanetModel.GetGridTileList();
