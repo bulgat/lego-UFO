@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using Assets.Global;
+using Assets.Script.strategChess;
+using RTS;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,6 +39,7 @@ public class OrbitCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+  
     }
+   
 }

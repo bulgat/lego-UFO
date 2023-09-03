@@ -1,3 +1,4 @@
+using Assets.Global;
 using Assets.Script.Global.View.fleetStrateg;
 using Assets.Script.strategChess;
 using NUnit.Framework;
@@ -383,7 +384,7 @@ List<PathMove> tilePathList = GetPathList();
             List<Point> pathMoveList = pathMove.PathList;
             pathMoveList.RemoveAt(0);
 
-            Debug.Log(pathMove.PathList.Count + " -- " + pathMoveList.Count + " Last   x" + pathMove.PathLast.X + " = Cl y = " + pathMove.PathLast.Y + "   name = " + fleetUnit.name);
+           
 
             fleetUnit.StateMove = new StateMoveFleet(true, fleetUnit.SpotX, fleetUnit.SpotY, pathMoveList);
         }
@@ -619,5 +620,169 @@ List<PathMove> tilePathList = GetPathList();
 
         }
         MoneyText.text = "money: " + GlobalConf.Money[0];
+        MoveCamera();
+        RotateCamera();
+    }
+    private void MoveCamera()
+    {
+        Debug.Log(" --  Last   x l y =     name = ");
+        float xpos = Input.mousePosition.x;
+        float ypos = Input.mousePosition.y;
+        UnityEngine.Vector3 movement = new UnityEngine.Vector3(0, 0, 0);
+        bool mouseScroll = false;
+
+        //if (!blockScrollLever)
+        // {
+        // Блокировка от типа карты.
+
+        // Тактическая карта.
+        UnityEngine.Vector2 blockScreen_x = GlobalConf.BlockScreenScroll_ar[0].Position_x;
+        UnityEngine.Vector2 blockScreen_z = GlobalConf.BlockScreenScroll_ar[0].Position_z;
+        if (!Player._goBattle)
+        {
+            // Глобальная карта
+            blockScreen_x = GlobalConf.BlockScreenScroll_ar[1].Position_x;
+            blockScreen_z = GlobalConf.BlockScreenScroll_ar[1].Position_z;
+        }
+        if (GlobalConf.ModeStickBattle)
+        {
+            // Stick Battle
+            blockScreen_x = GlobalConf.BlockScreenScroll_ar[2].Position_x;
+            blockScreen_z = GlobalConf.BlockScreenScroll_ar[2].Position_z;
+            ;
+            //Camera.main.transform.eulerAngles = GlobalConf.StickBattleRotateCamera;
+        }
+
+
+        /////////
+        if (Input.GetKey(KeyCode.D))
+        {
+            //Debug.Log("==========WWWWWWWWWWWW pressed.===============");
+            movement.x += ResourceManager.ScrollSpeed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            //Debug.Log("==========WWWWWWWWWWWW pressed.===============");
+            movement.x -= ResourceManager.ScrollSpeed;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            //Debug.Log("==========WWWWWWWWWWWW pressed.===============");
+            movement.z += ResourceManager.ScrollSpeed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            //Debug.Log("==========WWWWWWWWWWWW pressed.===============");
+            movement.z -= ResourceManager.ScrollSpeed;
+        }
+        ///////
+        try
+        {
+            //horizontal camera movement
+            if (xpos >= 0 && xpos < ResourceManager.ScrollWidth && Camera.main.transform.position.x > blockScreen_x.x)
+            {
+
+                if (GlobalConf.ModeStickBattle) { Camera.main.transform.eulerAngles = StickBattle.StickBattleRotateCamera; }
+
+                // Движение камеры влево
+                movement.x -= ResourceManager.ScrollSpeed;
+                //SetCursorState(CursorState.PanLeft);
+                mouseScroll = true;
+            }
+            //else if (CameraScrollRight(xpos, blockScreen_x))
+            // {
+            // if (GlobalConf.ModeStickBattle)
+            //  { Camera.main.transform.eulerAngles = StickBattle.StickBattleRotateCamera; }
+
+            // Движение камеры вправо
+            //   movement.x += ResourceManager.ScrollSpeed;
+            //SetCursorState(CursorState.PanRight);
+            //   mouseScroll = true;
+
+
+            // }
+        }
+        catch
+        {
+            Debug.LogWarning("horizontal camera movement");
+        }
+        try
+        {
+            //vertical camera movement
+            if (ypos >= 0 && ypos < ResourceManager.ScrollWidth && Camera.main.transform.position.z > blockScreen_z.x)
+            {
+                movement.z -= ResourceManager.ScrollSpeed;
+                // SetCursorState(CursorState.PanDown);
+                mouseScroll = true;
+            }
+            else if (ypos <= Screen.height && ypos > Screen.height - ResourceManager.ScrollWidth - 40 && Camera.main.transform.position.z < blockScreen_z.y)
+            {
+                movement.z += ResourceManager.ScrollSpeed;
+                //  SetCursorState(CursorState.PanUp);
+                mouseScroll = true;
+
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("vertical camera movement");
+        }
+        //    }
+
+
+        //make sure movement is in the direction the camera is pointing
+        //but ignore the vertical tilt of the camera to get sensible scrolling
+        movement = Camera.main.transform.TransformDirection(movement);
+        movement.y = 0;
+
+        //away from ground movement
+        movement.y -= ResourceManager.ScrollSpeed * Input.GetAxis("Mouse ScrollWheel");
+
+        //calculate desired camera position based on received input
+        UnityEngine.Vector3 origin = Camera.main.transform.position;
+        UnityEngine.Vector3 destination = origin;
+        destination.x += movement.x;
+        destination.y += movement.y;
+        destination.z += movement.z;
+
+        //limit away from ground movement to be between a minimum and maximum distance
+        if (destination.y > ResourceManager.MaxCameraHeight)
+        {
+            destination.y = ResourceManager.MaxCameraHeight;
+        }
+        else if (destination.y < ResourceManager.MinCameraHeight)
+        {
+            destination.y = ResourceManager.MinCameraHeight;
+        }
+
+        //if a change in position is detected perform the necessary update
+        if (destination != origin)
+        {
+            Camera.main.transform.position = UnityEngine.Vector3.MoveTowards(origin, destination, Time.deltaTime * ResourceManager.ScrollSpeed);
+        }
+
+
+
+
+    }
+    private void RotateCamera()
+    {
+        UnityEngine.Vector3 origin = Camera.main.transform.eulerAngles;
+        UnityEngine.Vector3 destination = origin;
+
+        //detect rotation amount if ALT is being held and the Right mouse button is down
+        //if((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetMouseButton(1)) {
+        if (Input.GetKey("down") || Input.GetMouseButton(1))
+        {
+
+            destination.x -= Input.GetAxis("Mouse Y") * ResourceManager.RotateAmount;
+            destination.y += Input.GetAxis("Mouse X") * ResourceManager.RotateAmount;
+        }
+
+        //if a change in position is detected perform the necessary update
+        if (destination != origin)
+        {
+            Camera.main.transform.eulerAngles = UnityEngine.Vector3.MoveTowards(origin, destination, Time.deltaTime * ResourceManager.RotateSpeed);
+        }
     }
 }

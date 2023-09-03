@@ -168,6 +168,7 @@
     <Compile Include="Assets\Script\Terra\ViewTactic\PlanetTurnView.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\Island.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\ShipCannon.cs" />
+    <Compile Include="Assets\Script\Global\ITargetShoot.cs" />
     <Compile Include="Assets\Script\ChestBox.cs" />
     <Compile Include="Assets\Script\Terra\model\seaTactic\ArmUnitAndFleet.cs" />
     <Compile Include="Assets\Script\Terra\model\memento\IslandDemoMemento.cs" />
@@ -209,7 +210,6 @@
     <Compile Include="Assets\Script\Terra\modelStrategy\AI\SearchImminenFleet.cs" />
     <Compile Include="Assets\Script\Global\View\ui\StickPanelBattle.cs" />
     <Compile Include="Assets\Script\Global\View\ui\UIButton.cs" />
-    <Compile Include="Assets\Script\Building\Unit\Ore.cs" />
     <Compile Include="Assets\Script\Terra\view\globalParam\GlobalParamView.cs" />
     <Compile Include="Assets\Script\Terra\controller\ControllerConstant.cs" />
     <Compile Include="Assets\Script\Terra\model\seaTactic\OccurHit.cs" />
@@ -293,7 +293,6 @@
     <Compile Include="Assets\Script\Terra\model\seaTactic\informationCustom\IShipCustom.cs" />
     <Compile Include="Assets\Script\Terra\view\seaBattlePlanet\UnitShipTexture.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\ArmUnit.cs" />
-    <Compile Include="Assets\Script\Global\ITargetShoot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
