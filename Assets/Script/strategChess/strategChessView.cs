@@ -14,7 +14,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-
+using System.Threading;
 
 
 public class strategChessView : MonoBehaviour
@@ -89,6 +89,11 @@ public class strategChessView : MonoBehaviour
 
 
         this.pathMoveList = new List<GameObject>();
+
+
+        new Thread(() => {
+            Debug.Log("thread ========== ");
+        }).Start();
     }
     void Fire()
     {
