@@ -37,6 +37,7 @@ public static class GlobalConf
 
     // Блок для глобальной карты.
 
+
     //CameraBlock
     public static List<CameraBlock> BlockScreenScroll_ar = new List<CameraBlock>()
     {
@@ -71,21 +72,15 @@ public static class GlobalConf
 
         return buttonEventList;
     }
-    public static void Turn()
-    {
-        ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
-    }
+    //public static void Turn()
+   // {
+       // ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
+   // }
     public static int GetIdSelectUnit()
     {
         return BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId();
     }
-    /*
-    public static void TurnButtonClick()
-    {
 
-        ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
-    }
-    */
     public static List<InfoFleet> GetViewFleetList()
     {
         List<GridTileBar> Grid_ar = BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList();
@@ -137,7 +132,7 @@ public static class GlobalConf
     public static void ResetGame()
     {
         _BattlePlanetView = BattlePlanetView.GetBattlePlanetViewSingleton();
-        //fleet_ar = new List<InfoFleet>();
+
         IncrementFleet = 0;
         IncrementShip = 0;
         IncrementPlanet = 0;
