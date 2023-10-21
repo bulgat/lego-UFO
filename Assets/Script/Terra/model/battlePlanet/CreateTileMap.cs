@@ -4,19 +4,12 @@ using System.Collections.Generic;
 
 public class CreateTileMap 
 {
-	/*
-    public List<GameObject> _image_ar;
-    public CreateTileMap()
-    {
-        _image_ar = new List<GameObject>();
-    }
-	*/
-	public void DrawTileMap(int width, List<GridTileBar> Grid_ar, float SlipX, float SlipY,
-		LoadBibleImage loadBibleImage, bool Debug)
+
+	public void DrawTileMap(List<GridTileBar> Grid_ar)
 	{
 
 		//_image_ar = DeleteActorImage.DeleteActor( _image_ar);
-		int widthTile = new WidthTile().GetWidthTileOne(width, Grid_ar[Grid_ar.Count - 1].SpotX + 1);
+		//int widthTile = new WidthTile().GetWidthTileOne(Grid_ar[Grid_ar.Count - 1].SpotX + 1);
 
 		for (int GridRow = 0; GridRow < Grid_ar[Grid_ar.Count - 1].SpotX + 1; GridRow++)
 		{
@@ -45,11 +38,6 @@ public class CreateTileMap
 
 				}
 
-				
-
-
-			
-			//	ButtonActorListerner.SetClickListenerBuilder(imageTile, modelEvent, "");
 
 			}
 		}

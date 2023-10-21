@@ -15,6 +15,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.Threading;
+using UnityEngine.Analytics;
 
 
 public class strategChessView : MonoBehaviour
@@ -97,25 +98,53 @@ public class strategChessView : MonoBehaviour
     }
     void Fire()
     {
-        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId());
         Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
         fleetUnit.Shoot();
-       
-        //fleet.SetActive(false);
-       //var bullet =  Instantiate(Bullet);
-        // fleet.transform.position = new UnityEngine.Vector3(0,0,0);
-       // bullet.GetComponent<Rigidbody>().AddForce(transform.forward *20);
 
-        //bullet.transform.SetParent(fleet.transform);
-       // GameObject b = Instantiate(Bullet, transform.position, transform.rotation);
-       // b.GetComponent<Rigidbody>().AddForce(Vector3.forward * Power, ForceMode.Impulse);
     }
 
     void TurnStrateg()
     {
-       // Debug.Log("!!!!!!!!!  CommandPlayer  th PathLast.X  =  PathLast.   fleet id = ");
-     //   EventListeren.eventDispatchEvent(CommandState.Turn.ToString(), "");
-        GlobalConf.Turn();
+        
+        //   EventListeren.eventDispatchEvent(CommandState.Turn.ToString(), "");
+        //  GlobalConf.Turn();
+        ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
+        List<CommandStrategy> viewCommandList = BattlePlanetModel.GetBattlePlanetModelSingleton().AnimationCommand();
+
+        Debug.Log("!!!!!!!!!  CommandPlayer  th PathLast =  PathLast.   fleet  = "+ viewCommandList.Count);
+        AnimationMoveFiend(viewCommandList);
+    }
+    void AnimationMoveFiend(List<CommandStrategy> viewCommandList)
+    {
+        int count = 0;
+        foreach (var item in viewCommandList)
+        {
+            Debug.Log(" fleet =      State = " );
+            StartCoroutine(TurnAnimation(item,count));
+            count++;
+        }
+    }
+    public IEnumerator TurnAnimation(CommandStrategy commandStrategy,int countTime)
+    {
+
+        Debug.Log(" moveX = STOP= " );
+
+
+
+
+        yield return new WaitForSeconds(countTime*3);
+
+        var fleet = GetFleetView(commandStrategy.GridFleet.GetId());
+        Debug.Log(countTime+ "  pathMove "+fleet+"   = "+ commandStrategy.Id);
+        Fleet fleetUnit = fleet.GetComponent<Fleet>();
+        //Debug.Log(pathMove.PathList.Count + " SpotX = " + fleetUnit.SpotX + " = tile  SpotY = " + fleetUnit.SpotY);
+        //List<Point> pathMoveList = pathMove.PathList;
+        //pathMoveList.RemoveAt(0);
+        //PathMove pathMove = new PathMove();
+           var listPoint =  new List<Point>() {new Point(0,0) };
+
+        fleetUnit.StateMove = new StateMoveFleet(true, fleetUnit.SpotX, fleetUnit.SpotY, listPoint);
     }
 
     List<PathMove> GetPathList()
@@ -139,10 +168,10 @@ public class strategChessView : MonoBehaviour
 
         ControllerButton.EventCall(ControllerConstant.SelectHeroLeft, ControllerConstant.SelectHeroLeft, buttonEvent);
 List<PathMove> tilePathList = GetPathList();
-        changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
+        changefleetRotation(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(), tilePathList);
    
 
-        Debug.Log(" fleet = " + BattlePlanetModel.GetSelectHeroId() + "     State = " + buttonEvent.HeroFleet.GetId());
+        
     }
 
     void UnitPlayerRight()
@@ -152,27 +181,20 @@ List<PathMove> tilePathList = GetPathList();
         ButtonEvent buttonEvent = GetButtonEventHeoSelect();
         ControllerButton.EventCall(ControllerConstant.SelectHeroRight, ControllerConstant.SelectHeroRight, buttonEvent);
 List<PathMove> tilePathList = GetPathList();
-        changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
+        changefleetRotation(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(), tilePathList);
 
         
     }
     private ButtonEvent GetButtonEventHeoSelect()
     {
-        int selectHeroId = BattlePlanetModel.GetSelectHeroId();
-        GridFleet gridFleet = BattlePlanetModel.GetHeroWithId(MapWorldModel._prototypeHeroDemo.GetHeroFleet(), selectHeroId);
+        int selectHeroId = BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId();
+        GridFleet gridFleet = BattlePlanetModel.GetBattlePlanetModelSingleton().GetHeroWithId(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), selectHeroId);
         ButtonEvent buttonEvent = new ButtonEvent();
         buttonEvent.HeroFleet = gridFleet;
         return buttonEvent;
     }
 
-    //public void changefleetRotation(int floorId, List<PathMove> tileLevelPathList)
-    //{
 
-       // ClickMouseShipPlayerInstantiatePath(floorId, tileLevelPathList);
-
-
-
-    //}
     public void changefleetRotation(int id, List<PathMove> tileLevelPathList)
     {
 
@@ -196,7 +218,7 @@ List<PathMove> tilePathList = GetPathList();
                             {
                                 if (fleet.coordinate.x + point.PathLast.X < GlobalConf.widthMap && fleet.coordinate.y + point.PathLast.Y < GlobalConf.heightMap)
                                 {
-                                    Debug.Log(tileLevelPathList.First().FleetId+"  pathMoveList id = " + id);
+                                    
                                     GameObject tile = InstantiateCreatePathSelectMove(fleet, point, id);
                                     this.pathMoveList.Add(tile);
                                 }
@@ -230,7 +252,6 @@ List<PathMove> tilePathList = GetPathList();
     }
     GameObject GetFleetSceneWithId(int IdFleet)
     {
-        //GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
         GameObject[] shipObj_ar = GetAllFleetMap();
         GameObject fleet = GetFleetWithId(shipObj_ar, IdFleet);
         return fleet;
@@ -242,8 +263,7 @@ List<PathMove> tilePathList = GetPathList();
 
             Fleet fleetUnit = fleet.GetComponent<Fleet>();
 
-            //foreach (InfoFleet floor in GlobalConf.GetViewFleetList())
-          //  {
+
                 if (fleetUnit.id == IdFleet)
                 {
 
@@ -251,14 +271,24 @@ List<PathMove> tilePathList = GetPathList();
 
 
                 }
-           // }
-
 
 
         }
         return null;
     }
-
+    GameObject GetFleetView(int Id)
+    {
+        GameObject[] shipObj_ar = GetAllFleetMap();
+        foreach (GameObject FleetObj in shipObj_ar)
+        {
+            Fleet fleetUnit = FleetObj.GetComponent<Fleet>();
+            if (fleetUnit.id == Id)
+            {
+                return FleetObj;
+            }
+        }
+        return null;
+     }
     // показываем каждый раз флот.
     void DrawFleet()
     {
@@ -266,7 +296,6 @@ List<PathMove> tilePathList = GetPathList();
         MouseActivity();
 
         // move ship
-        //GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
         GameObject[] shipObj_ar = GetAllFleetMap();
         List<int> id_ar = new List<int>();
 
@@ -298,7 +327,7 @@ List<PathMove> tilePathList = GetPathList();
                 //var aimRotation = UnityEngine.Quaternion.LookRotation(new UnityEngine.Vector3(fleetUnit.GetState().GetFirstDestination().X, 0, fleetUnit.GetState().GetFirstDestination().Y) - new UnityEngine.Vector3(fleetObj.transform.position.x, 0, fleetObj.transform.position.z));
                 //fleetObj.transform.rotation = UnityEngine.Quaternion.RotateTowards(fleetObj.transform.rotation, aimRotation, 10);
                 fleetUnit.SetAnimation("move");
-               // fleetUnit.SetAnimation("gogo", 2, "gogo", 6);
+        
 
                 if (0.1f > dist)
                 {
@@ -309,7 +338,7 @@ List<PathMove> tilePathList = GetPathList();
                     }
 
 
-                    Debug.Log(BattlePlanetModel.GetSelectHeroId()+" moveX = STOP  move = " + fleetUnit.id);
+                    
 
                 }
 
@@ -343,7 +372,7 @@ List<PathMove> tilePathList = GetPathList();
         {
             if (!ViewPlanet.viewPlanetClick)
             {
-                //Message.message("Враг атаковал вашу планету!");
+
                 var textI = new JSONClass();
                 textI["image"] = "planet";
                 textI[CommandState.Message.ToString()] = "Враг атаковал вашу планету!";
@@ -379,7 +408,7 @@ List<PathMove> tilePathList = GetPathList();
     }
     public void MoveFleetAnimationState(PathMove pathMove)
     {
-        //GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");
+
         GameObject[] shipObj_ar = GetAllFleetMap();
 
 
@@ -421,10 +450,6 @@ List<PathMove> tilePathList = GetPathList();
 
                     continue;
                 }
-
-
-
-
             }
             if (!fleetYes)
             {
@@ -505,9 +530,6 @@ List<PathMove> tilePathList = GetPathList();
             if (hitObject.name == "Tile(Clone)")
             {
                 TilePath tileClass = hitObject.GetComponent<TilePath>();
-
-
-                //clickTile((int)tileClass.coordinat.x, (int)tileClass.coordinat.y, tileClass.id);
             }
             if (hitObject.name == "Planet(Clone)")
             {
@@ -535,7 +557,7 @@ List<PathMove> tilePathList = GetPathList();
     }
     void RotationSelectFleetOnTarget(Fleet targetFleetObj)
     {
-        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId());
         Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
         Debug.Log("d =    fleetUnit   First  Get modelFleet    First  GetState()  move ="  );
 
@@ -587,12 +609,7 @@ List<PathMove> tilePathList = GetPathList();
         }
         return null;
     }
-    /*
-    void resetSelectFleet()
-    {
-        viewPortButton = false;
-    }
-    */
+
     public void selectFleet(InfoFleet InnerSelectFleet)
     {
         GameObject[] shipObj_ar = GameObject.FindGameObjectsWithTag("fleet");

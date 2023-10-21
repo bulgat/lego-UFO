@@ -23,8 +23,7 @@ public class CaptureSeizureIsland
 					/*
 					CommandStrategy commandStrategy = new CommandStrategy();
 					commandStrategy.OldIslandFlag = isl.FlagId;
-					// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
-					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+
 					// capture island.
 					isl.FlagId =gridFleet.GetFlagId();
 					
@@ -33,7 +32,7 @@ public class CaptureSeizureIsland
 					*/
 					CommandStrategy commandStrategy = GetCommandCaptureIsland(isl, gridFleet);
 					CommandStrategy_ar.Add(commandStrategy);
-					// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	
 					// get money behind capture island.
 					SetPrizeIsland(DispositionCountry_ar, gridFleet.GetFlagId());
 				}
@@ -44,8 +43,7 @@ public class CaptureSeizureIsland
 	{
 		CommandStrategy commandStrategy = new CommandStrategy();
 		commandStrategy.OldIslandFlag = isl.FlagId;
-		// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
-		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+
 		// capture island.
 		isl.FlagId = gridFleet.GetFlagId();
 		commandStrategy.GridFleet = gridFleet;
@@ -58,7 +56,7 @@ public class CaptureSeizureIsland
 
 	public static void SetPrizeIsland(List<Country> DispositionCountry_ar, int flagId)
 	{
-		Country country = ContactStateProceeding.GetDispositionCountry(DispositionCountry_ar,
+		Country country = BattlePlanetModel.GetBattlePlanetModelSingleton()._contactStateProceeding.GetDispositionCountry(DispositionCountry_ar,
 				flagId);
 		if (country != null)
 		{

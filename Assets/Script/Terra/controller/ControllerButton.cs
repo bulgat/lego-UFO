@@ -17,7 +17,7 @@ public class ControllerButton
 		{
 			ButtonEvent stop = (ButtonEvent)EventButton;
 
-			SeaTactic.GetTactic().DeadArmUnitSeaTactic(stop);
+			SeaTactic.GetTactic().DeadArmUnitSeaTactic(stop, BattlePlanetModel.GetBattlePlanetModelSingleton());
 			return;
 		}
 	}
@@ -33,8 +33,8 @@ public class ControllerButton
 			{
 				if (ConstantName == ControllerConstant.Turn)
 				{
-					//SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
-					BattlePlanetModel.BattlePlanetTurn();
+
+					BattlePlanetModel.GetBattlePlanetModelSingleton().BattlePlanetTurn();
 
 					return;
 				}
@@ -59,13 +59,13 @@ public class ControllerButton
 				{
 					ButtonEvent stop = (ButtonEvent)EventButton;
 
-					BattlePlanetModel.GotoFragDropArmy();
+					BattlePlanetModel.GetBattlePlanetModelSingleton().GotoFragDropArmy();
 					return;
 				}
 				if (ConstantName ==ControllerConstant.Move.ToString())
 				{
 					// Sea tactic.
-					SeaTactic.GetTactic().TurnSeaTactic();
+					SeaTactic.GetTactic().TurnSeaTactic(BattlePlanetModel.GetBattlePlanetModelSingleton());
 					return;
 				}
 				if (ConstantName.Equals(ControllerConstant.BuyUnitDialog.ToString()))
@@ -136,7 +136,7 @@ public class ControllerButton
 				if (ConstantName.Equals(ControllerConstant.IslandSelectHero))
 				{
 					ButtonEvent island = (ButtonEvent)EventButton;
-					BattlePlanetModel.SelectIslandFleet(island.Island);
+					BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIslandFleet(island.Island);
 					return;
 				}
 
@@ -144,7 +144,7 @@ public class ControllerButton
 				{
 					ButtonEvent island = (ButtonEvent)EventButton;
 
-					BattlePlanetModel.GotoIsland(island.Island);
+					BattlePlanetModel.GetBattlePlanetModelSingleton().GotoIsland(island.Island);
 
 					return;
 				}
@@ -157,24 +157,24 @@ public class ControllerButton
 				///// Planet
 				if (ConstantName == ControllerConstant.Turn)
 				{
-					SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
-					BattlePlanetModel.BattlePlanetTurn();
+
+					BattlePlanetModel.GetBattlePlanetModelSingleton().BattlePlanetTurn();
 
 					return;
 				}
 				if (ConstantName == ControllerConstant.CloseIsland)
 				{
-					SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
-					BattlePlanetModel.GotoPlanetWorld();
+
+					BattlePlanetModel.GetBattlePlanetModelSingleton().GotoPlanetWorld();
 
 					return;
 				}
 				if (ConstantName == ControllerConstant.BuyIslandPurchaseUnit)
 				{
-					SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
+		
 					ButtonEvent buyUnit = (ButtonEvent)EventButton;
 
-					MapWorldModel.BuyUnit(buyUnit);
+					MapWorldModel.MapWorldModelSingleton().BuyUnit(buyUnit);
 					return;
 				}
 
@@ -182,23 +182,15 @@ public class ControllerButton
 
 				if (ConstantName == ControllerConstant.SelectHeroLeft)
 				{
-					//SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
-					//ButtonEvent buttonEvent = (ButtonEvent)EventButton;
 
-
-					//MapWorldModel.SelectHero(buttonEvent);
-					MapWorldModel.SelectHeroLeft();
+					MapWorldModel.MapWorldModelSingleton().SelectHeroLeft();
 
                     return;
 				}
 				if (ConstantName == ControllerConstant.SelectHeroRight)
 				{
-					//SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
-					//ButtonEvent buttonEvent = (ButtonEvent)EventButton;
-
-
-					//MapWorldModel.SelectHero(buttonEvent);
-                    MapWorldModel.SelectHeroRight();
+		
+                    MapWorldModel.MapWorldModelSingleton().SelectHeroLeft();
                     return;
 				}
 				if (ConstantName == ControllerConstant.SelectHero)
@@ -207,7 +199,7 @@ public class ControllerButton
 					ButtonEvent buttonEvent = (ButtonEvent)EventButton;
 
 					
-					MapWorldModel.SelectHero(buttonEvent);
+					MapWorldModel.MapWorldModelSingleton().SelectHero(buttonEvent);
 					return;
 				}
 
@@ -223,9 +215,9 @@ public class ControllerButton
 				}
 				if (ConstantName == ControllerConstant.PathHero)
 				{
-					ButtonEvent buttonEvent = (ButtonEvent)EventButton;
+					//ButtonEvent buttonEvent = (ButtonEvent)EventButton;
 
-					MapWorldModel.GotoHero(buttonEvent);
+					MapWorldModel.MapWorldModelSingleton().GotoHero(EventButton);
 					return;
 				}
 				if (ConstantName.Equals(ControllerConstant.SeaPathHero))
@@ -241,7 +233,7 @@ public class ControllerButton
 
 					ButtonEvent buttonEvent = (ButtonEvent)EventButton;
 
-					MapWorldModel.AttackHero(buttonEvent);
+					MapWorldModel.MapWorldModelSingleton().AttackHero(buttonEvent);
 					return;
 				}
 				if (ConstantName.Equals(ControllerConstant.SeaAttackHero))
@@ -265,16 +257,10 @@ public class ControllerButton
 			//System.out.println("ControllerButton=SetBlock=");
 		}
 	}
-	public static void SetCommandPerform(int CommandId)
+    public static void SetScenario(int ScenarioId)
 	{
-		MapWorldModel.PickUpCommandCaptureIsland(CommandId);
-	}
-	public static void SetBlock()
-	{
-		_blockCommand = true;
-	}
-	public static void UnlockBlock()
-	{
-		_blockCommand = false;
-	}
+        BattlePlanetModel.GetBattlePlanetModelSingleton().SetScenario(ScenarioId);
+    }
+
+    
 }

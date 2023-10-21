@@ -10,18 +10,18 @@ public class ExecuteCommandStrateg : IExecuteCommand
 	}
 	public void PrototypeHeroCreateFleet(CommandStrategy commandStrategy)
 	{
-		MapWorldModel._prototypeHeroDemo.GetHeroFleet().Add(commandStrategy.GridFleet);
+        BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet().Add(commandStrategy.GridFleet);
 	}
-	public void PerformCommandMoveFleet(CommandStrategy commandStrategy)
+	public void PerformCommandMoveFleet(CommandStrategy commandStrategy, PrototypeHeroDemo prototypeHeroDemo)
 	{
-		ModelStrategy.PerformCommandMoveFleet(MapWorldModel._prototypeHeroDemo, commandStrategy);
+		ModelStrategy.PerformCommandMoveFleet(prototypeHeroDemo, commandStrategy);
 	}
 	public void PerformAttackFleet(CommandStrategy commandStrategy, int CountTurn, int GlobalParamsGale)
 	{
 
 
 
-		ModelStrategy.PerformAttackFleetAction(MapWorldModel._prototypeHeroDemo, commandStrategy);
+		ModelStrategy.PerformAttackFleetAction(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo, commandStrategy);
 
 
 		// fiend attack
@@ -31,22 +31,22 @@ public class ExecuteCommandStrateg : IExecuteCommand
 			commandStrategy.GridFleet.SpotX = (int)commandStrategy.GridFleetOldPoint.X;
 			commandStrategy.GridFleet.SpotY = (int)commandStrategy.GridFleetOldPoint.Y;
 
-			MapWorldModel.GotoTactic(
+			MapWorldModel.MapWorldModelSingleton().GotoTactic(
 					commandStrategy.GridFleet.GetId(),
 					commandStrategy.GridFleetVictim.GetId(),
 					false,
-					commandStrategy.LongRange, CountTurn);
+					commandStrategy.LongRange, CountTurn, BattlePlanetModel.GetBattlePlanetModelSingleton());
 
 		}
 		else
 		{
 
 			// attack fiend
-			MapWorldModel.GotoTactic(
+			MapWorldModel.MapWorldModelSingleton().GotoTactic(
 					commandStrategy.GridFleetVictim.GetId(),
 					commandStrategy.GridFleet.GetId(),
 					true,
-					commandStrategy.LongRange, CountTurn);
+					commandStrategy.LongRange, CountTurn, BattlePlanetModel.GetBattlePlanetModelSingleton());
 
 		}
 	}

@@ -45,14 +45,14 @@ public class FieldArmyView : FieldArmyBasic
         GridCrewScience scienceUnit;
 
         SetUnitToField(widthStage, HeightStage,
-                shipPlayer, true, BattlePlanetModel.GetBasaPurchaseUnitScience(), tacticPlanetView);
+                shipPlayer, true, BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience(), tacticPlanetView);
 
         SetUnitToField(widthStage, HeightStage,
-                shipFiend, false, BattlePlanetModel.GetBasaPurchaseUnitScience(), tacticPlanetView);
+                shipFiend, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience(), tacticPlanetView);
 
         foreach (ArmUnit unit in shipFiend.GetArmUnitArray())
         {
-            scienceUnit = BattlePlanetModel.GetBasaPurchaseUnitScience()[unit.GetUnit()];
+            scienceUnit = BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience()[unit.GetUnit()];
 
 
         }
@@ -70,14 +70,14 @@ public class FieldArmyView : FieldArmyBasic
             ArmUnit armUnit = shipPlayer.GetArmUnitArray()[i];
             int numUnitImage = armUnit.GetUnit();
             int idUnit = armUnit.Id;
-            scienceUnit = BattlePlanetModel.GetBasaPurchaseUnitScience()[numUnitImage];
+            scienceUnit = BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience()[numUnitImage];
 
 
             // load texture unit
   
             ///tacticPlanetView.SetGameObject(numUnitImage * 3, idUnit);
 
-            UnitShipTexture unitShipTexture = new UnitShipTexture();
+            //UnitShipTexture unitShipTexture = new UnitShipTexture();
             UnitTypeShipView unitTypeShipView;/// = unitShipTexture.GetShipSea(numUnitImage, BasaPurchaseUnitScience_ar);
            // Image imageShip = null;
      

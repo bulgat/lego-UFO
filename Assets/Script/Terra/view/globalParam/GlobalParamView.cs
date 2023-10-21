@@ -12,7 +12,5 @@ public class GlobalParamView
 	public static string FleetGridMoveName = "FleetGridMove";
 	public static float sliderValue = 10.0f;
 	public static float Volume = 0.1f;
-	//public static TextureAtlas _shipAtlas;
-	//public static TextureAtlas _sideItemAtlas;
-	//public static Sprite _spriteLogo;
+
 }

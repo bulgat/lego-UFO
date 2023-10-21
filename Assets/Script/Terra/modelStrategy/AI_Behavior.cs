@@ -115,7 +115,7 @@ public class AI_Behavior
 		long DestinationNode_ID_Player = ((int)(pointAim.Y) * 100) + (int)(pointAim.X);
 		long StartNode_ID_Fiend = ((int)FiendPoint.Y * 100) + (int)FiendPoint.X;
 
-		int wallObstacle = BattlePlanetModel.ObstacleMap;
+		int wallObstacle = BattlePlanetModel.GetBattlePlanetModelSingleton().ObstacleMap;
 
 		List<SuperNode> pathBasa_ar = FINDPATH.findShortestPath(
 				StartNode_ID_Fiend,

@@ -1,62 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
+using ZedAngular.Model.Terra.scenario;
 
 public class BattlePlanetView 
 {
     CreateTileMap _createTileMap;
     private static BattlePlanetView _BattlePlanetView;
-    private static CommandStrategy _CommandStrategy;
-
-    public BattlePlanetView()
+    //private static CommandStrategy _CommandStrategy;
+    
+    public BattlePlanetView(BattlePlanetModel battlePlanetModel)
     {
-
-        MapWorldStartGame.StartGameFirstReset(new VictoryStipulation());
+        BattlePlanetModel._initGlobalParams = new InitGlobalParams(battlePlanetModel);
+        //new MapWorldStartGame().StartGameFirstReset(new VictoryStipulation(), new FactoryScenario().GetFactoryScenario(0), battlePlanetModel);
 
         
         _createTileMap = new CreateTileMap();
 
 
-        DrawAllMap(0, 0);
+        CreateTileMap();
 
-        
-
-    }
-    public BattlePlanetModel GetMapWorldStartGame()
-    {
-       // BattlePlanetModel _BattlePlanetModel
-        return BattlePlanetModel.GetBattlePlanetModelSingleton();
-    }
-    public CommandStrategy GetCommandStrategy() {
-        return _CommandStrategy;
-    }
-    public void SetCommandStrategy(CommandStrategy commandStrategy)
-    {
-        _CommandStrategy = commandStrategy;
-    }
-    public static bool NullBattlePlanetView()
-    {
-        return _BattlePlanetView==null;
     }
     public static BattlePlanetView GetBattlePlanetViewSingleton()
     {
-        if (_BattlePlanetView == null) {
-            _BattlePlanetView = new BattlePlanetView();
+        if (_BattlePlanetView == null)
+        {
+            // System.Diagnostics.Debug.WriteLine(" +  SpotX  = "+ kol);
+            _BattlePlanetView = new BattlePlanetView(BattlePlanetModel.GetBattlePlanetModelSingleton());
         }
         return _BattlePlanetView;
     }
+    
 
-        private void DrawAllMap(float WidthSceneAll, int WidthMap)
-    {
-        CreateTileMap(WidthMap,  BattlePlanetModel.GetGridTileList());
 
-    }
-    private void CreateTileMap(int WidthMap,  List<GridTileBar> GridTile_ar)
+    private void CreateTileMap()
     {
         
         
-        this._createTileMap.DrawTileMap((int)WidthMap, GridTile_ar,
-                BattleModel.GetUpheavalX(), BattleModel.GetUpheavalY(), null,  false);
+        this._createTileMap.DrawTileMap(BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList());
                 
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ArmUnit : ArmUnitShip
 {
 	GridCrewScience _gridCrewScience;
-	private List<GridCrewScience> basaPurchaseUnitScience_ar;
+	private BattlePlanetModel _battlePlanetModel;
 	public string Name;
 	public int Level;
 	public int Attack;
@@ -17,21 +17,21 @@ public class ArmUnit : ArmUnitShip
 	public bool LongRange;
 
 
-	public ArmUnit(List<GridCrewScience> BasaPurchaseUnitScience_ar, int unit, int customShip):base(BasaPurchaseUnitScience_ar[unit].IdImage)
+	public ArmUnit(BattlePlanetModel battlePlanetModel, int unit, int customShip):base(battlePlanetModel.GetBasaPurchaseUnitScience()[unit].IdImage)
 	{
-		this.basaPurchaseUnitScience_ar = BasaPurchaseUnitScience_ar;
-		_gridCrewScience = BasaPurchaseUnitScience_ar[unit];
-		Attack = BasaPurchaseUnitScience_ar[unit].Attack;
-		Defence = BasaPurchaseUnitScience_ar[unit].Defence;
-		Name = "pi_"+ BasaPurchaseUnitScience_ar[unit].SoundMusic;
+        _battlePlanetModel = battlePlanetModel;
+		_gridCrewScience = battlePlanetModel.GetBasaPurchaseUnitScience()[unit];
+		Attack = battlePlanetModel.GetBasaPurchaseUnitScience()[unit].Attack;
+		Defence = battlePlanetModel.GetBasaPurchaseUnitScience()[unit].Defence;
+		Name = "pi_"+ battlePlanetModel.GetBasaPurchaseUnitScience()[unit].SoundMusic;
 		// BasaPurchaseUnitScience_ar[unit].IdImage;
 
         SetUnit(unit);
-		Id = BattlePlanetModel.UnitId++;
-		Speed = BasaPurchaseUnitScience_ar[unit].StrategySpeed;
-		SoundMusic = BasaPurchaseUnitScience_ar[unit].SoundMusic;
-		LongRange = BasaPurchaseUnitScience_ar[unit].LongRange;
-		Sea = BasaPurchaseUnitScience_ar[unit].Sea;
+		Id = battlePlanetModel.GetIdUnit();
+		Speed = battlePlanetModel.GetBasaPurchaseUnitScience()[unit].StrategySpeed;
+		SoundMusic = battlePlanetModel.GetBasaPurchaseUnitScience()[unit].SoundMusic;
+		LongRange = battlePlanetModel.GetBasaPurchaseUnitScience()[unit].LongRange;
+		Sea = battlePlanetModel.GetBasaPurchaseUnitScience()[unit].Sea;
 
 		// ship sea
 		/*
@@ -47,7 +47,7 @@ public class ArmUnit : ArmUnitShip
 	}
 	public ArmUnit Copy()
 	{
-		ArmUnit armUnit = new ArmUnit(basaPurchaseUnitScience_ar, GetUnit(), 0);
+		ArmUnit armUnit = new ArmUnit(this._battlePlanetModel, GetUnit(), 0);
 		return armUnit;
 	}
 	public GridCrewScience GetUnitScience()

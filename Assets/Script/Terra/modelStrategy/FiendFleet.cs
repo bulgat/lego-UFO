@@ -19,7 +19,7 @@ public class FiendFleet
 		return null;
 	}
 
-	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+
 	// Get not our. get fiend island.
 	public static Island GetFiendIsland(List<Island> Island_ar, GridFleet GridFleet,
 			List<Country> DispositionCountry_ar)
@@ -28,8 +28,7 @@ public class FiendFleet
 		{
 			if (isl.FlagId != GridFleet.GetFlagId())
 			{
-				// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
-				// пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ?
+
 
 				if (isl.SpotX == GridFleet.SpotX && isl.SpotY == GridFleet.SpotY)
 				{
@@ -48,13 +47,13 @@ public class FiendFleet
 		}
 		return null;
 	}
-	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ. FlagFiend - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+	
 	public static List<Island> GetFlagIslandArray(List<Island> Island_ar, int FlagId, bool FlagFiend)
 	{
 		List<Island> islandFiend_ar = new List<Island>();
 		foreach (Island isl in Island_ar)
 		{
-			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+
 			if (FlagFiend)
 			{
 
@@ -65,7 +64,7 @@ public class FiendFleet
 			}
 			else
 			{
-				// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+	
 
 				if (isl.FlagId == FlagId)
 				{
@@ -116,7 +115,7 @@ public class FiendFleet
 		return false;
 	}
 
-	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+
 	public static GridFleet SearchHeroOne(int spotX, int spotZ, List<GridFleet> NameHero_ar,
 			int flagId, bool Fiend)
 	{
@@ -125,7 +124,7 @@ public class FiendFleet
 
 			if (CoordinateCoincidence(spotX, spotZ, NameHero_ar[S]))
 			{
-				// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+		
 				if (Fiend)
 				{
 					if (flagId != NameHero_ar[S].GetFlagId())
@@ -145,7 +144,7 @@ public class FiendFleet
 
 		return null;
 	}
-	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+
 	public static List<GridFleet> GetFiendHeroAllWar(int spotX, int spotY, int flagId,
 			List<GridFleet> NameHero_ar)
 	{
@@ -158,7 +157,7 @@ public class FiendFleet
 		}
 		return heroWar_ar;
 	}
-	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+
 	public static List<GridFleet> GetFiendHeroAll(int spotX, int spotY, int flagId,
 			List<GridFleet> NameHero_ar)
 	{

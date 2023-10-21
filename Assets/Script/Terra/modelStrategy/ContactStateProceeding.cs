@@ -4,15 +4,18 @@ using System.Collections.Generic;
 
 public class ContactStateProceeding 
 {
-	public static void InitContact(List<Country> DispositionCountry_ar)
+	public void InitContact(BattlePlanetModel battlePlanetModel)
 	{
-
-		foreach (Country country in DispositionCountry_ar)
+		if (battlePlanetModel.DispositionCountry_ar == null)
+		{
+			return;
+		}
+		foreach (Country country in battlePlanetModel.DispositionCountry_ar)
 		{
 			country.Contact_ar = new List<ContactState>();
 
-			// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
-			foreach (Country enemyCountry in DispositionCountry_ar)
+
+			foreach (Country enemyCountry in battlePlanetModel.DispositionCountry_ar)
 			{
 				if (country.IdCountry != enemyCountry.IdCountry)
 				{
@@ -22,7 +25,7 @@ public class ContactStateProceeding
 
 		}
 	}
-	public static void SetContactPeace(List<Country> DispositionCountry_ar,
+	public void SetContactPeace(List<Country> DispositionCountry_ar,
 			Point flagIdPoint, bool Peace)
 	{
 
@@ -32,7 +35,7 @@ public class ContactStateProceeding
 			contactState.Peace = Peace;
 		}
 	}
-	private static List<ContactState> GetContactArray(List<Country> DispositionCountry_ar, Point flagIdPoint)
+	private List<ContactState> GetContactArray(List<Country> DispositionCountry_ar, Point flagIdPoint)
 	{
 		int[] flagId_ar = { (int)flagIdPoint.X, (int)flagIdPoint.Y };
 		List<ContactState> contactState_ar = new List<ContactState>();
@@ -63,8 +66,8 @@ public class ContactStateProceeding
 		}
 		return contactState_ar;
 	}
-	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅ.
-	public static Country GetDispositionCountry(List<Country> DispositionCountry_ar,
+
+	public Country GetDispositionCountry(List<Country> DispositionCountry_ar,
 			int flagId)
 	{
 		foreach (Country country in DispositionCountry_ar)
@@ -76,7 +79,7 @@ public class ContactStateProceeding
 		}
 		return null;
 	}
-	public static Country GetPlayerCountryFollow(List<Country> DispositionCountry_ar,
+	public Country GetPlayerCountryFollow(List<Country> DispositionCountry_ar,
 			int flagId)
 	{
 		foreach (Country country in DispositionCountry_ar)
@@ -91,7 +94,7 @@ public class ContactStateProceeding
 		}
 		return null;
 	}
-	public static bool GetContactPeace(List<Country> DispositionCountry_ar,
+	public bool GetContactPeace(List<Country> DispositionCountry_ar,
 			Point flagIdPoint)
 	{
 		List<ContactState> contactState_ar = GetContactArray(DispositionCountry_ar, flagIdPoint);
@@ -106,8 +109,7 @@ public class ContactStateProceeding
 		return false;
 	}
 
-	// пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ?
-	public static bool ContactGlobalPeace(Country Country)
+	public bool ContactGlobalPeace(Country Country)
 	{
 		foreach (ContactState contactState in Country.Contact_ar)
 		{

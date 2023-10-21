@@ -40,7 +40,7 @@ public class AiReplaceFleet
 
 
 			List<long[]> map_ar_ar = ModelStrategy.PreparationMap(
-					GridTile_ar, MapWorldModel._prototypeHeroDemo.GetHeroFleet(),
+					GridTile_ar, BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(),
 					isl.FlagId, DispositionCountry_ar, false, false, Island_ar);
 
 

@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class UnitResultBattleTactic 
 {
 	public UnitResultBattleTactic() { }
-	public static ArmUnit CreatePseudoUnit(List<GridCrewScience> BasaPurchaseUnitScience_ar,
+	public static ArmUnit CreatePseudoUnit(BattlePlanetModel battlePlanetModel,
 
 			ArmUnit unit
 			)
 	{
 
-		ArmUnit armPsevdo = new ArmUnit(BasaPurchaseUnitScience_ar,
+		ArmUnit armPsevdo = new ArmUnit(battlePlanetModel,
 				unit.GetUnit(), 0
 				);
 		armPsevdo.Level = unit.Level;

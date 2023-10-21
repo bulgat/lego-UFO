@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-public class CommandStrategy : CommandStrategyView
+public class CommandStrategy 
 {
 	public enum Type { CaptureIsland, MoveFleet, AttackFleet, CreateFleet }
 	private static int idCount = 1;

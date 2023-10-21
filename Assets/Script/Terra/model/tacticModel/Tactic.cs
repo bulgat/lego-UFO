@@ -74,12 +74,12 @@ public class Tactic : BasicTactic
 	{
 		MeleeShip meleeShip = new MeleeShip();
 		meleeShip.ReleaseDead(_unitResultTactic_ar,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(),
+				BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience(),
 				GetPlayerFleet().GetShipNameFirst(),
 				GetFiendFleet().GetShipNameFirst()
 				);
 
-		StopBattleVictory(MapWorldModel._prototypeHeroDemo);
+		StopBattleVictory(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo);
 
 	}
 }

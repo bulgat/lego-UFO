@@ -40,6 +40,6 @@ public class BasicTactic
 
 	
 		// load scenr
-		MapWorldModel.GotoStrateg(model);
+		MapWorldModel.MapWorldModelSingleton().GotoStrateg(model);
 	}
 }

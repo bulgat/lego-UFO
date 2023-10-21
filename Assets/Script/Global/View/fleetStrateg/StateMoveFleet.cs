@@ -60,8 +60,7 @@ namespace Assets.Script.Global.View.fleetStrateg
             this.Y= deltaMoveY;
             this.MoveX = StrSpotX;
             this.MoveY = StrSpotY;
-            //this.DestinationX = destinationPointList.Last().X;
-            //this.DestinationY = destinationPointList.Last().Y;
+
             this.DestinationPointList = destinationPointList;
         }
     }

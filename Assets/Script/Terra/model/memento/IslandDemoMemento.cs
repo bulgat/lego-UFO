@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 
-public class IslandDemoMemento 
+public class IslandMemento 
 {
 	private List<Island> Island_ar { get; set; }
 	private int _id = 1;
 
-	public IslandDemoMemento()
+	public IslandMemento()
 	{
 		this.Island_ar = new List<Island>();
 	}
@@ -45,7 +46,7 @@ public class IslandDemoMemento
 	{
 		if (null == island)
 		{
-			throw new System.Exception("Not Island!");
+			throw new Exception("Not Island!");
 		}
 
 		island.Id = _id;

@@ -16,26 +16,10 @@ public class GridScenario1 : GridScenarioAbstract, IGridScenario
 		return Mission;
 	}
 
-	public void Init()
+	public void Init(BattlePlanetModel battlePlanetModel)
 	{
-		/*
-		BattlePlanetModel.ShoalSeaBasa_ar = new int[][]  {
-			  {0,0,0,0,0, 0,0,0,0,0, 0,1,4},
-			  {0,0,0,0,0, 0,0,0,0,0,0,4,8},
-			  {0,0,0,0,0, 0,0,0,0,0,0,0,11},
-			 {0,0,0,0,0, 0,0,0,0 ,0, 0,0,7},
-			  {0,0,0,0,0, 0,0,0,0 ,0, 0,0,0},
-			 {0,0,0,0,0, 0,0,0,0 ,0, 0,0,0},
-			  {0,0,0,0,0, 0,0,0,0 ,0, 0,0,0},
-			  {0,0,0,0,0, 0,0,0,0 ,0, 0,0,0},
-			  {0,0,0,0,0, 0,0,0,0 ,0, 0,0,0},
-			  {0,0,0,0,0, 0,0,0,0 ,0, 0,0,0},
-			  {0,0,0,0,0, 0,0,0,0,0,0,3,0},
-			  {0,0,0,0,0, 0,0,0,0,0,0,0,0},
-			  {0,0,0,0,0, 0,0,0,0,0,0,0,0}
-		 };
-		 */
-		BattlePlanetModel.SetShoalSeaBasa_ar( new List<List<int>>  {
+
+        battlePlanetModel.SetShoalSeaBasa_ar( new List<List<int>>  {
 			  new List<int>(){0,0,0,0,0, 0,0,0,0,0, 0,1,4},
 			  new List<int>(){0,0,0,0,0, 0,0,0,0,0,0,4,8},
 			  new List<int>(){0,0,0,0,0, 0,0,0,0,0,0,0,11},
@@ -51,48 +35,48 @@ public class GridScenario1 : GridScenarioAbstract, IGridScenario
 			 new List<int>() {0,0,0,0,0, 0,0,0,0,0,0,0,0}
 		 });
 
-		CreateGridScenario.AddCountry();
+        new CreateGridScenario().AddCountry(battlePlanetModel);
+        battlePlanetModel._prototypeHeroDemo.Reset();
 
+        MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Dion", 0, 2, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Madagascar", 2, 2, 1, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
 
-		MapWorldModel.GetIslandMemento().AddIsland(new Island("Dion", 0, 2, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
-		MapWorldModel.GetIslandMemento().AddIsland(new Island("Madagascar", 2, 2, 1, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Malta", 10, 0, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar[2].IdCountry));
 
-		MapWorldModel.GetIslandMemento().AddIsland(new Island("Malta", 10, 0, 0, false, BattlePlanetModel.DispositionCountry_ar[2].IdCountry));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetInit();
 
-		MapWorldModel._prototypeHeroDemo.HeroFleetInit();
-
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(2, 3,
-                BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(),
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(2, 3,
+                battlePlanetModel.GetFlagIdPlayer(),
 				"Ned", 0,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
+                battlePlanetModel, false, 0));
 
 
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(9, 4,
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(9, 4,
 				2, "Kligan", 2,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
+                battlePlanetModel, false, 0));
 
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(4, 6,
-                BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(),
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(4, 6,
+                battlePlanetModel.GetFlagIdPlayer(),
 				"Star", 1,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
+                battlePlanetModel, false, 0));
 
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(7, 2,
-				2, "Nemo2", 2, BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(7, 2,
+				2, "Nemo2", 2, battlePlanetModel, false, 0));
 
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(2, 1,
-                BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), "he-3", 2,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(1, 1,
-                BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), "hero4", 1,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(9, 1,
-				1, "h-5", 2, BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(9, 2,
-				1, "h-6", 2, BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(10, 3,
-				1, "h-7", 2, BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
-		MapWorldModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(10, 4,
-				1, "h-8", 2, BattlePlanetModel.GetBasaPurchaseUnitScience(), false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(2, 1,
+                battlePlanetModel.GetFlagIdPlayer(), "he-3", 2,
+                battlePlanetModel, false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(1, 1,
+                battlePlanetModel.GetFlagIdPlayer(), "hero4", 1,
+                battlePlanetModel, false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(9, 1,
+				1, "h-5", 2, battlePlanetModel, false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(9, 2,
+				1, "h-6", 2, battlePlanetModel, false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(10, 3,
+				1, "h-7", 2, battlePlanetModel, false, 0));
+        battlePlanetModel._prototypeHeroDemo.HeroFleetAdd(ModelStrategy.GetFleetFast(10, 4,
+				1, "h-8", 2, battlePlanetModel, false, 0));
 
 		List<Point> mountaun_ar = new List<Point>();
 		mountaun_ar.Add(new Point(3, 1));
@@ -113,11 +97,11 @@ public class GridScenario1 : GridScenarioAbstract, IGridScenario
 
 		List<Point> road_ar = new List<Point>();
 		List<Point> sea_ar = new List<Point>();
-		BattlePlanetModel.SetGridTileList( new CreateGridScenario().CreateGridInit(mountaun_ar, road_ar, sea_ar, 
-			BattlePlanetModel.GetShoalSeaBasa_ar()));
+        battlePlanetModel.SetGridTileList( new CreateGridScenario().CreateGridInit(mountaun_ar, road_ar, sea_ar,
+            battlePlanetModel.GetShoalSeaBasa_ar(), battlePlanetModel));
 
 
-		CreateGridScenario.AddUnhide();
+		new CreateGridScenario().AddUnhide(battlePlanetModel);
 		InitSetHeroSelect();
 	}
 	public int ImageMission()

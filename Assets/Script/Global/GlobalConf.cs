@@ -37,6 +37,7 @@ public static class GlobalConf
 
     // Блок для глобальной карты.
 
+
     //CameraBlock
     public static List<CameraBlock> BlockScreenScroll_ar = new List<CameraBlock>()
     {
@@ -51,19 +52,19 @@ public static class GlobalConf
     public static IEnumerable<ButtonEvent> GetPath()
     {
         //BattlePlanetView
-        List<ButtonEvent> buttonEventList = _BattlePlanetView.GetMapWorldStartGame().GetPathSelectHero(
-                            MapWorldModel._prototypeHeroDemo,
-                             BattlePlanetModel.GetShoalSeaBasa_ar(),
-                             MapWorldModel.GetIslandMemento(),
-                             BattlePlanetModel.GetGridTileList(),
+        List<ButtonEvent> buttonEventList = BattlePlanetModel.GetBattlePlanetModelSingleton().GetPathSelectHero(
+                            BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo,
+                             BattlePlanetModel.GetBattlePlanetModelSingleton().GetShoalSeaBasa_ar(),
+                             MapWorldModel.MapWorldModelSingleton().GetIslandMemento(),
+                             BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList(),
                              ControllerConstant.PathHero,
                              ControllerConstant.AttackHero,
                              false,
-                             null,
-                             null,
-                             0,
-                             0,
-                             BattlePlanetModel.GetSelectHeroId(),
+                            // null,
+                            // null,
+                            // 0,
+                             //0,
+                             BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(),
                              BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()
                              );
 
@@ -71,33 +72,27 @@ public static class GlobalConf
 
         return buttonEventList;
     }
-    public static void Turn()
-    {
-        ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
-    }
+    //public static void Turn()
+   // {
+       // ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
+   // }
     public static int GetIdSelectUnit()
     {
-        return BattlePlanetModel.GetSelectHeroId();
+        return BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId();
     }
-    /*
-    public static void TurnButtonClick()
-    {
 
-        ControllerButton.EventCall(ControllerConstant.Turn, ControllerConstant.Turn, null);
-    }
-    */
     public static List<InfoFleet> GetViewFleetList()
     {
-        List<GridTileBar> Grid_ar = BattlePlanetModel.GetGridTileList();
+        List<GridTileBar> Grid_ar = BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList();
 
 
-        List<GridFleet> gridFleet = MapWorldModel._prototypeHeroDemo.GetHeroFleet();
+        List<GridFleet> gridFleet = BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet();
         List<InfoFleet> viewUnitFleetList = new List<InfoFleet>();
         foreach (GridFleet item in gridFleet)
         {
             //viewUnitFleetList.Add(new InfoFleet(item.Image, item.GetShipNameFirst().GetFirstUnit().GetIdTypeShip(), item.SpotX, item.SpotY, item.GetCountUnitArm()));
             List<NewUnit> ship_ar = new List<NewUnit>();
-            foreach (var itemArm in item.GetShipNameFirst().GetArmUnitArray())
+            foreach (ArmUnit itemArm in item.GetShipNameFirst().GetArmUnitArray())
             {
                 ship_ar.Add(AddShipBasa(1, item.GetFlagId() == 9));
             }
@@ -110,7 +105,7 @@ public static class GlobalConf
     }
     public static IEnumerable<InfoPlanet> GetTownList()
     {
-        List<Island> islandList = MapWorldModel.GetIslandMemento().GetIslandArray();
+        List<Island> islandList = MapWorldModel.MapWorldModelSingleton().GetIslandMemento().GetIslandArray();
         List<InfoPlanet> viewIslandList = new List<InfoPlanet>();
         foreach (Island item in islandList)
         {
@@ -121,7 +116,7 @@ public static class GlobalConf
     }
     public static List<GridTileBar> GetGridTileList()
     {
-        List<GridTileBar> Grid_ar = BattlePlanetModel.GetGridTileList();
+        List<GridTileBar> Grid_ar = BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList();
         return Grid_ar;
     }
     public static void CreateGame()
@@ -137,7 +132,7 @@ public static class GlobalConf
     public static void ResetGame()
     {
         _BattlePlanetView = BattlePlanetView.GetBattlePlanetViewSingleton();
-        //fleet_ar = new List<InfoFleet>();
+
         IncrementFleet = 0;
         IncrementShip = 0;
         IncrementPlanet = 0;

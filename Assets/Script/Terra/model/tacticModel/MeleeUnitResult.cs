@@ -5,14 +5,14 @@ using System.Collections.Generic;
 public class MeleeUnitResult: UnitResultBattleTactic
 {
 	public static UnitResultTactic Add_Melee_Unit(
-			  List<GridCrewScience> BasaPurchaseUnitScience_ar,
+              BattlePlanetModel battlePlanetModel,
 			  GridFleet HeroFiend,
 			  GridFleet HeroPlayer,
 			  List<ArmUnit> CrewPLayer_ar,
 			  List<ArmUnit> CrewFiend_ar,
 			  bool MoveAi,
 			  bool LongRange,
-			  IslandDemoMemento islandDemoMemento
+			  IslandMemento islandDemoMemento
 			  )
 	{
 		if (CrewPLayer_ar.Count == 0 || CrewFiend_ar.Count == 0)
@@ -89,7 +89,7 @@ public class MeleeUnitResult: UnitResultBattleTactic
 
 
 			unitResultTactic = GetUnitResultTactic(robotResultMelee,
-					BasaPurchaseUnitScience_ar,
+                    battlePlanetModel,
 					CrewPLayer_ar,
 					CrewFiend_ar,
 					unitPlayer,
@@ -104,7 +104,7 @@ public class MeleeUnitResult: UnitResultBattleTactic
 
 	public static UnitResultTactic GetUnitResultTactic(
 			RobotResultMelee robotResultMelee,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar,
+            BattlePlanetModel battlePlanetModel,
 			List<ArmUnit> CrewPLayer_ar,
 			List<ArmUnit> CrewFiend_ar,
 			ArmUnit unitPlayer,
@@ -132,11 +132,11 @@ public class MeleeUnitResult: UnitResultBattleTactic
 			//dead fiend
 			DeadPlayer = false;
 
-			unitWinPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitWinPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitPlayer
 					);
 
-			unitDeadPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitDeadPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitFiend
 					);
 			// surrogat
@@ -147,10 +147,10 @@ public class MeleeUnitResult: UnitResultBattleTactic
 		{
 			//dead player
 			DeadPlayer = true;
-			unitWinPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitWinPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitFiend
 					);
-			unitDeadPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitDeadPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitPlayer
 					);
 			// surrogat	
@@ -182,7 +182,7 @@ public class MeleeUnitResult: UnitResultBattleTactic
 	}
 	public static UnitResultTactic GetUnitResultTacticSalvo(
 			RobotResultMelee robotResultMelee,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar,
+            BattlePlanetModel battlePlanetModel,
 			List<ArmUnit> CrewPLayer_ar,
 			List<ArmUnit> CrewFiend_ar,
 			ArmUnit unitPlayer,
@@ -208,11 +208,11 @@ public class MeleeUnitResult: UnitResultBattleTactic
 			//dead fiend
 			DeadPlayer = false;
 
-			unitWinPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitWinPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitPlayer
 					);
 
-			unitDeadPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitDeadPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitFiend
 					);
 			// surrogat
@@ -223,10 +223,10 @@ public class MeleeUnitResult: UnitResultBattleTactic
 		{
 			//dead player
 			DeadPlayer = true;
-			unitWinPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitWinPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitFiend
 					);
-			unitDeadPsevdo = CreatePseudoUnit(BasaPurchaseUnitScience_ar,
+			unitDeadPsevdo = CreatePseudoUnit(battlePlanetModel,
 					unitPlayer
 					);
 			// surrogat	

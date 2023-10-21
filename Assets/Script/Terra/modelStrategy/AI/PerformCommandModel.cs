@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 public class PerformCommandModel
 {
-	public static void PerformCommand(CommandStrategy commandStrategy)
+	public void PerformCommand(CommandStrategy commandStrategy)
 	{
 
 		if (commandStrategy.NameCommand == CommandStrategy.Type.CaptureIsland)
 		{
 
-			Island island = MapWorldModel.GetIslandMemento().GetIslandWithId(commandStrategy.CaptureIsland.Id);
+			Island island = MapWorldModel.MapWorldModelSingleton().GetIslandMemento().GetIslandWithId(commandStrategy.CaptureIsland.Id);
 			island.FlagId = commandStrategy.CaptureIsland.FlagId;
 
 			SetTurnDoneAndPower(commandStrategy.GridFleet);
 			// money?
-			ModelStrategy.SetPrizeIsland(BattlePlanetModel.DispositionCountry_ar, commandStrategy.CaptureIsland.FlagId);
+			ModelStrategy.SetPrizeIsland(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar, commandStrategy.CaptureIsland.FlagId);
 		}
 	}
-	public static void PerformCommandMoveFleet(PrototypeHeroDemo prototypeHeroDemo, CommandStrategy commandStrategy)
+	public void PerformCommandMoveFleet(PrototypeHeroDemo prototypeHeroDemo, CommandStrategy commandStrategy)
 	{
 		if (commandStrategy.GridFleet != null)
 		{
@@ -40,7 +40,7 @@ public class PerformCommandModel
 			}
 		}
 	}
-	public static void SetTurnDoneAndPower(GridFleet gridFleet)
+	public void SetTurnDoneAndPower(GridFleet gridFleet)
 	{
 		gridFleet.SetTurnDone(true);
 		gridFleet.PowerReserveChange(-1);

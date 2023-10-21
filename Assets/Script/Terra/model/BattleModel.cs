@@ -65,7 +65,7 @@ public class BattleModel
 	}
 	public static void WinPlayerBattle(string ChangeScene)
 	{
-		SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
+		//SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
 
 		LoadSceneChange.LoadSceneRotation("SampleScene");
 		// Battle
@@ -97,7 +97,7 @@ public class BattleModel
 	}
 	public static void InitMenuBattle()
 	{
-		SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
+		//SoundPlayPiano.PlaySound(MusicBibleConstant.Click);
 		//Main._main.InitMenuView();
 		LoadSceneChange.LoadSceneRotation("StartMenu");
 	}

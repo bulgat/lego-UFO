@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System;
 public class InitGlobalParams
 {
-	public List<GridCrewScience> UnitrewScience_ar = new List<GridCrewScience>()
+    public static String[] OfferNameHero_ar = new String[] { "fleet_00", "fleet_01", "fleet_02", "fleet_03", "fleet_04", "fleet_05", "fleet_06", "fleet_07", "fleet_08", "fleet_09", "fleet_10", "fleet_11", "fleet_12",
+        "fleet_13", "fleet_14", "fleet_15", "fleet_16", "fleet_17", "fleet_18", "fleet_19", "fleet_20",
+        "fleet_21", "fleet_22", "fleet_23", "fleet_24", "fleet_25", "fleet_26", "fleet_27", "fleet_28",
+        "fleet_29", "fleet_30" };
+    public List<GridCrewScience> UnitrewScience_ar = new List<GridCrewScience>()
 	{
         new GridCrewScience(0, 20, 20, 1, 1, 117, 53, "tank","tank", 0, 2, 2, false,
                 MusicBibleConstant.Cannon,
@@ -36,28 +40,28 @@ public class InitGlobalParams
     };
 
 
-    public InitGlobalParams()
+    public InitGlobalParams(BattlePlanetModel battlePlanetModel)
 	{
+        //BattlePlanetModel.GetBattlePlanetModelSingleton();
 
-		BattlePlanetModel.InitBasaPurchaseUnitScience();
+        battlePlanetModel.InitBasaPurchaseUnitScience();
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[0]);
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[0]);
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[1]);
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[1]);
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[2]);
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[2]);
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[3]);
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[3]);
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[4]);
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[4]);
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[5]);
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[5]);
 
-		BattlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[6]);
-
-				MapWorldModel._prototypeHeroDemo = new PrototypeHeroDemo();
-		MapWorldModel._prototypeHeroDemo.HeroFleetInit();
-		MapWorldModel.Init();
+        battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[6]);
+        MapWorldModel.MapWorldModelSingleton();
+    
+		
 
         //MapWorldModel._islandDemoMemento = new IslandDemoMemento();
 
@@ -70,18 +74,20 @@ public class InitGlobalParams
 		drakar.Goal.Add(new Point(824, 573));
 		drakar.Goal.Add(new Point(894, 573));
 
-		BattlePlanetModel.GoalTypeShip_ar = new List<GoalTypeShip>();
-		BattlePlanetModel.GoalTypeShip_ar.Add(drakar);
+        battlePlanetModel.GoalTypeShip_ar = new List<GoalTypeShip>();
+        battlePlanetModel.GoalTypeShip_ar.Add(drakar);
 
-		BattlePlanetModel.DispositionCountry_ar = new List<Country>();
+        battlePlanetModel.DispositionCountry_ar = new List<Country>();
 	}
+    /*
 	public static string GetOfferNameHero()
 	{
 		var rand = new System.Random();
 		//int num = (int)Math.floor(Math.random() * BattlePlanetModel.OfferNameHero_ar.length);
-		int num = rand.Next(BattlePlanetModel.OfferNameHero_ar.Length);
+		int num = rand.Next(InitGlobalParams.OfferNameHero_ar.Length);
 
 
-		return BattlePlanetModel.OfferNameHero_ar[num];
+		return InitGlobalParams.OfferNameHero_ar[num];
 	}
+    */
 }

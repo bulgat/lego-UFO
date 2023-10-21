@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 
 public class SeaTactic : BasicTactic
 {
@@ -22,46 +22,10 @@ public class SeaTactic : BasicTactic
 		return TacticSingleton;
 	}
 
-	public List<CommandStrategy> GetCommandStrategyList()
-	{
-		return _commandStrategy_ar;
-	}
-	public PrototypeHeroDemo GetPrototypeHeroDemo() {
-		return _prototypeHeroSea;
-	}
-	public int GetSeaSelectHeroId()
-	{
-		return SeaSelectHeroId;
-	}
-	public SeaTactic()
-	{
-		if (TacticSingleton == null)
-		{
-			_seaChangeStateView = true;
-			/*
-			shoalSea_ar = new int[6, 6]  {
-				  {0,0,0,0,0, 0},
-				  {0,0,0,0,0, 0},
-				  {0,0,0,0,0, 0},
-				 {0,0,0,0,0, 0},
-				  {0,0,0,0,0, 0},
-				 {0,0,0,0,0, 0}
-			 };
-			 */
-			InitShoalSeaList();
-	
 
 
-			
-TacticSingleton = this;
-		}
-		else 
-		{
-			
-		}
-		
-	}
-	private void InitShoalSeaList() {
+
+	private void InitShoalSeaList(BattlePlanetModel battlePlanetModel) {
 		shoalSea_ar = new List<List<int>>()
 		{
 			new List<int>() {0,0,0, 0,0,0, },
@@ -72,16 +36,16 @@ TacticSingleton = this;
 			new List<int>() {0,0,0, 0,0,0, },
 		};
 		SeaGridTile_ar = new CreateGridScenario().CreateGridInit(new List<Point>(),
-					   new List<Point>(), new List<Point>(), shoalSea_ar);
+					   new List<Point>(), new List<Point>(), shoalSea_ar,  battlePlanetModel);
 	}
 
-	public SeaTactic(GridFleet HeroFiend, GridFleet HeroPlayer, int CountTurn)
+	public SeaTactic(GridFleet HeroFiend, GridFleet HeroPlayer, int CountTurn, BattlePlanetModel battlePlanetModel)
 	{
 		if (TacticSingleton == null)
 		{
 
 			_globalParamsTimeQuick = 1000 + CountTurn * 1000;
-			InitShoalSeaList();
+			InitShoalSeaList( battlePlanetModel);
 
 			SetFiendFleet(HeroFiend);
 			SetPlayerFleet(HeroPlayer);
@@ -116,17 +80,17 @@ TacticSingleton = this;
 	public void GotoHero(ButtonEvent buttonEvent)
 	{
 
-		_commandStrategy_ar.AddRange(MapWorldModel.SetMoveCommand(buttonEvent));
+		_commandStrategy_ar.AddRange(MapWorldModel.MapWorldModelSingleton().SetMoveCommand(buttonEvent));
 
 	}
 	public void AttackHero(ButtonEvent buttonEvent)
 	{
 		buttonEvent.HeroFleet.SetAttackDone(true);
-		_commandStrategy_ar.Add(MapWorldModel.CommandAttackFleet(
+		_commandStrategy_ar.Add(MapWorldModel.MapWorldModelSingleton().CommandAttackFleet(
 				buttonEvent.HeroFleet, buttonEvent.VictimFleet, buttonEvent.LongRange));
 		_seaChangeStateView = true;
 	}
-	public void DeadArmUnitSeaTactic(ButtonEvent buttonEvent)
+	public void DeadArmUnitSeaTactic(ButtonEvent buttonEvent, BattlePlanetModel battlePlanetModel)
 	{
 		//System.out.println(buttonEvent.IdHero + "--Name  Dead  $$   ==================== -" + buttonEvent.IdHeroVictim);
 		// dead ship
@@ -136,15 +100,15 @@ TacticSingleton = this;
 		robot.DeadUnit(
 				buttonEvent.IdHero,
 				buttonEvent.IdHeroVictim,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(),
+				BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience(),
 				GetPlayerFleet().GetShipNameFirst(),
 					GetFiendFleet().GetShipNameFirst()
 				);
 
-		TurnSeaTacticPartial();
+		TurnSeaTacticPartial(battlePlanetModel);
 	}
 
-	public void TurnSeaTactic()
+	public void TurnSeaTactic(BattlePlanetModel battlePlanetModel)
 	{
 		
 		_globalParamsTimeQuick++;
@@ -152,10 +116,10 @@ TacticSingleton = this;
 		// add Power.
 		ModelStrategy.RefreshHeroPower(_prototypeHeroSea.GetHeroFleet(), true);
 		
-		TurnSeaTacticPartial();
+		TurnSeaTacticPartial(battlePlanetModel);
 
 	}
-	private void TurnSeaTacticPartial()
+	private void TurnSeaTacticPartial(BattlePlanetModel battlePlanetModel)
 	{
 
 		this._commandStrategy_ar = new List<CommandStrategy>();
@@ -174,7 +138,7 @@ TacticSingleton = this;
 		List<GridTileBar> GridSea_ar = new CreateGridScenario().CreateGridArray(shoalSea_ar);
 
 		SeaGridTile_ar = new CreateGridScenario().CreateGridInit(new List<Point>(),
-				new List<Point>(), new List<Point>(), shoalSea_ar);
+				new List<Point>(), new List<Point>(), shoalSea_ar,  battlePlanetModel);
 
 		List<GridFleet> copyNameHero_ar = _prototypeHeroSea.HeroFleetCopy();
 		// SetLongRange.
@@ -212,7 +176,7 @@ TacticSingleton = this;
 						copyNameHero_ar,
 						GridSea_ar,
 						new List<Island>(),
-						BattlePlanetModel.DispositionCountry_ar,
+						BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
 						_commandStrategy_ar,
 						ArmUnitFleet,
 						_globalParamsTimeQuick,
@@ -270,11 +234,25 @@ TacticSingleton = this;
 	public void PerformTacticCommand(int Id)
 	{
 		UsingCommand usingCommand = new UsingCommand();
-		_commandStrategy_ar = usingCommand.PickUpCommandCaptureIsland(new ExecuteCommandTactic(),
-				_commandStrategy_ar, Id, _globalParamsTimeQuick, _globalParamsGale);
+		CommandStrategy commandStrategy = GetCommandStrategyWithId(_commandStrategy_ar, Id);
 
-	}
-	public bool CheckVictory()
+
+        usingCommand.PickUpCommandCaptureIsland(
+                commandStrategy, _globalParamsTimeQuick, _globalParamsGale, _prototypeHeroSea);
+
+		_commandStrategy_ar.Remove(commandStrategy);
+
+
+    }
+    CommandStrategy GetCommandStrategyWithId(List<CommandStrategy> commandStrategy_ar, int Id)
+	{
+		return commandStrategy_ar.Where(a=>a.Id == Id).FirstOrDefault();
+
+    }
+
+
+
+    public bool CheckVictory()
 	{
 		if (GetPlayerFleet().GetShipNameFirst().GetArmUnitArray().Count == 0 ||
 				GetFiendFleet().GetShipNameFirst().GetArmUnitArray().Count == 0)

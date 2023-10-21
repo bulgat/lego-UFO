@@ -13,7 +13,7 @@ public class RobotSalvo
 			ArmUnit Unit_Player,
 			int TypeIsland,
 			bool MoveAi,
-			IslandDemoMemento islandDemoMemento,
+			IslandMemento islandDemoMemento,
 			int GlobalParamsTimeQuick,
 			int GlobalParamsGale
 		)

@@ -5,14 +5,14 @@ using System.Collections.Generic;
 public class GetIslandTacticLandscape 
 {
 	public static IslandTacticLandscapeModel GetIslandTacticLandscapeResult(
-			IslandDemoMemento islandDemoMemento,
+			IslandMemento islandDemoMemento,
 			GridFleet PlayerFleet,
 			GridFleet FiendFleet)
 	{
 		IslandTacticLandscapeModel islandTacticLandscapeModel = new IslandTacticLandscapeModel();
 
-		islandTacticLandscapeModel.PlayerIsland = BattlePlanetModel.GetIslandWithGridFleet(islandDemoMemento.GetIslandArray(), PlayerFleet);
-		islandTacticLandscapeModel.FiendIsland = BattlePlanetModel.GetIslandWithGridFleet(islandDemoMemento.GetIslandArray(), FiendFleet);
+		islandTacticLandscapeModel.PlayerIsland = BattlePlanetModel.GetBattlePlanetModelSingleton().GetIslandWithGridFleet(islandDemoMemento.GetIslandArray(), PlayerFleet);
+		islandTacticLandscapeModel.FiendIsland = BattlePlanetModel.GetBattlePlanetModelSingleton().GetIslandWithGridFleet(islandDemoMemento.GetIslandArray(), FiendFleet);
 
 		return islandTacticLandscapeModel;
 	}

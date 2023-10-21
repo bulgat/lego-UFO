@@ -6,7 +6,7 @@ public class CreateGridScenario
 {
 	public List<GridTileBar> CreateGridInit(List<Point> mountaun_ar,
 			  List<Point> road_ar,
-			  List<Point> sea_ar, List<List<int>> ShoalSeaBasa_ar)
+			  List<Point> sea_ar, List<List<int>> ShoalSeaBasa_ar, BattlePlanetModel battlePlanetModel)
 	{
 
 		int widthMap = 13;
@@ -18,18 +18,18 @@ public class CreateGridScenario
 
 		foreach (Point point in mountaun_ar)
 		{
-			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Terrain = BattlePlanetModel.ObstacleMap;
+			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Terrain = battlePlanetModel.ObstacleMap;
 			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Tile = 3;
 
         }
 		foreach (Point point in road_ar)
 		{
-			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Terrain = BattlePlanetModel.ObstacleRoadMap;
+			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Terrain = battlePlanetModel.ObstacleRoadMap;
 
 		}
 		foreach (Point point in sea_ar)
 		{
-			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Terrain = BattlePlanetModel.ObstacleSeaMap;
+			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Terrain = battlePlanetModel.ObstacleSeaMap;
 			GridTile_ar[(int)point.X * widthMap + (int)point.Y].Tile = 5;
 
         }
@@ -66,28 +66,28 @@ public class CreateGridScenario
 	{
 		ModelStrategy.EconomicReset();
 	}
-	public static void AddUnhide()
+	public void AddUnhide(BattlePlanetModel battlePlanetModel)
 	{
-		GridControl.GridSelect(BattlePlanetModel.GetGridTileList(), 0, 0).Hide = false;
-		GridControl.GridSelect(BattlePlanetModel.GetGridTileList(), 1, 0).Hide = false;
-		GridControl.GridSelect(BattlePlanetModel.GetGridTileList(), 0, 1).Hide = false;
-		GridControl.GridSelect(BattlePlanetModel.GetGridTileList(), 1, 1).Hide = false;
+		GridControl.GridSelect(battlePlanetModel.GetGridTileList(), 0, 0).Hide = false;
+		GridControl.GridSelect(battlePlanetModel.GetGridTileList(), 1, 0).Hide = false;
+		GridControl.GridSelect(battlePlanetModel.GetGridTileList(), 0, 1).Hide = false;
+		GridControl.GridSelect(battlePlanetModel.GetGridTileList(), 1, 1).Hide = false;
 	}
 
-	public static void AddCountry()
+	public void AddCountry(BattlePlanetModel battlePlanetModel)
 	{
-		BattlePlanetModel.DispositionCountry_ar = new List<Country>();
+        battlePlanetModel.DispositionCountry_ar = new List<Country>();
 
-		BattlePlanetModel.DispositionCountry_ar.Add(new Country(1, 1, 3, false));
-		BattlePlanetModel.DispositionCountry_ar.Add(new Country(BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(),
+        battlePlanetModel.DispositionCountry_ar.Add(new Country(1, 1, 3, false));
+        battlePlanetModel.DispositionCountry_ar.Add(new Country(battlePlanetModel.GetFlagIdPlayer(),
 				2, 30, true));
-		BattlePlanetModel.DispositionCountry_ar.Add(new Country(2, 0, 0, false));
+        battlePlanetModel.DispositionCountry_ar.Add(new Country(2, 0, 0, false));
 
 
-		ModelStrategy.InitContact(BattlePlanetModel.DispositionCountry_ar);
+		ModelStrategy.InitContact(battlePlanetModel);
 
-		ModelStrategy.SetContactPeace(BattlePlanetModel.DispositionCountry_ar, new Point(1, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()), false);
-		ModelStrategy.SetContactPeace(BattlePlanetModel.DispositionCountry_ar, new Point(2, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()), false);
+		ModelStrategy.SetContactPeace(battlePlanetModel, new Point(1, battlePlanetModel.GetFlagIdPlayer()), false);
+		ModelStrategy.SetContactPeace(battlePlanetModel, new Point(2, battlePlanetModel.GetFlagIdPlayer()), false);
 
 	}
 	public static string GetImageIcon(int UnitTypeId)
