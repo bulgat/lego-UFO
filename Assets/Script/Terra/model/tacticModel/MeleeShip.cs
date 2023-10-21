@@ -104,11 +104,11 @@ public class MeleeShip
 
 
 				UnitResultTactic unitResultTactic = MeleeUnitResult.Add_Melee_Unit(
-						BattlePlanetModel.GetBasaPurchaseUnitScience(),
+						BattlePlanetModel.GetBattlePlanetModelSingleton(),
 					HeroFiend, HeroPlayer,
 					CrewPLayer_ar, CrewFiend_ar,
 					MoveAi, LongRange,
-					MapWorldModel.GetIslandMemento());
+					MapWorldModel.MapWorldModelSingleton().GetIslandMemento());
 
 				unitResultTactic_ar.Add(unitResultTactic);
 				deadIdUnit_ar.Add(unitResultTactic.UnitIdDead);
@@ -165,18 +165,16 @@ public class MeleeShip
 		if (_countFrame == 1)
 		{
 			UnitResultTactic unitResultTactic = MeleeUnitResult.Add_Melee_Unit(
-					BattlePlanetModel.GetBasaPurchaseUnitScience(),
+					BattlePlanetModel.GetBattlePlanetModelSingleton(),
 					_heroFiend, _heroPlayer,
 					_shipOneNamePLayer.GetArmUnitArray(),
 					_shipOneNameFiend.GetArmUnitArray(),
 					Tactic.GetTactic().MoveAI, Tactic.GetTactic().LongRange,
-					MapWorldModel.GetIslandMemento());
+					MapWorldModel.MapWorldModelSingleton().GetIslandMemento());
 		}
 		if (_countFrame >= 25)
 		{
 
-			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ.
-			// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 			if (Tactic.GetTactic().DeadPlayer)
 			{
 
@@ -192,13 +190,13 @@ public class MeleeShip
 			{
 				if (_countDeadUnit >= _limitDeadUnit)
 				{
-					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ.
+
 					ButtonEvent model = new ButtonEvent();
 					model.MoveAI = Tactic.GetTactic().MoveAI;
 					//Tactic.GetTactic()._meleeShip = null;
 					model.IdHero = -1;
 
-					MapWorldModel.GotoStrateg(model);
+					MapWorldModel.MapWorldModelSingleton().GotoStrateg(model);
 				}
 			}
 			if (ThereIdMeleeUnit(_shipOneNamePLayer, _shipOneNameFiend))
@@ -210,7 +208,7 @@ public class MeleeShip
 			else
 			{
 				ButtonEvent model = SetEventEndTactic(_shipOneNamePLayer, _shipOneNameFiend);
-				MapWorldModel.GotoStrateg(model);
+				MapWorldModel.MapWorldModelSingleton().GotoStrateg(model);
 
 
 			}

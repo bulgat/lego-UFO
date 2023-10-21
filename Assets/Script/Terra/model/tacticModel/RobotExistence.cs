@@ -14,7 +14,7 @@ public class RobotExistence
 			ArmUnit Unit_Player,
 			int TypeIsland,
 			bool MoveAi,
-			IslandDemoMemento islandDemoMemento
+			IslandMemento islandDemoMemento
 		)
 	{
 

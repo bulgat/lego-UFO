@@ -5,6 +5,6 @@ public class UnitTech
 {
 	public static GridCrewScience GetUnit(int Index)
 	{
-		return BattlePlanetModel.GetBasaPurchaseUnitScience()[Index];
+		return BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience()[Index];
 	}
 }

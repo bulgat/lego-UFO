@@ -11,10 +11,11 @@ public class ExecuteCommandTactic : IExecuteCommand
 	{
 
 	}
-	public void PerformCommandMoveFleet(CommandStrategy commandStrategy)
+	public void PerformCommandMoveFleet(CommandStrategy commandStrategy, PrototypeHeroDemo prototypeHeroDemo)
 	{
-		ModelStrategy.PerformCommandMoveFleet(SeaTactic.GetTactic()._prototypeHeroSea, commandStrategy);
-	}
+        //ModelStrategy.PerformCommandMoveFleet(SeaTactic.GetTactic()._prototypeHeroSea, commandStrategy);
+        ModelStrategy.PerformCommandMoveFleet(prototypeHeroDemo, commandStrategy);
+    }
 	public void PerformAttackFleet(CommandStrategy commandStrategy, int CountTurn, int GlobalParamsGale)
 	{
 
@@ -38,7 +39,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 
 			meleeShip.ReleaseDead(
 					commandStrategy.unitResultTactic_ar,
-					BattlePlanetModel.GetBasaPurchaseUnitScience(),
+					BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience(),
 					SeaTactic.GetTactic().GetPlayerFleet().GetShipNameFirst(),
 					SeaTactic.GetTactic().GetFiendFleet().GetShipNameFirst());
 
@@ -89,7 +90,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 						armUnitPlayer,
 						0,
 						true,
-						new IslandDemoMemento(),
+						new IslandMemento(),
 						GlobalParamsTimeQuick,
 						GlobalParamsGale);
 			}
@@ -104,7 +105,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 						armUnitPlayer,
 						0,
 						true,
-						new IslandDemoMemento()
+						new IslandMemento()
 					);
 			}
 			moveAi = true;
@@ -131,7 +132,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 						armUnitPlayer,
 						0,
 						false,
-						new IslandDemoMemento(),
+						new IslandMemento(),
 						GlobalParamsTimeQuick,
 						GlobalParamsGale);
 			}
@@ -148,7 +149,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 						armUnitPlayer,
 						0,
 						false,
-						new IslandDemoMemento()
+						new IslandMemento()
 				);
 			}
 			moveAi = false;
@@ -169,7 +170,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 			// salvo.
 			unitResultTactic = MeleeUnitResult.GetUnitResultTacticSalvo(
 					robotResultMelee,
-					BattlePlanetModel.GetBasaPurchaseUnitScience(),
+					BattlePlanetModel.GetBattlePlanetModelSingleton(),
 					SeaTactic.GetTactic().GetPlayerFleet().GetShipNameFirst().GetArmUnitArray(),
 					SeaTactic.GetTactic().GetFiendFleet().GetShipNameFirst().GetArmUnitArray(),
 					armUnitPlayer,
@@ -184,7 +185,7 @@ public class ExecuteCommandTactic : IExecuteCommand
 		{
 			unitResultTactic = MeleeUnitResult.GetUnitResultTactic(
 				robotResultMelee,
-				BattlePlanetModel.GetBasaPurchaseUnitScience(),
+				BattlePlanetModel.GetBattlePlanetModelSingleton(),
 				SeaTactic.GetTactic().GetPlayerFleet().GetShipNameFirst().GetArmUnitArray(),
 				SeaTactic.GetTactic().GetFiendFleet().GetShipNameFirst().GetArmUnitArray(),
 				armUnitPlayer,

@@ -77,23 +77,8 @@ public class MendMoveShip
 									DispositionCountry_ar, CoordinateSearch.GetXmapNear(true));
 							if (pointLongRange != null)
 							{
-								/*
-								TimeSalvoAppendHit timeSalvoAppendHit = new TimeSalvoAppendHit ();
-
-								int Distance = (int)ModelStrategy.GetDistance(
-										new Point(gridFleet.SpotX,gridFleet.SpotY),
-										pointLongRange);
-
-								ArrayList<ShipCapsule> cannonAbleList=timeSalvoAppendHit.GetCannonAbleList(Distance, ArmUnitFleet.ShipCapsuleList,
-										GlobalParamsTimeQuick,GlobalParamsGale);
-								*/
-								/*
-								ArrayList<ShipCapsule> cannonAbleList=new MendMoveAbleFire().GetAbleFireWithDistance(gridFleet,
-										pointLongRange,ArmUnitFleet,
-										GlobalParamsTimeQuick,GlobalParamsGale
-										);
-								*/
-								//if(cannonAbleList.size()>0) {
+								
+			
 								if (new MendMoveAbleFire().DetermineAbleFire(gridFleet,
 										pointLongRange, ArmUnitFleet,
 										GlobalParamsTimeQuick, GlobalParamsGale
@@ -102,7 +87,7 @@ public class MendMoveShip
 									fleetVictim = GetFleetVictim(NameHero_ar, pointLongRange);
 									return GetAttackMoveFleet(fleetVictim, true, null);
 								}
-								//}
+				
 
 							}
 						}
@@ -132,7 +117,7 @@ public class MendMoveShip
 
 				}
 
-				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+
 				// Get not our. get fiend island.
 				CaptureSeizureIsland.CaptureIsland(Island_ar, gridFleet,
 						NameHero_ar,
@@ -141,7 +126,7 @@ public class MendMoveShip
 
 				fleetVictim = GetFleetVictimSpecial(gridFleet,
 							NameHero_ar, CommandStrategy_ar);
-				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ?
+
 				if (fleetVictim != null)
 				{
 

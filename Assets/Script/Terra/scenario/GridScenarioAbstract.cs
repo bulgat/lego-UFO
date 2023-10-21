@@ -8,7 +8,7 @@ using System.Threading.Tasks;
     public class GridScenarioAbstract
     {
     public void InitSetHeroSelect() {
-        MapWorldModel .DeadHero();
+        MapWorldModel.MapWorldModelSingleton() .DeadHero();
     }
     }
 

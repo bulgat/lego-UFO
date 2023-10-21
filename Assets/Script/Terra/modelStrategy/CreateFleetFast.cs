@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class CreateFleetFast 
 {
-	public static GridFleet GetFleetFast(int SpotX, int SpotY, int FlagId, string image,
-			string Name, int UnitTypeId, List<GridCrewScience> BasaPurchaseUnitScience_ar,
+	public GridFleet GetFleetFast(int SpotX, int SpotY, int FlagId, string image,
+			string Name, int UnitTypeId, BattlePlanetModel battlePlanetModel,
+            //List<GridCrewScience> BasaPurchaseUnitScience_ar,
 			bool AddOne, int customShip)
 	{
 
@@ -15,31 +16,31 @@ public class CreateFleetFast
 		ShipUnit shipPlayer = new ShipUnit();
 		if (AddOne)
 		{
-			shipPlayer.GetArmUnitArray().Add(new ArmUnit(BasaPurchaseUnitScience_ar, UnitTypeId, customShip));
+			shipPlayer.GetArmUnitArray().Add(new ArmUnit(battlePlanetModel, UnitTypeId, customShip));
 		}
 		else
 		{
 			for (int i = 0; i < BattlePlanetModel.SizeSquad; i++)
 			{
-				shipPlayer.GetArmUnitArray().Add(new ArmUnit(BasaPurchaseUnitScience_ar, UnitTypeId, customShip));
+				shipPlayer.GetArmUnitArray().Add(new ArmUnit(battlePlanetModel, UnitTypeId, customShip));
 			}
 		}
 
 
 		heroPlayer.AddShipName(shipPlayer);
-		heroPlayer.SetId(BattlePlanetModel.FleetId);
-		BattlePlanetModel.FleetId += 1;
+		heroPlayer.SetId(battlePlanetModel.GetIdUnit());
+
 
 		return heroPlayer;
 	}
 
 
-	public static void FleetAddArmFast(GridFleet heroPlayer, int UnitTypeId,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar, int customShip)
+	public void FleetAddArmFast(GridFleet heroPlayer, int UnitTypeId,
+            BattlePlanetModel battlePlanetModel, int customShip)
 	{
 		//System.out.println("init harbor_____ map SeaShip Slip ==  " + heroPlayer);
 		ShipUnit shipPlayer = heroPlayer.GetShipName();
 
-		shipPlayer.GetArmUnitArray().Add(new ArmUnit(BasaPurchaseUnitScience_ar, UnitTypeId, customShip));
+		shipPlayer.GetArmUnitArray().Add(new ArmUnit(battlePlanetModel, UnitTypeId, customShip));
 	}
 }

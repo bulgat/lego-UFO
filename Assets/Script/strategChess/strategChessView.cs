@@ -97,7 +97,7 @@ public class strategChessView : MonoBehaviour
     }
     void Fire()
     {
-        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId());
         Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
         fleetUnit.Shoot();
        
@@ -139,10 +139,10 @@ public class strategChessView : MonoBehaviour
 
         ControllerButton.EventCall(ControllerConstant.SelectHeroLeft, ControllerConstant.SelectHeroLeft, buttonEvent);
 List<PathMove> tilePathList = GetPathList();
-        changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
+        changefleetRotation(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(), tilePathList);
    
 
-        Debug.Log(" fleet = " + BattlePlanetModel.GetSelectHeroId() + "     State = " + buttonEvent.HeroFleet.GetId());
+        Debug.Log(" fleet = " + BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId() + "     State = " + buttonEvent.HeroFleet.GetId());
     }
 
     void UnitPlayerRight()
@@ -152,14 +152,14 @@ List<PathMove> tilePathList = GetPathList();
         ButtonEvent buttonEvent = GetButtonEventHeoSelect();
         ControllerButton.EventCall(ControllerConstant.SelectHeroRight, ControllerConstant.SelectHeroRight, buttonEvent);
 List<PathMove> tilePathList = GetPathList();
-        changefleetRotation(BattlePlanetModel.GetSelectHeroId(), tilePathList);
+        changefleetRotation(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(), tilePathList);
 
         
     }
     private ButtonEvent GetButtonEventHeoSelect()
     {
-        int selectHeroId = BattlePlanetModel.GetSelectHeroId();
-        GridFleet gridFleet = BattlePlanetModel.GetHeroWithId(MapWorldModel._prototypeHeroDemo.GetHeroFleet(), selectHeroId);
+        int selectHeroId = BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId();
+        GridFleet gridFleet = BattlePlanetModel.GetBattlePlanetModelSingleton().GetHeroWithId(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), selectHeroId);
         ButtonEvent buttonEvent = new ButtonEvent();
         buttonEvent.HeroFleet = gridFleet;
         return buttonEvent;
@@ -309,7 +309,7 @@ List<PathMove> tilePathList = GetPathList();
                     }
 
 
-                    Debug.Log(BattlePlanetModel.GetSelectHeroId()+" moveX = STOP  move = " + fleetUnit.id);
+                    Debug.Log( " moveX = STOP  move = " + fleetUnit.id);
 
                 }
 
@@ -535,7 +535,7 @@ List<PathMove> tilePathList = GetPathList();
     }
     void RotationSelectFleetOnTarget(Fleet targetFleetObj)
     {
-        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetSelectHeroId());
+        var fleetObj = GetFleetSceneWithId(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId());
         Fleet fleetUnit = fleetObj.GetComponent<Fleet>();
         Debug.Log("d =    fleetUnit   First  Get modelFleet    First  GetState()  move ="  );
 

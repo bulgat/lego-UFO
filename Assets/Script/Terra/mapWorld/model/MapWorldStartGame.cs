@@ -1,59 +1,58 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ZedAngular.Model.Terra.scenario;
 
 public class MapWorldStartGame 
 {
-	public static void StartGameFirstReset(VictoryStipulation VictoryScenario)
+	public void StartGameFirstReset(VictoryStipulation VictoryScenario, IGridScenario gridScenario, BattlePlanetModel battlePlanetModel)
 	{
-		BattlePlanetModel._initGlobalParams = new InitGlobalParams();
-		VictoryScenario.Scenario = new GridScenario();
-
-		VictoryScenario.Scenario.Init();
+        System.Diagnostics.Debug.WriteLine("01 isla = ");
+        VictoryScenario.Scenario = gridScenario;
+        VictoryScenario.Scenario.Init(battlePlanetModel);
 
 	}
-	public static bool StartGameChange(VictoryStipulation VictoryScenario)
+	public bool StartGameChange(VictoryStipulation VictoryScenario,BattlePlanetModel battlePlanetModel)
 	{
 
 		if (VictoryScenario.Dual)
 		{
-			// hak
-			BattlePlanetModel.VictoryScenario.ScenarioNumber = 0;
-			VictoryScenario.Scenario = new GridScenario();
-			VictoryScenario.Scenario.Init();
-			BattlePlanetModel.VictoryScenario.Dual = false;
+            // hak
+            battlePlanetModel.VictoryScenario.ScenarioNumber = 0;
+			VictoryScenario.Scenario = new FactoryScenario().GetFactoryScenario(0);
+			VictoryScenario.Scenario.Init(battlePlanetModel);
+            battlePlanetModel.VictoryScenario.Dual = false;
 			VictoryScenario.ReturnStart = true;
-			////Main._victoryWin.SetVictoryImage(GraficBibleConstant.VictoryWin);
-			//Main.stateGame = MainFormat.VICTORY_WIN;
-			MapWorldModel.SetStateGame(MainFormat.VICTORY_WIN);
+		
+			MapWorldModel.MapWorldModelSingleton().SetStateGame(MainFormat.VICTORY_WIN);
 			return false;
 		}
 		if (VictoryScenario.ScenarioNumber == 0)
 		{
-			StartGameFirstReset(VictoryScenario);
-			//VictoryScenario.Scenario = new GridScenario();
-			//VictoryScenario.Scenario.Init();
+            BattlePlanetModel._initGlobalParams = new InitGlobalParams(battlePlanetModel);
+            StartGameFirstReset(VictoryScenario, new FactoryScenario().GetFactoryScenario(0), battlePlanetModel);
+
 		}
 		if (VictoryScenario.ScenarioNumber == 1)
 		{
-			VictoryScenario.Scenario = new GridScenario1();
-			VictoryScenario.Scenario.Init();
+            StartGameFirstReset(VictoryScenario, new FactoryScenario().GetFactoryScenario(1), battlePlanetModel);
+
 		}
 		if (VictoryScenario.ScenarioNumber == 2)
 		{
-			VictoryScenario.Scenario = new GridScenario2();
-			VictoryScenario.Scenario.Init();
+            StartGameFirstReset(VictoryScenario, new FactoryScenario().GetFactoryScenario(2), battlePlanetModel);
+
 		}
 		if (VictoryScenario.ScenarioNumber == 3)
 		{
-			VictoryScenario.Scenario = new GridScenario3();
-			VictoryScenario.Scenario.Init();
+            StartGameFirstReset(VictoryScenario, new FactoryScenario().GetFactoryScenario(3), battlePlanetModel);
+
 		}
 
 		// default
 		if (VictoryScenario.ScenarioNumber > 3)
 		{
 
-			StartGameFirstReset(VictoryScenario);
+			StartGameFirstReset(VictoryScenario, new FactoryScenario().GetFactoryScenario(4), battlePlanetModel);
 
 			return true;
 		}
@@ -64,16 +63,17 @@ public class MapWorldStartGame
 
 		return false;
 	}
-	public static void StartGameDual(VictoryStipulation VictoryScenario)
+
+	public void StartGameDual(VictoryStipulation VictoryScenario,BattlePlanetModel battlePlanetModel)
 	{
 
 		VictoryScenario.ScenarioNumber = 3;
 		VictoryScenario.Dual = true;
 
-		VictoryScenario.Scenario = new GridScenario3();
-		VictoryScenario.Scenario.Init();
+		VictoryScenario.Scenario = new FactoryScenario().GetFactoryScenario(3);
+		VictoryScenario.Scenario.Init(battlePlanetModel);
 
-		BattlePlanetModel.DispositionCountry_ar[2].PlayerControl = true;
+        battlePlanetModel.DispositionCountry_ar[2].PlayerControl = true;
 
 	}
 }

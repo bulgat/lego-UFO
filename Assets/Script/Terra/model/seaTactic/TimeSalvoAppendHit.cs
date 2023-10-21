@@ -331,7 +331,7 @@ public class TimeSalvoAppendHit
 		//int DetrimentRandom = (int)Math.floor(Math.random() * Detriment) + 1 + DetrimentMin;
 
 		//заодно записать время выстрела
-		shipCannon.TimeQuick = MapWorldModel.TimeQuick;
+		shipCannon.TimeQuick = MapWorldModel.MapWorldModelSingleton().TimeQuick;
 
 		return DetrimentRandom;
 

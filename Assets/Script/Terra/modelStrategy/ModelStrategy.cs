@@ -4,14 +4,129 @@ using System.Collections.Generic;
 using System;
 public class ModelStrategy 
 {
-	public static GridTileBar GetOneGrid(List<GridTileBar> Grid_ar, int GridRow, int GridLine)
+    public static ButtonEvent GreatImpDrivingAI(
+            List<Country> DispositionCountry_ar,
+            int FlagIdHero,
+            List<GridFleet> NameHero_ar,
+            List<GridTileBar> Grid_ar,
+            List<Island> Island_ar,
+            List<List<int>> ShoalSeaBasa_ar,
+            //List<GridCrewScience> BasaPurchaseUnitScience_ar,
+            BattlePlanetModel battlePlanetModel,
+            int HeroMax,
+            List<CommandStrategy> CommandStrategy_ar,
+            List<GridTileBar> GridTile_ar
+            )
+    {
+        for (int Imperial = 0; Imperial < DispositionCountry_ar.Count; Imperial++)
+        {
+
+            // unPlayer turn
+            if (DispositionCountry_ar[Imperial].PlayerControl != true)
+            {
+
+                // peace
+                if (BattlePlanetModel.GetBattlePlanetModelSingleton()._contactStateProceeding.ContactGlobalPeace(DispositionCountry_ar[Imperial]))
+                {
+
+
+                    MendMovePeaceShip.moveFiend_MIR(DispositionCountry_ar[Imperial], NameHero_ar, Island_ar,
+                            DispositionCountry_ar, Grid_ar, CommandStrategy_ar);
+
+                }
+                else
+                {
+                    // war
+
+                    ButtonEvent buttonEvent = WarMove(DispositionCountry_ar, Imperial, NameHero_ar, Grid_ar,
+                        Island_ar, CommandStrategy_ar);
+                    if (buttonEvent != null)
+                    {
+                        return buttonEvent;
+
+                    }
+
+
+
+                }
+
+                GridFleet fleet = RefillHero(DispositionCountry_ar[Imperial],
+                        NameHero_ar, Island_ar, ShoalSeaBasa_ar,
+                        DispositionCountry_ar, battlePlanetModel, HeroMax, GridTile_ar);
+
+                if (fleet != null)
+                {
+                    CommandStrategy commandStrategy = new CommandStrategy();
+                    commandStrategy.NameCommand = CommandStrategy.Type.CreateFleet;
+                    commandStrategy.GridFleet = fleet;
+
+                    CommandStrategy_ar.Add(commandStrategy);
+
+                }
+            }
+
+        }
+
+        return null;
+    }
+    public static ButtonEvent WarMove(List<Country> DispositionCountry_ar, int Imperial, List<GridFleet> NameHero_ar,
+        List<GridTileBar> Grid_ar, List<Island> Island_ar, List<CommandStrategy> CommandStrategy_ar)
+    {
+        List<GridFleet> DispositionCountryNameHero_ar
+                    = FiendFleet.GetHeroAll(DispositionCountry_ar[Imperial].IdCountry, NameHero_ar);
+
+        foreach (GridFleet gridFleet in DispositionCountryNameHero_ar)
+        {
+
+            if (gridFleet.GetTurnDone())
+            {
+
+            }
+            else
+            {
+
+                // old point 
+                Point oldPoint = new Point(gridFleet.SpotX, gridFleet.SpotY);
+
+                // move and search attack enemy.
+                AttackMoveFleet attackMoveFleet = MendMoveShip.PlaceFiendX(
+                        gridFleet,
+                        NameHero_ar,
+                        Grid_ar,
+                        Island_ar,
+                        DispositionCountry_ar, CommandStrategy_ar, null, 0, 0);
+
+
+                FleetSacrifive fleetSacrifive = SetFleetSacrifive(attackMoveFleet,
+                        gridFleet, oldPoint);
+                GridFleet heroPlayerSacrifive = fleetSacrifive.HeroPlayerSacrifive;
+                oldPoint = fleetSacrifive.OldPoint;
+
+                if (heroPlayerSacrifive != null)
+                {
+                    // command Attack fleet 
+
+                    CommandStrategy_ar.Add(GetCommandAttack(gridFleet, heroPlayerSacrifive,
+                            attackMoveFleet, oldPoint));
+
+
+
+                    return AgentEvent.GetButtonEventModelMeeleeFleet(heroPlayerSacrifive,
+                            gridFleet, true, attackMoveFleet.LongRange);
+
+                }
+            }
+        }
+        return null;
+    }
+    public static GridTileBar GetOneGrid(List<GridTileBar> Grid_ar, int GridRow, int GridLine)
 	{
 		return AI_Behavior_Existence.GetOneGrid(Grid_ar, GridRow, GridLine);
 	}
 	public static bool GetContactPeace(List<Country> DispositionCountry_ar,
 			Point flagIdPoint)
 	{
-		return ContactStateProceeding.GetContactPeace(DispositionCountry_ar,
+		return BattlePlanetModel.GetBattlePlanetModelSingleton()._contactStateProceeding.GetContactPeace(DispositionCountry_ar,
 				flagIdPoint);
 	}
 	public static List<long[]> PreparationMap(
@@ -37,14 +152,14 @@ public class ModelStrategy
 		// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ. FlagFiend - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 		return FiendFleet.GetFlagIslandArray(island_ar, flagIdHero, FlagFiend);
 	}
-	public static void InitContact(List<Country> DispositionCountry_ar)
+	public static void InitContact(BattlePlanetModel battlePlanetModel)
 	{
-		ContactStateProceeding.InitContact(DispositionCountry_ar);
+        battlePlanetModel._contactStateProceeding.InitContact(battlePlanetModel);
 	}
-	public static void SetContactPeace(List<Country> DispositionCountry_ar,
+	public static void SetContactPeace(BattlePlanetModel battlePlanetModel,
 		Point flagIdPoint, bool Peace)
 	{
-		ContactStateProceeding.SetContactPeace(DispositionCountry_ar,
+        battlePlanetModel._contactStateProceeding.SetContactPeace(battlePlanetModel.DispositionCountry_ar,
 				flagIdPoint, Peace);
 	}
 	public static void RefreshHeroPower(List<GridFleet> NameHero_ar, bool SpeedStatic)
@@ -129,7 +244,7 @@ public class ModelStrategy
 	public static void PerformCommandMoveFleet(PrototypeHeroDemo prototypeHeroDemo,
 			CommandStrategy commandStrategy)
 	{
-		PerformCommandModel.PerformCommandMoveFleet(prototypeHeroDemo, commandStrategy);
+		new PerformCommandModel().PerformCommandMoveFleet(prototypeHeroDemo, commandStrategy);
 	}
 	public static void SetPrizeIsland(List<Country> DispositionCountry_ar, int flagId)
 	{
@@ -153,7 +268,7 @@ public class ModelStrategy
 	public static Country GetPlayerCountryFollow(List<Country> DispositionCountry_ar,
 				int flagId)
 	{
-		return ContactStateProceeding.GetPlayerCountryFollow(DispositionCountry_ar,
+		return BattlePlanetModel.GetBattlePlanetModelSingleton()._contactStateProceeding.GetPlayerCountryFollow(DispositionCountry_ar,
 				flagId);
 	}
 	public static CommandStrategy GetCommandMoveFleet(Point gridFleetOldPoint, Point resultPoint,
@@ -176,14 +291,14 @@ public class ModelStrategy
 		return MendMoveShip.GetAttackMoveFleet(fleetVictim, LongRange, PlacePredator);
 	}
 	public static void FleetAddArmFast(GridFleet heroPlayer, int UnitTypeId,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar, int customShip)
+            BattlePlanetModel battlePlanetModel, int customShip)
 	{
-		CreateFleetFast.FleetAddArmFast(heroPlayer, UnitTypeId, BasaPurchaseUnitScience_ar, customShip);
+		new CreateFleetFast().FleetAddArmFast(heroPlayer, UnitTypeId, battlePlanetModel, customShip);
 	}
 	public static Country GetDispositionCountry(List<Country> DispositionCountry_ar,
 				int flagId)
 	{
-		return ContactStateProceeding.GetDispositionCountry(DispositionCountry_ar,
+		return BattlePlanetModel.GetBattlePlanetModelSingleton()._contactStateProceeding.GetDispositionCountry(DispositionCountry_ar,
 						flagId);
 
 	}
@@ -191,119 +306,13 @@ public class ModelStrategy
 	{
 		return FiendFleet.GetHeroAll(flagId, NameHero_ar);
 	}
-	public static ButtonEvent GreatImpDrivingAI(
-			List<Country> DispositionCountry_ar,
-			int FlagIdHero,
-			List<GridFleet> NameHero_ar,
-			List<GridTileBar> Grid_ar,
-			List<Island> Island_ar,
-			List<List<int>> ShoalSeaBasa_ar,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar,
-			int HeroMax,
-			List<CommandStrategy> CommandStrategy_ar,
-			List<GridTileBar> GridTile_ar
-			)
-	{
-		for (int Imperial = 0; Imperial < DispositionCountry_ar.Count; Imperial++)
-		{
-
-			// пїЅпїЅпїЅ ЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
-			// unPlayer turn
-			if (DispositionCountry_ar[Imperial].PlayerControl != true)
-			{
-
-
-
-				// пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
-				// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ -пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
-				// peace
-				if (ContactStateProceeding.ContactGlobalPeace(DispositionCountry_ar[Imperial]))
-				{
-
-					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
-					MendMovePeaceShip.moveFiend_MIR(DispositionCountry_ar[Imperial], NameHero_ar, Island_ar,
-							DispositionCountry_ar, Grid_ar, CommandStrategy_ar);
-
-				}
-				else
-				{
-					// war
-					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ?
-
-
-					List<GridFleet> DispositionCountryNameHero_ar
-					= FiendFleet.GetHeroAll(DispositionCountry_ar[Imperial].IdCountry, NameHero_ar);
-
-					foreach (GridFleet gridFleet in DispositionCountryNameHero_ar)
-					{
-
-						if (gridFleet.GetTurnDone())
-						{
-
-						}
-						else
-						{
-
-							// old point 
-							Point oldPoint = new Point(gridFleet.SpotX, gridFleet.SpotY);
-
-							// move and search attack enemy.
-							AttackMoveFleet attackMoveFleet = MendMoveShip.PlaceFiendX(
-									gridFleet,
-									NameHero_ar,
-									Grid_ar,
-									Island_ar,
-									DispositionCountry_ar, CommandStrategy_ar, null, 0, 0);
-
-
-							FleetSacrifive fleetSacrifive = SetFleetSacrifive(attackMoveFleet,
-									gridFleet, oldPoint);
-							GridFleet heroPlayerSacrifive = fleetSacrifive.HeroPlayerSacrifive;
-							oldPoint = fleetSacrifive.OldPoint;
-							
-							if (heroPlayerSacrifive != null)
-							{
-								// command Attack fleet 
-
-								CommandStrategy_ar.Add(GetCommandAttack(gridFleet, heroPlayerSacrifive,
-										attackMoveFleet, oldPoint));
-								
-
-
-								return AgentEvent.GetButtonEventModelMeeleeFleet(heroPlayerSacrifive,
-										gridFleet, true, attackMoveFleet.LongRange);
-
-							}
-						}
-					}
-
-				}
-
-				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
-				GridFleet fleet = RefillHero(DispositionCountry_ar[Imperial],
-						NameHero_ar, Island_ar, ShoalSeaBasa_ar,
-						DispositionCountry_ar, BasaPurchaseUnitScience_ar, HeroMax, GridTile_ar);
-
-				if (fleet != null)
-				{
-					CommandStrategy commandStrategy = new CommandStrategy();
-					commandStrategy.NameCommand = CommandStrategy.Type.CreateFleet;
-					commandStrategy.GridFleet = fleet;
-
-					CommandStrategy_ar.Add(commandStrategy);
-					//PrototypeHeroDemo.GetHeroFleet().add(fleet);
-				}
-			}
-
-		}
-
-		return null;
-	}
-	public static GridFleet RefillHero(Country country, List<GridFleet> NameHero_ar,
+	
+    public static GridFleet RefillHero(Country country, List<GridFleet> NameHero_ar,
 			List<Island> Island_ar, List<List<int>> ShoalSeaBasa_ar,
 			List<Country> DispositionCountry_ar,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar,
-			int HeroMax, List<GridTileBar> GridTile_ar)
+            //List<GridCrewScience> BasaPurchaseUnitScience_ar,
+            BattlePlanetModel BattlePlanetModel,
+            int HeroMax, List<GridTileBar> GridTile_ar)
 	{
 
 
@@ -314,7 +323,7 @@ public class ModelStrategy
 			var rand = new System.Random();
 
 			//int typeUnit = (int)Math.floor(Math.random() * BasaPurchaseUnitScience_ar.size());
-			int typeUnit = rand.Next( BasaPurchaseUnitScience_ar.Count);
+			int typeUnit = rand.Next(BattlePlanetModel.GetBasaPurchaseUnitScience().Count);
 
 			int cost = UnitTech.GetUnit(typeUnit).Cost * BattlePlanetModel.SizeSquad;
 
@@ -322,9 +331,9 @@ public class ModelStrategy
 			{
 
 
-				GridFleet fleet = AI_Behavior_Replace.Replace_Ship_AfterLoss(
+				GridFleet fleet = new AI_Behavior_Replace().Replace_Ship_AfterLoss(
 						country.IdCountry, Island_ar, ShoalSeaBasa_ar,
-						DispositionCountry_ar, BasaPurchaseUnitScience_ar, typeUnit, GridTile_ar);
+						DispositionCountry_ar, BattlePlanetModel, typeUnit, GridTile_ar);
 				if (fleet != null)
 				{
 					country.Money -= cost;
@@ -337,16 +346,17 @@ public class ModelStrategy
 	}
 	public static GridFleet GetFleetFast(int SpotX, int SpotY, int FlagId,
 			String Name, int UnitTypeId,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar, bool AddOne, int customShip)
+            BattlePlanetModel battlePlanetModel,
+			bool AddOne, int customShip)
 	{
 		String image = CreateGridScenario.GetImageIcon(UnitTypeId);
-		System.Diagnostics.Debug.WriteLine(" UnitTypeId = " + UnitTypeId);
-		return CreateFleetFast.GetFleetFast(SpotX, SpotY, FlagId, image, Name, UnitTypeId,
-				BasaPurchaseUnitScience_ar, AddOne, customShip);
+		//System.Diagnostics.Debug.WriteLine(" UnitTypeId = " + UnitTypeId);
+		return new CreateFleetFast().GetFleetFast(SpotX, SpotY, FlagId, image, Name, UnitTypeId,
+                battlePlanetModel, AddOne, customShip);
 	}
 	public static void PerformCommand(CommandStrategy commandStrategy)
 	{
-		PerformCommandModel.PerformCommand(commandStrategy);
+		new PerformCommandModel().PerformCommand(commandStrategy);
 	}
 	public static int GetHeroShipFirstCount(GridFleet Hero)
 	{

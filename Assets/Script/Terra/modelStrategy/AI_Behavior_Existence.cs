@@ -38,7 +38,7 @@ public class AI_Behavior_Existence
 		int[] wallObstacle_ar = null;
 		if (Sea)
 		{
-			wallObstacle_ar = new int[] { 0, 1, BattlePlanetModel.ObstacleRoadMap, BattlePlanetModel.ObstacleMap };
+			wallObstacle_ar = new int[] { 0, 1, BattlePlanetModel.GetBattlePlanetModelSingleton().ObstacleRoadMap, BattlePlanetModel.GetBattlePlanetModelSingleton().ObstacleMap };
 
 
 
@@ -46,7 +46,7 @@ public class AI_Behavior_Existence
 		else
 		{
 			// obstacle = 2
-			wallObstacle_ar = new int[] { BattlePlanetModel.ObstacleMap, BattlePlanetModel.ObstacleSeaMap };
+			wallObstacle_ar = new int[] { BattlePlanetModel.GetBattlePlanetModelSingleton().ObstacleMap, BattlePlanetModel.GetBattlePlanetModelSingleton().ObstacleSeaMap };
 		}
 		// obstacle = 2
 

@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ZedAngular.Model.Terra.scenario;
 
-
-public class IslandModel 
+public class IslandModel
 {
 	public static string _buyUnitDialog;
 
 	public bool GetTypeIslandSea()
 	{
 
-		Island isl = BattlePlanetModel.SelectIsland;
+		Island isl = BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland;
 
 		if (isl != null)
 		{
-			List<GridTileBar> gridTile_ar = BattlePlanetModel.GetGridTileList();
+			List<GridTileBar> gridTile_ar = BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList();
 
 			List<Point> mapFlagIsland_ar = CoordinateSearch.GetMapFlagIslandArray();
 
@@ -22,7 +22,7 @@ public class IslandModel
 
 				Point pointIsl = new Point(point.X + isl.SpotX, point.Y + isl.SpotY);
 
-				if (AI_Behavior_Existence.AllowPointMap(BattlePlanetModel.GetShoalSeaBasa_ar(), pointIsl))
+				if (AI_Behavior_Existence.AllowPointMap(BattlePlanetModel.GetBattlePlanetModelSingleton().GetShoalSeaBasa_ar(), pointIsl))
 				{
 
 					GridTileBar oneGrid = AI_Behavior_Existence.GetOneGrid(gridTile_ar,
@@ -30,7 +30,7 @@ public class IslandModel
 
 
 
-					if (oneGrid.Terrain == BattlePlanetModel.ObstacleSeaMap)
+					if (oneGrid.Terrain == BattlePlanetModel.GetBattlePlanetModelSingleton().ObstacleSeaMap)
 					{
 
 						return true;
@@ -58,20 +58,19 @@ public class IslandModel
 	}
 	private static bool GetAllowBuyUnit(int FlagId, int UnitId, bool TakeAway)
 	{
-		Country country = MapWorldModel.GetCountCountry(FlagId);
+		Country country = MapWorldModel.MapWorldModelSingleton().GetCountCountry(FlagId);
 		//System.out.println(" @@@@@@@ Alert BuyUnit  __ unit  = " + country.Money);
 		if (TakeAway)
 		{
-			MapWorldModel.TakeAwayMoney(country, UnitId);
+			MapWorldModel.MapWorldModelSingleton().TakeAwayMoney(country, UnitId);
 		}
 
-		return MapWorldModel.EnoughMoneyOnUnit(country, UnitId);
+		return MapWorldModel.MapWorldModelSingleton().EnoughMoneyOnUnit(country, UnitId);
 	}
 
 	public static void BuyUnitConfirm(ButtonEvent buttonEvent)
 	{
 
-		//System.out.println("  0   = not money Island   =   " + buttonEvent.NameEvent);
 		if (buttonEvent.NameEvent == "false")
 		{
 			return;
@@ -79,38 +78,27 @@ public class IslandModel
 		if (GetAllowBuyUnit(buttonEvent.Island.FlagId, buttonEvent.UnitId, false) == false)
 		{
 			//not money
-
-	
 			return;
 		}
 		// buy unit.
-
-		GridFleet gridFleet = ModelStrategy.SearchHeroOne(BattlePlanetModel.SelectIsland.SpotX,
-				 BattlePlanetModel.SelectIsland.SpotY,
-				 MapWorldModel._prototypeHeroDemo.GetHeroFleet(),
-				 BattlePlanetModel.SelectIsland.FlagId, false);
-
-		//System.out.println(buttonEvent + " ###  Ta gridFleet = " + gridFleet);
-
-
-
-
+		GridFleet gridFleet = ModelStrategy.SearchHeroOne(BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland.SpotX,
+				 BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland.SpotY,
+                 BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(),
+				 BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland.FlagId, false);
 		if (gridFleet == null)
 		{
 			GetAllowBuyUnit(buttonEvent.Island.FlagId, buttonEvent.UnitId, true);
-			MapWorldModel._prototypeHeroDemo.HeroFleetAdd(
-					gridFleet = ModelStrategy.GetFleetFast(BattlePlanetModel.SelectIsland.SpotX, BattlePlanetModel.SelectIsland.SpotY,
-							BattlePlanetModel.SelectIsland.FlagId, InitGlobalParams.GetOfferNameHero(),
+            BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.HeroFleetAdd(
+					gridFleet = ModelStrategy.GetFleetFast(BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland.SpotX, BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland.SpotY,
+							BattlePlanetModel.GetBattlePlanetModelSingleton().SelectIsland.FlagId,
+                            new CreateNameHero().GetOfferNameHero(),
 							buttonEvent.UnitId,
-							BattlePlanetModel.GetBasaPurchaseUnitScience(), true, 0));
-			BattlePlanetModel.SetSelectHeroId (gridFleet.GetId());
+							BattlePlanetModel.GetBattlePlanetModelSingleton(), true, 0));
+			BattlePlanetModel.GetBattlePlanetModelSingleton().SetSelectHeroId (gridFleet.GetId());
 			return;
 		}
 		else
 		{
-
-
-
 			//gridFleet
 			if (gridFleet.GetSea())
 			{
@@ -121,7 +109,7 @@ public class IslandModel
 				}
 				GetAllowBuyUnit(buttonEvent.Island.FlagId, buttonEvent.UnitId, true);
 				ModelStrategy.FleetAddArmFast(gridFleet, buttonEvent.UnitId,
-						BattlePlanetModel.GetBasaPurchaseUnitScience(), 0);
+						BattlePlanetModel.GetBattlePlanetModelSingleton(), 0);
 			}
 		}
 

@@ -1,70 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ZedAngular.Model.Terra.scenario;
 
 public class MapWorldModel 
 {
-	private static int _turnCount = 0;
-	public static int TimeQuick = 0;
-	private static bool _turnOn = false;
-	private static bool _changeStateView = false;
-	private static Tactic _tactic;
-	private static SeaTactic _seaTactic;
+	private int _turnCount = 0;
+	public int TimeQuick = 0;
+	private bool _turnOn = false;
+	private bool _changeStateView = false;
+	private Tactic _tactic;
+	private SeaTactic _seaTactic;
 
-	private static List<CommandStrategy> _commandStrategyMap_ar=new List<CommandStrategy>();
-	public static PrototypeHeroDemo _prototypeHeroDemo;
-	private static IslandDemoMemento _islandDemoMemento;
+	private List<CommandStrategy> _commandStrategyMap_ar=new List<CommandStrategy>();
+	//public PrototypeHeroDemo _prototypeHeroDemo;
+	private IslandMemento _islandDemoMemento;
+	private static MapWorldModel _mapWorldModel;
 
-	public static void Init()
-	{
-        _islandDemoMemento = new IslandDemoMemento();
+    public static MapWorldModel MapWorldModelSingleton()
+    {
+        if (_mapWorldModel == null)
+        {
+            _mapWorldModel = new MapWorldModel();
+
+        }
+        return _mapWorldModel;
     }
-	public static IslandDemoMemento GetIslandMemento()
+    public MapWorldModel()
+	{
+        _islandDemoMemento = new IslandMemento();
+        //_prototypeHeroDemo = new PrototypeHeroDemo();
+        //_prototypeHeroDemo.HeroFleetInit();
+    }
+	public IslandMemento GetIslandMemento()
 	{
 		return _islandDemoMemento;
 	}
-	public static void RemoveCommandStrategy(CommandStrategy Command)
-	{
-		_commandStrategyMap_ar.Remove(Command);
-	}
-		private static void AddCommandStrategy(List<CommandStrategy> Command) {
+
+	private void AddCommandStrategy(List<CommandStrategy> Command) {
 		
 		_commandStrategyMap_ar.AddRange(Command);
 	}
-	public static bool GetChangeStateView()
-	{
-		return _changeStateView;
-	}
-	public static void SetChangeStateView(bool Change)
-	{
-		_changeStateView = Change;
-	}
-	public static void TurnEvent()
+
+	public void TurnEvent()
 	{
 		
 		if (!_turnOn)
 		{
-System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
+			System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 
 			TurnPush();
 
-			ModelStrategy.RefreshHeroPower(_prototypeHeroDemo.GetHeroFleet(), false);
-			ModelStrategy.EconomicTurn(BattlePlanetModel.DispositionCountry_ar, MapWorldModel._islandDemoMemento.GetIslandArray());
+			ModelStrategy.RefreshHeroPower(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), false);
+			ModelStrategy.EconomicTurn(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar, MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray());
 
 			
 			DevelopmentTurn();
 
-			if (BattlePlanetModel.VictoryScenario.Dual)
+			if (BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario.Dual)
 			{
-				////
-				//SetAlertMenu();
-				///////
-				//Main._main.SetAlertMenu();
-				Country countryFollowPlayer = ModelStrategy.GetPlayerCountryFollow(BattlePlanetModel.DispositionCountry_ar,
+
+				Country countryFollowPlayer = ModelStrategy.GetPlayerCountryFollow(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
                         BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer());
 				if (countryFollowPlayer != null)
 				{
                     BattlePlanetModel.GetBattlePlanetModelSingleton().SetFlagIdPlayer( countryFollowPlayer.IdCountry);
-					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 					DeadHero();
 				}
 				else
@@ -81,16 +80,16 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		}
 	}
 
-	public static void GotoTactic(
-			int IdHeroPlayer, int IdHeroFiend, bool MoveAI, bool LongRange, int CountTurn
-			)
+	public void GotoTactic(
+			int IdHeroPlayer, int IdHeroFiend, bool MoveAI, bool LongRange, int CountTurn, BattlePlanetModel battlePlanetModel
+            )
 	{
 
 
 
 
-		GridFleet gridFleetFiend = _prototypeHeroDemo.GetFleetWithId(IdHeroFiend);
-		GridFleet gridFleetPlayer = _prototypeHeroDemo.GetFleetWithId(IdHeroPlayer);
+		GridFleet gridFleetFiend = BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetFleetWithId(IdHeroFiend);
+		GridFleet gridFleetPlayer = BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetFleetWithId(IdHeroPlayer);
 
 		
 		if (gridFleetFiend != null)
@@ -107,8 +106,8 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		
 				_seaTactic = new SeaTactic(
 						gridFleetFiend,
-						gridFleetPlayer, CountTurn);
-				BattlePlanetModel.GotoSeaTactic(null, null);
+						gridFleetPlayer, CountTurn, battlePlanetModel);
+                battlePlanetModel.GotoSeaTactic(null, null);
 			}
 			else
 			{
@@ -117,12 +116,12 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 						gridFleetFiend,
 						gridFleetPlayer,
 						MoveAI, LongRange);
-				BattlePlanetModel.GotoTactic(null, null);
+                BattlePlanetModel.GetBattlePlanetModelSingleton().GotoTactic(null, null);
 			}
 		}
 
 	}
-	public static void GotoStrateg(ButtonEvent model)
+	public void GotoStrateg(ButtonEvent model)
 	{
 
 		if (model.IdHero != -1)
@@ -130,18 +129,18 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 
 			// delete hero.
 	
-			bool deadGridFleet = DeadGridFleet(_prototypeHeroDemo, model.IdHero);
+			bool deadGridFleet = MapWorldModelSingleton().DeadGridFleet(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo, model.IdHero);
 			if (deadGridFleet == true)
 			{
 				DeadHero();
 			}
 		
-			GridFleet gridFleet0 = BattlePlanetModel.GetHeroWithId(_prototypeHeroDemo.GetHeroFleet(), model.IdHero);
+			GridFleet gridFleet0 = BattlePlanetModel.GetBattlePlanetModelSingleton().GetHeroWithId(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), model.IdHero);
 
 		}
 		CloseTactic();
 
-		// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+		
 		if (model.MoveAI)
 		{
 			
@@ -151,9 +150,9 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 			}
 		}
 	}
-	public static bool DeadGridFleet(PrototypeHeroDemo prototypeHeroDemo, int IdHero)
+	public bool DeadGridFleet(PrototypeHeroDemo prototypeHeroDemo, int IdHero)
 	{
-		GridFleet gridFleet = BattlePlanetModel.GetHeroWithId(_prototypeHeroDemo.GetHeroFleet(), IdHero);
+		GridFleet gridFleet = BattlePlanetModel.GetBattlePlanetModelSingleton().GetHeroWithId(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), IdHero);
 		//??
 		int index = prototypeHeroDemo.GetHeroFleet().IndexOf(gridFleet);
 
@@ -166,30 +165,30 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		}
 		return false;
 	}
-	public static void CloseTactic()
+	public void CloseTactic()
 	{
 
 		//SetStateGame(MainFormat.MAP);
 		
 		ReturnMapWorldScene();
 
-		BattlePlanetModel.GotoPlanetWorld();
+		BattlePlanetModel.GetBattlePlanetModelSingleton().GotoPlanetWorld();
 	}
-	private static void ReturnMapWorldScene() { 
+	private void ReturnMapWorldScene() { 
 		LoadSceneChange.LoadSceneRotation("SampleScene");
 	}
 
-	public static void TurnPush()
+	public void TurnPush()
 	{
 		_turnCount++;
 
 	}
-	public static int GetTurnCount()
+	public int GetTurnCount()
 	{
 		return _turnCount;
 
     }
-	public static List<CommandStrategy> SetMoveCommand(ButtonEvent buttonEvent)
+	public List<CommandStrategy> SetMoveCommand(ButtonEvent buttonEvent)
 	{
 		int count = 0;
 		List<CommandStrategy> commandStrategy_ar = new List<CommandStrategy>();
@@ -211,18 +210,18 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		return commandStrategy_ar;
 	}
 
-	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
-	public static void GotoHero(ButtonEvent buttonEvent)
+
+	public void GotoHero(ButtonEvent buttonEvent)
 	{
 
-		AddCommandStrategy(SetMoveCommand(buttonEvent));
+        MapWorldModelSingleton().AddCommandStrategy(MapWorldModelSingleton().SetMoveCommand(buttonEvent));
 
 		int spotPlayerX = (int)buttonEvent.Point.X;
 		int spotPlayerY = (int)buttonEvent.Point.Y;
 
 		GridFleet heroFiend = ModelStrategy.SearchHeroOne(
 				spotPlayerX, spotPlayerY,
-				_prototypeHeroDemo.GetHeroFleet(), BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), true);
+				BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), true);
 
 	
 
@@ -231,11 +230,11 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 			// attack fiend
 			// old point 
 
-			AddCommandStrategy(new List<CommandStrategy>() { CommandAttackFleet(buttonEvent.HeroFleet, heroFiend, buttonEvent.LongRange) });
+			MapWorldModelSingleton().AddCommandStrategy(new List<CommandStrategy>() { CommandAttackFleet(buttonEvent.HeroFleet, heroFiend, buttonEvent.LongRange) });
 		}
-		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
-		Island island = ModelStrategy.GetIsland(MapWorldModel._islandDemoMemento.GetIslandArray(),
-				BattlePlanetModel.DispositionCountry_ar,
+
+		Island island = ModelStrategy.GetIsland(MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray(),
+				BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
 				buttonEvent.HeroFleet.SpotX,
 				buttonEvent.HeroFleet.SpotY);
 		if (island != null)
@@ -243,22 +242,22 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 
 			if (island.FlagId != BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer())
 			{
-				//System.out.println("%%    $  island             Event  size = " + buttonEvent.PathGoto_ar.size());
+
 
 				// seizure island.
 				island.FlagId = buttonEvent.HeroFleet.GetFlagId();
 
 				CommandStrategy commandStrategyHero = ModelStrategy.GetCommandCaptureIsland(island, buttonEvent.HeroFleet);
 				//_commandStrategy_ar = new ArrayList<CommandStrategy>();
-				AddCommandStrategy(new List<CommandStrategy>() { commandStrategyHero });
+				MapWorldModelSingleton().AddCommandStrategy(new List<CommandStrategy>() { commandStrategyHero });
 			}
-			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+
 
 		}
 		// refreshView	
 		_changeStateView = true;
 	}
-	public static CommandStrategy CommandAttackFleet(GridFleet PlayerFleet,
+	public CommandStrategy CommandAttackFleet(GridFleet PlayerFleet,
 			GridFleet FiendFleet, bool LongRange)
 	{
 		Point oldPoint = new Point(PlayerFleet.SpotX, PlayerFleet.SpotY);
@@ -270,14 +269,14 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 
 	}
 
-	private static void AttackHeroEvent(ButtonEvent buttonEvent, GridFleet heroFiend)
+	private void AttackHeroEvent(ButtonEvent buttonEvent, GridFleet heroFiend)
 	{
 
 		// player attack AI
-		AddCommandStrategy(new List<CommandStrategy>() { CommandAttackFleet(buttonEvent.HeroFleet, heroFiend, buttonEvent.LongRange) });
+		MapWorldModelSingleton().AddCommandStrategy(new List<CommandStrategy>() { CommandAttackFleet(buttonEvent.HeroFleet, heroFiend, buttonEvent.LongRange) });
 
 	}
-	public static void AttackHero(ButtonEvent buttonEvent)
+	public void AttackHero(ButtonEvent buttonEvent)
 	{
 
 		buttonEvent.HeroFleet.SetAttackDone(true);
@@ -287,11 +286,11 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 	}
 
 
-	public static void SelectIsland(ButtonEvent buttonEvent)
+	public void SelectIsland(ButtonEvent buttonEvent)
 	{
 		if (buttonEvent != null)
 		{
-			// пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+
 			IslandPort.HeroFleet = buttonEvent.HeroFleet;
 		}
 		else
@@ -301,8 +300,8 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		//Main.stateGame = MainFormat.ISLAND;
 		SetStateGame(MainFormat.ISLAND);
 	}
-	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ.
-	public static void BuyUnit(ButtonEvent buttonEvent)
+
+	public void BuyUnit(ButtonEvent buttonEvent)
 	{
 		//System.out.println(buttonEvent.HeroFleet + "//  start   ===" + buttonEvent.UnitId);
 
@@ -316,11 +315,11 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 			TakeAwayMoney(country, buttonEvent.UnitId);
 			//System.out.println(BattlePlanetModel.BasaPurchaseUnitScience_ar.size() + "Ass player ___sixe  =");
 			ModelStrategy.FleetAddArmFast(buttonEvent.HeroFleet, buttonEvent.UnitId,
-					BattlePlanetModel.GetBasaPurchaseUnitScience(), 0);
+					BattlePlanetModel.GetBattlePlanetModelSingleton(), 0);
 		}
 
 	}
-	public static bool EnoughMoneyUnit(int FlagId,int UnitId)
+	public  bool EnoughMoneyUnit(int FlagId,int UnitId)
 	{
 		Country country = GetCountCountry(FlagId);
 		if (EnoughMoneyOnUnit(country, UnitId))
@@ -329,44 +328,44 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		}
 		return false;
 	}
-	public static void TakeAwayMoney(Country country, int UnitId)
+	public  void TakeAwayMoney(Country country, int UnitId)
 	{
-		country.Money -= BattlePlanetModel.GetBasaPurchaseUnitScience()[UnitId].Cost;
+		country.Money -= BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience()[UnitId].Cost;
 	}
-	public static Country GetCountCountry(int FlagId)
+	public  Country GetCountCountry(int FlagId)
 	{
-		return ModelStrategy.GetDispositionCountry(BattlePlanetModel.DispositionCountry_ar,
+		return ModelStrategy.GetDispositionCountry(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
 				FlagId);
 	}
-	public static bool EnoughMoneyOnUnit(Country country, int UnitId)
+	public  bool EnoughMoneyOnUnit(Country country, int UnitId)
 	{
-		return country.Money - BattlePlanetModel.GetBasaPurchaseUnitScience()[UnitId].Cost >= 0;
+		return country.Money - BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience()[UnitId].Cost >= 0;
 	}
-	public static void SelectHeroLeft()
+	public  void SelectHeroLeft()
 	{
-		int id = _prototypeHeroDemo.GetNextFleetIdPlayer(BattlePlanetModel.GetSelectHeroId(), -1, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer());
-        BattlePlanetModel.SetSelectHeroId(id);
+        int id = BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetNextFleetIdPlayer(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(), -1, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer());
+        BattlePlanetModel.GetBattlePlanetModelSingleton().SetSelectHeroId(id);
     }
-	public static void SelectHeroRight()
+	public  void SelectHeroRight()
 	{
-        int id = _prototypeHeroDemo.GetNextFleetIdPlayer(BattlePlanetModel.GetSelectHeroId(), 1, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer());
-        BattlePlanetModel.SetSelectHeroId(id);
+        int id = BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetNextFleetIdPlayer(BattlePlanetModel.GetBattlePlanetModelSingleton().GetSelectHeroId(), 1, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer());
+        BattlePlanetModel.GetBattlePlanetModelSingleton().SetSelectHeroId(id);
     }
-	public static void SelectHero(ButtonEvent buttonEvent)
+	public  void SelectHero(ButtonEvent buttonEvent)
 	{
 		
 		if (buttonEvent.HeroFleet.GetFlagId() == BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer())
 		{
 
-			BattlePlanetModel.SetSelectHeroId(GetHeroSelect(buttonEvent.HeroFleet));
+			BattlePlanetModel.GetBattlePlanetModelSingleton().SetSelectHeroId(GetHeroSelect(buttonEvent.HeroFleet));
 
-			MapWorldModel._changeStateView = true;
+			MapWorldModel.MapWorldModelSingleton()._changeStateView = true;
 		}
 	}
-	public static int GetHeroSelect(GridFleet hero)
+	public int GetHeroSelect(GridFleet hero)
 	{
 
-		GridFleet gridFleet = BattlePlanetModel.GetHeroWithId(_prototypeHeroDemo.GetHeroFleet(), hero.GetId());
+		GridFleet gridFleet = BattlePlanetModel.GetBattlePlanetModelSingleton().GetHeroWithId(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), hero.GetId());
 
 		if (gridFleet != null)
 		{
@@ -377,71 +376,67 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 
 		return 0;
 	}
-	public static void DeadHero()
+	public void DeadHero()
 	{
-		List<GridFleet> nameHero_ar = ModelStrategy.GetHeroAll(BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), _prototypeHeroDemo.GetHeroFleet());
+		List<GridFleet> nameHero_ar = ModelStrategy.GetHeroAll(BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet());
 		if (nameHero_ar.Count > 0)
 		{
-			GridFleet hero = ModelStrategy.GetHeroAll(BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), _prototypeHeroDemo.GetHeroFleet())[0];
-			BattlePlanetModel.SetSelectHeroId(GetHeroSelect(hero));
+			GridFleet hero = ModelStrategy.GetHeroAll(BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet())[0];
+			BattlePlanetModel.GetBattlePlanetModelSingleton().SetSelectHeroId(GetHeroSelect(hero));
 
 		}
 	}
 
-	public static void StartGame()
+	public void StartGame()
 	{
 		
-		if (BattlePlanetModel.VictoryScenario.ReturnStart)
+		if (BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario.ReturnStart)
 		{
 
-			BattlePlanetModel.VictoryScenario.ReturnStart = false;
-			//Main.stateGame = MainFormat.START_GAME;
+			BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario.ReturnStart = false;
+
 			SetStateGame(MainFormat.START_GAME);
 		}
 		else
 		{
-			MapWorldStartGame.StartGameChange(BattlePlanetModel.VictoryScenario);
+			new MapWorldStartGame().StartGameChange(BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario,BattlePlanetModel.GetBattlePlanetModelSingleton());
 		}
 	}
-	public static void EndGame()
+
+
+	public  void DualMode()
 	{
 
-		SetStateGame(MainFormat.START_GAME);
-	}
 
-	public static void DualMode()
+		new MapWorldStartGame().StartGameDual(BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario,BattlePlanetModel.GetBattlePlanetModelSingleton());
+	}
+	public List<GridFleet> CopyHeroNameArray()
 	{
-		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
-
-		MapWorldStartGame.StartGameDual(BattlePlanetModel.VictoryScenario);
-	}
-	public static List<GridFleet> CopyHeroNameArray()
-	{
-		return _prototypeHeroDemo.HeroFleetCopy();
+		return BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.HeroFleetCopy();
 	}
 
-	private static ButtonEvent _eventModel;
-	public static void DevelopmentTurn()
+	private ButtonEvent _eventModel;
+	public  void DevelopmentTurn()
 	{
 		
 		// get copy island list.
-		List<Island> copyIsland_ar = MapWorldModel._islandDemoMemento.GetCopyIslandArray();
+		List<Island> copyIsland_ar = MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetCopyIslandArray();
 		_commandStrategyMap_ar = new List<CommandStrategy>();
 		
 		List<GridFleet> copyFleetGrid_ar = CopyHeroNameArray();
 
 		ButtonEvent eventModel = ModelStrategy.GreatImpDrivingAI
 				(
-						BattlePlanetModel.DispositionCountry_ar,
+						BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
                         BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(),
 						copyFleetGrid_ar,
-						BattlePlanetModel.GetGridTileList(),
-						MapWorldModel._islandDemoMemento.GetIslandArray(),
-						BattlePlanetModel.GetShoalSeaBasa_ar(),
-						BattlePlanetModel.GetBasaPurchaseUnitScience(),
+						BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList(),
+						MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray(),
+						BattlePlanetModel.GetBattlePlanetModelSingleton().GetShoalSeaBasa_ar(),
+						BattlePlanetModel.GetBattlePlanetModelSingleton(),
 						2,
 						_commandStrategyMap_ar,
-						BattlePlanetModel.GetGridTileList()
+						BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList()
                 );
 		System.Diagnostics.Debug.WriteLine(_commandStrategyMap_ar.Count+"  eventModel = " + eventModel);
 
@@ -455,8 +450,6 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		{
 
 			// Ai 
-			// attack player/ 
-			//GotoTactic(eventModel);
 			_eventModel = eventModel;
 
 		}
@@ -465,20 +458,20 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 			CheckGlobalVictory();
 		}
 	}
-	public static void CheckGlobalVictory()
+	public void CheckGlobalVictory()
 	{
 	
-		List<Island> islandHero_ar = ModelStrategy.GetFlagIslandArray(MapWorldModel._islandDemoMemento.GetIslandArray(),
+		List<Island> islandHero_ar = ModelStrategy.GetFlagIslandArray(MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray(),
                 BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), false);
 
 		if (islandHero_ar.Count== 0)
 		{
 
 			
-			GlobalVictoryFailDevelopment();
+			GlobalVictoryFailDevelopment(BattlePlanetModel.GetBattlePlanetModelSingleton());
 		}
 		
-		islandHero_ar = ModelStrategy.GetFlagIslandArray(MapWorldModel._islandDemoMemento.GetIslandArray(), BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), true);
+		islandHero_ar = ModelStrategy.GetFlagIslandArray(MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray(), BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(), true);
 
 		ListIsland listIsland = new ListIsland();
 		listIsland.PrintIslandName(islandHero_ar);
@@ -486,12 +479,12 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		if (islandHero_ar.Count == 0)
 		{
 
-			BattlePlanetModel.VictoryScenario.ScenarioNumber++;
+			BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario.ScenarioNumber++;
 
-			if (BattlePlanetModel.VictoryScenario.Dual)
+			if (BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario.Dual)
 			{
 
-				MapWorldStartGame.StartGameChange(BattlePlanetModel.VictoryScenario);
+				new MapWorldStartGame().StartGameChange(BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario, BattlePlanetModel.GetBattlePlanetModelSingleton());
 
 			}
 			else
@@ -504,59 +497,56 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		}
 
 	}
-	public static CommandStrategy GetCommandCaptureFirst()
+	public CommandStrategy GetCommandCaptureFirst()
 	{
 		return _commandStrategyMap_ar[0];
 	}
-	public static List<CommandStrategy> GetCommandCapture()
+	public List<CommandStrategy> GetCommandMoveAttackList()
 	{
 		
 		return _commandStrategyMap_ar;
 	}
-	public static void PickUpCommandCaptureIsland(int Id)
+	public  void PickUpCommandCaptureIsland(CommandStrategy commandStrategy)
 	{
 
 		UsingCommand usingCommand = new UsingCommand();
-		_commandStrategyMap_ar = usingCommand.PickUpCommandCaptureIsland(new ExecuteCommandStrateg(),
-				_commandStrategyMap_ar, Id, _turnCount, 0);
-		MapWorldModel.CheckGlobalVictory();
+
+		usingCommand.PickUpCommandCaptureIsland(
+                commandStrategy, _turnCount, 0, BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo);
+		MapWorldModel.MapWorldModelSingleton().CheckGlobalVictory();
 
 	}
 
-	public static void Economic()
+	public void Economic()
 	{
 
 	}
-	public static void GlobalVictoryWinDevelopment()
+	public void GlobalVictoryWinDevelopment()
 	{
 
 
-		if (MapWorldStartGame.StartGameChange(BattlePlanetModel.VictoryScenario))
+		if (new MapWorldStartGame().StartGameChange(BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario, BattlePlanetModel.GetBattlePlanetModelSingleton()))
 		{
-			BattlePlanetModel.GotoSuperGlobalWinEnd();
+			BattlePlanetModel.GetBattlePlanetModelSingleton().GotoSuperGlobalWinEnd();
 		}
 		else
 		{
-			BattlePlanetModel.GotoGlobalWin();
+			BattlePlanetModel.GetBattlePlanetModelSingleton().GotoGlobalWin();
 		}
 
 		// change scenario
 	}
-	public static void GlobalVictoryFailDevelopment()
+	public void GlobalVictoryFailDevelopment(BattlePlanetModel battlePlanetModel)
 	{
-
-		MapWorldStartGame.StartGameFirstReset(BattlePlanetModel.VictoryScenario);
-		BattlePlanetModel.GotoGlobalFail();
+        BattlePlanetModel._initGlobalParams = new InitGlobalParams(battlePlanetModel);
+        //new MapWorldStartGame().StartGameFirstReset(battlePlanetModel.VictoryScenario, 
+		//	new FactoryScenario().GetFactoryScenario(0), battlePlanetModel);
+		BattlePlanetModel.GetBattlePlanetModelSingleton().GotoGlobalFail();
 	}
 
-	public static void SetStateGame(string MainFormat)
+	public void SetStateGame(string MainFormat)
 	{
-		//_mainStateGame = MainFormat;
-		//Application.LoadLevel("TacticScene");
-		//SceneManager.LoadScene("TacticScene", LoadSceneMode.Single);
-		//SceneManager.LoadScene("TacticScene", LoadSceneMode.Additive);
-		
-		
+
 		if (MainFormat=="SEA_BATTLE") {
 			LoadSceneChange.LoadSceneRotation("SeaTactic");
 			return;
@@ -565,8 +555,4 @@ System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 		LoadSceneChange.LoadSceneRotation("TacticScene");
 	}
 
-	public static void SetAlertMenu()
-	{
-		//Main._main.SetAlertMenu();
-	}
 }

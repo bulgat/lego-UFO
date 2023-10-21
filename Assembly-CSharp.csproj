@@ -199,6 +199,7 @@
     <Compile Include="Assets\Script\Terra\mapWorld\model\MapWorldModel.cs" />
     <Compile Include="Assets\Script\Terra\ViewTactic\UnitTacticBasic.cs" />
     <Compile Include="Assets\Script\Terra\mapWorld\model\FleetSacrifive.cs" />
+    <Compile Include="Assets\Script\outScenario\GridScenario4.cs" />
     <Compile Include="Assets\Script\Building\Unit\Unit.cs" />
     <Compile Include="Assets\Script\Global\Model\ModPlanet\ModPlanet.cs" />
     <Compile Include="Assets\Quest\Script\View\PlayerMovement.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Assets\Script\Terra\ViewTactic\GetIslandTacticLandscape.cs" />
     <Compile Include="Assets\Script\Global\View\ui\StickLevelPanel.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\BasicTile.cs" />
+    <Compile Include="Assets\Script\Terra\scenario\CreateNameHero.cs" />
     <Compile Include="Assets\Quest\Script\View\OrbitCamera.cs" />
     <Compile Include="Assets\Script\Global\Planet\ViewPlanet.cs" />
     <Compile Include="Assets\Script\Terra\model\seaTactic\information\IShipData.cs" />
@@ -274,6 +276,7 @@
     <Compile Include="Assets\Script\Terra\model\battlePlanet\BasicAnimationMove.cs" />
     <Compile Include="Assets\Script\Terra\model\seaTactic\ExecuteCommandStrateg.cs" />
     <Compile Include="Assets\Script\Terra\modelStrategy\AI\AiReplaceFleet.cs" />
+    <Compile Include="Assets\Script\Terra\scenario\FactoryScenario.cs" />
     <Compile Include="Assets\Script\Terra\view\seaBattlePlanet\SetFieldArmyView.cs" />
     <Compile Include="Assets\Script\Global\Model\ModChangeHero\ChangeHeroShip.cs" />
     <Compile Include="Assets\Script\Terra\model\tacticModel\BonusIslandTile.cs" />

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System;
 public class AI_Behavior_Replace 
 {
-	public static GridFleet Replace_Ship_AfterLoss(int FlagId, List<Island> Island_ar,
+	public GridFleet Replace_Ship_AfterLoss(int FlagId, List<Island> Island_ar,
 			List<List<int>> ShoalSeaBasa_ar, List<Country> DispositionCountry_ar,
-			List<GridCrewScience> BasaPurchaseUnitScience_ar, int typeUnit,
+            BattlePlanetModel battlePlanetModel, int typeUnit,
 			List<GridTileBar> GridTile_ar)
 	{
 
@@ -27,9 +27,9 @@ public class AI_Behavior_Replace
 
 				return ModelStrategy.GetFleetFast((int)placeFleet.X, (int)placeFleet.Y,
 						FlagId,
-						"Fiend" + BattlePlanetModel.FleetId,
+						"Fiend" + BattlePlanetModel.GetBattlePlanetModelSingleton().GetIdUnit(),
 						typeUnit,
-						BasaPurchaseUnitScience_ar, false, 0);
+                         battlePlanetModel, false, 0);
 
 			}
 		}

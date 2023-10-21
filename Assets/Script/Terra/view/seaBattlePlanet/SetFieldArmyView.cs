@@ -19,10 +19,10 @@ public class SetFieldArmyView
 		
 
 		// Debug tactic
-		BattlePlanetView _battlePlanetView = new BattlePlanetView();
-		_battlePlanetView = BattlePlanetView.GetBattlePlanetViewSingleton();
-		MapWorldModel.StartGame();
-var kol = MapWorldModel._prototypeHeroDemo.GetHeroFleet();
+
+	
+		MapWorldModel.MapWorldModelSingleton().StartGame();
+var kol = BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet();
 
 
 		//new Tactic(MapWorldModel._prototypeHeroDemo.GetFleetWithId(1), MapWorldModel._prototypeHeroDemo.GetFleetWithId(2), true, false);
@@ -67,7 +67,7 @@ var kol = MapWorldModel._prototypeHeroDemo.GetHeroFleet();
 			
 			
 			
-			scienceUnit = BattlePlanetModel.GetBasaPurchaseUnitScience()[shipPlayer.GetArmUnitArray()[i].GetUnit()];
+			scienceUnit = BattlePlanetModel.GetBattlePlanetModelSingleton().GetBasaPurchaseUnitScience()[shipPlayer.GetArmUnitArray()[i].GetUnit()];
 
 			UnitTacticSea unitTactic = new UnitTacticSea();
 
