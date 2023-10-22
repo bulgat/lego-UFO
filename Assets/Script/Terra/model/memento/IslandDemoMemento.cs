@@ -46,7 +46,7 @@ public class IslandMemento
 	{
 		if (null == island)
 		{
-			throw new Exception("Not Island!");
+			throw new ArgumentNullException("Not Island!");
 		}
 
 		island.Id = _id;

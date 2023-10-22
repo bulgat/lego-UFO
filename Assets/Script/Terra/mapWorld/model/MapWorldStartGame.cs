@@ -73,7 +73,7 @@ public class MapWorldStartGame
 		VictoryScenario.Scenario = new FactoryScenario().GetFactoryScenario(3);
 		VictoryScenario.Scenario.Init(battlePlanetModel);
 
-        battlePlanetModel.DispositionCountry_ar[2].PlayerControl = true;
+        battlePlanetModel.GetDispositionCountryList()[2].PlayerControl = true;
 
 	}
 }

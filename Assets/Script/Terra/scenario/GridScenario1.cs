@@ -41,7 +41,7 @@ public class GridScenario1 : GridScenarioAbstract, IGridScenario
         MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Dion", 0, 2, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
 		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Madagascar", 2, 2, 1, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
 
-		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Malta", 10, 0, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar[2].IdCountry));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Malta", 10, 0, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList()[2].IdCountry));
 
         battlePlanetModel._prototypeHeroDemo.HeroFleetInit();
 

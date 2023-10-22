@@ -42,7 +42,7 @@ public class InitGlobalParams
 
     public InitGlobalParams(BattlePlanetModel battlePlanetModel)
 	{
-        //BattlePlanetModel.GetBattlePlanetModelSingleton();
+
 
         battlePlanetModel.InitBasaPurchaseUnitScience();
 
@@ -60,11 +60,7 @@ public class InitGlobalParams
 
         battlePlanetModel.BasaPurchaseUnitScienceAdd(this.UnitrewScience_ar[6]);
         MapWorldModel.MapWorldModelSingleton();
-    
-		
-
-        //MapWorldModel._islandDemoMemento = new IslandDemoMemento();
-
+   
 
 		GoalTypeShip drakar = new GoalTypeShip();
 		drakar.Goal.Add(new Point(544, 573));
@@ -77,17 +73,7 @@ public class InitGlobalParams
         battlePlanetModel.GoalTypeShip_ar = new List<GoalTypeShip>();
         battlePlanetModel.GoalTypeShip_ar.Add(drakar);
 
-        battlePlanetModel.DispositionCountry_ar = new List<Country>();
+        battlePlanetModel.InitDispositionCountry();
 	}
-    /*
-	public static string GetOfferNameHero()
-	{
-		var rand = new System.Random();
-		//int num = (int)Math.floor(Math.random() * BattlePlanetModel.OfferNameHero_ar.length);
-		int num = rand.Next(InitGlobalParams.OfferNameHero_ar.Length);
 
-
-		return InitGlobalParams.OfferNameHero_ar[num];
-	}
-    */
 }

@@ -76,12 +76,12 @@ public class CreateGridScenario
 
 	public void AddCountry(BattlePlanetModel battlePlanetModel)
 	{
-        battlePlanetModel.DispositionCountry_ar = new List<Country>();
+		battlePlanetModel.InitDispositionCountry();
 
-        battlePlanetModel.DispositionCountry_ar.Add(new Country(1, 1, 3, false));
-        battlePlanetModel.DispositionCountry_ar.Add(new Country(battlePlanetModel.GetFlagIdPlayer(),
+        battlePlanetModel.AddDispositionCountry(new Country(1, 1, 3, false));
+        battlePlanetModel.AddDispositionCountry(new Country(battlePlanetModel.GetFlagIdPlayer(),
 				2, 30, true));
-        battlePlanetModel.DispositionCountry_ar.Add(new Country(2, 0, 0, false));
+        battlePlanetModel.AddDispositionCountry(new Country(2, 0, 0, false));
 
 
 		ModelStrategy.InitContact(battlePlanetModel);

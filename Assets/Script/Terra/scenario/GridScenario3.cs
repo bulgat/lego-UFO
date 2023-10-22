@@ -38,12 +38,12 @@ public class GridScenario3 : GridScenarioAbstract, IGridScenario
         new CreateGridScenario().AddCountry(battlePlanetModel);
         battlePlanetModel._prototypeHeroDemo.Reset();
 
-        MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("desert", 3, 2, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar[0].IdCountry));
+        MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("desert", 3, 2, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList()[0].IdCountry));
 		//BattlePlanetModel.Island_ar.add(new Island("aqua",2,6,1,false,BattlePlanetModel.DispositionCountry_ar.get(0).IdCountry));
 
 		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("sand", 3, 5, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
 
-		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("cactus", 10, 4, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar[2].IdCountry));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("cactus", 10, 4, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList()[2].IdCountry));
 
         battlePlanetModel._prototypeHeroDemo.HeroFleetInit();
 

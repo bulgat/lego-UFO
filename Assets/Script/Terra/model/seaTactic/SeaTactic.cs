@@ -176,8 +176,8 @@ public class SeaTactic : BasicTactic
 						copyNameHero_ar,
 						GridSea_ar,
 						new List<Island>(),
-						BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
-						_commandStrategy_ar,
+						BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(),
+                        _commandStrategy_ar,
 						ArmUnitFleet,
 						_globalParamsTimeQuick,
 						 _globalParamsGale

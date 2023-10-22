@@ -50,10 +50,10 @@ public class GridScenario: GridScenarioAbstract,IGridScenario
 
 		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Runa", 3, 8, 0, false, battlePlanetModel.GetFlagIdPlayer()));
 
-		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Irish", 5, 3, 1, false, battlePlanetModel.DispositionCountry_ar[2].IdCountry));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Irish", 5, 3, 1, false, battlePlanetModel.GetDispositionCountryList()[2].IdCountry));
 
-		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Malta", 10, 0, 0, false, battlePlanetModel.DispositionCountry_ar[2].IdCountry));
-		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Orion", 6, 10, 0, false, battlePlanetModel.DispositionCountry_ar[2].IdCountry));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Malta", 10, 0, 0, false, battlePlanetModel.GetDispositionCountryList()[2].IdCountry));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("Orion", 6, 10, 0, false, battlePlanetModel.GetDispositionCountryList()[2].IdCountry));
 
         battlePlanetModel._prototypeHeroDemo.HeroFleetInit();
 

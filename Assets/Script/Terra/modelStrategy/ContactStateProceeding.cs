@@ -6,16 +6,16 @@ public class ContactStateProceeding
 {
 	public void InitContact(BattlePlanetModel battlePlanetModel)
 	{
-		if (battlePlanetModel.DispositionCountry_ar == null)
+		if (battlePlanetModel.GetDispositionCountryList() == null)
 		{
 			return;
 		}
-		foreach (Country country in battlePlanetModel.DispositionCountry_ar)
+		foreach (Country country in battlePlanetModel.GetDispositionCountryList())
 		{
 			country.Contact_ar = new List<ContactState>();
 
 
-			foreach (Country enemyCountry in battlePlanetModel.DispositionCountry_ar)
+			foreach (Country enemyCountry in battlePlanetModel.GetDispositionCountryList())
 			{
 				if (country.IdCountry != enemyCountry.IdCountry)
 				{

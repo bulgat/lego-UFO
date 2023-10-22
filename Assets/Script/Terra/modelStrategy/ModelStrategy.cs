@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using System.Diagnostics;
 
+using System;
 public class ModelStrategy 
 {
     public static ButtonEvent GreatImpDrivingAI(
@@ -20,8 +18,6 @@ public class ModelStrategy
             List<GridTileBar> GridTile_ar
             )
     {
-        UnityEngine.Debug.Log("====== GreatImpDrivingAI ====="+ DispositionCountry_ar.Count);
-
         for (int Imperial = 0; Imperial < DispositionCountry_ar.Count; Imperial++)
         {
 
@@ -40,7 +36,6 @@ public class ModelStrategy
                 }
                 else
                 {
-                    UnityEngine.Debug.Log("WAR");
                     // war
 
                     ButtonEvent buttonEvent = WarMove(DispositionCountry_ar, Imperial, NameHero_ar, Grid_ar,
@@ -164,8 +159,8 @@ public class ModelStrategy
 	public static void SetContactPeace(BattlePlanetModel battlePlanetModel,
 		Point flagIdPoint, bool Peace)
 	{
-        battlePlanetModel._contactStateProceeding.SetContactPeace(battlePlanetModel.DispositionCountry_ar,
-				flagIdPoint, Peace);
+        battlePlanetModel._contactStateProceeding.SetContactPeace(battlePlanetModel.GetDispositionCountryList(),
+                flagIdPoint, Peace);
 	}
 	public static void RefreshHeroPower(List<GridFleet> NameHero_ar, bool SpeedStatic)
 	{

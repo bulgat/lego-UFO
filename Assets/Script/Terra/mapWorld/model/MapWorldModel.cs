@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using ZedAngular.Model.Terra.scenario;
-using UnityEngine;
+
 public class MapWorldModel 
 {
 	private int _turnCount = 0;
@@ -39,7 +38,6 @@ public class MapWorldModel
 
 	private void AddCommandStrategy(List<CommandStrategy> Command) {
 		
-
 		_commandStrategyMap_ar.AddRange(Command);
 	}
 
@@ -48,12 +46,12 @@ public class MapWorldModel
 		
 		if (!_turnOn)
 		{
-            UnityEngine.Debug.Log("Turn  "+ _turnOn);
+			System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
 
 			TurnPush();
 
 			ModelStrategy.RefreshHeroPower(BattlePlanetModel.GetBattlePlanetModelSingleton()._prototypeHeroDemo.GetHeroFleet(), false);
-			ModelStrategy.EconomicTurn(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar, MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray());
+			ModelStrategy.EconomicTurn(BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(), MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray());
 
 			
 			DevelopmentTurn();
@@ -61,7 +59,8 @@ public class MapWorldModel
 			if (BattlePlanetModel.GetBattlePlanetModelSingleton().VictoryScenario.Dual)
 			{
 
-				Country countryFollowPlayer = ModelStrategy.GetPlayerCountryFollow(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
+				Country countryFollowPlayer = ModelStrategy.GetPlayerCountryFollow(
+					BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(),
                         BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer());
 				if (countryFollowPlayer != null)
 				{
@@ -236,7 +235,7 @@ public class MapWorldModel
 		}
 
 		Island island = ModelStrategy.GetIsland(MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetIslandArray(),
-				BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
+				BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(),
 				buttonEvent.HeroFleet.SpotX,
 				buttonEvent.HeroFleet.SpotY);
 		if (island != null)
@@ -336,7 +335,7 @@ public class MapWorldModel
 	}
 	public  Country GetCountCountry(int FlagId)
 	{
-		return ModelStrategy.GetDispositionCountry(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
+		return ModelStrategy.GetDispositionCountry(BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(),
 				FlagId);
 	}
 	public  bool EnoughMoneyOnUnit(Country country, int UnitId)
@@ -420,8 +419,7 @@ public class MapWorldModel
 	private ButtonEvent _eventModel;
 	public  void DevelopmentTurn()
 	{
-        UnityEngine.Debug.Log(" DispositionCountry_ar = " + BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar.Count);
-
+		
 		// get copy island list.
 		List<Island> copyIsland_ar = MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetCopyIslandArray();
 		_commandStrategyMap_ar = new List<CommandStrategy>();
@@ -430,7 +428,7 @@ public class MapWorldModel
 
 		ButtonEvent eventModel = ModelStrategy.GreatImpDrivingAI
 				(
-						BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar,
+						BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(),
                         BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer(),
 						copyFleetGrid_ar,
 						BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList(),
@@ -441,7 +439,7 @@ public class MapWorldModel
 						_commandStrategyMap_ar,
 						BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList()
                 );
-        UnityEngine.Debug.Log(_commandStrategyMap_ar.Count+"  eventModel = " + eventModel);
+		System.Diagnostics.Debug.WriteLine(_commandStrategyMap_ar.Count+"  eventModel = " + eventModel);
 
 		// input command
 		foreach (CommandStrategy commandStrategy in _commandStrategyMap_ar)
@@ -506,7 +504,7 @@ public class MapWorldModel
 	}
 	public List<CommandStrategy> GetCommandMoveAttackList()
 	{
-        UnityEngine.Debug.Log("GetCommandMoveAttackList = "+ _commandStrategyMap_ar.Count);
+		
 		return _commandStrategyMap_ar;
 	}
 	public  void PickUpCommandCaptureIsland(CommandStrategy commandStrategy)

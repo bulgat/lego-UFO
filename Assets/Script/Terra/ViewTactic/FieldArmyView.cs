@@ -78,7 +78,7 @@ public class FieldArmyView : FieldArmyBasic
             ///tacticPlanetView.SetGameObject(numUnitImage * 3, idUnit);
 
             //UnitShipTexture unitShipTexture = new UnitShipTexture();
-            UnitTypeShipView unitTypeShipView;/// = unitShipTexture.GetShipSea(numUnitImage, BasaPurchaseUnitScience_ar);
+            //UnitTypeShipView unitTypeShipView;/// = unitShipTexture.GetShipSea(numUnitImage, BasaPurchaseUnitScience_ar);
            // Image imageShip = null;
      
             UnitTactic unitTactic = new UnitTactic(PlayerLeft, i, widthStage,

@@ -15,7 +15,7 @@ public class PerformCommandModel
 
 			SetTurnDoneAndPower(commandStrategy.GridFleet);
 			// money?
-			ModelStrategy.SetPrizeIsland(BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar, commandStrategy.CaptureIsland.FlagId);
+			ModelStrategy.SetPrizeIsland(BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList(), commandStrategy.CaptureIsland.FlagId);
 		}
 	}
 	public void PerformCommandMoveFleet(PrototypeHeroDemo prototypeHeroDemo, CommandStrategy commandStrategy)

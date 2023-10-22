@@ -59,7 +59,7 @@ public class GridScenario2: GridScenarioAbstract, IGridScenario
         MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("zero", 3, 2, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
 		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("sector", 2, 6, 1, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()));
 
-		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("fabric", 10, 4, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar[2].IdCountry));
+		MapWorldModel.MapWorldModelSingleton().GetIslandMemento().AddIsland(new Island("fabric", 10, 4, 0, false, BattlePlanetModel.GetBattlePlanetModelSingleton().GetDispositionCountryList()[2].IdCountry));
 
         //BattlePlanetModel.NameHero_ar = new ArrayList<GridFleet>();
         battlePlanetModel._prototypeHeroDemo.HeroFleetInit();

@@ -6,9 +6,8 @@ using ZedAngular.Model.Terra;
 using ZedAngular.Model.Terra.scenario;
 using System.Reflection;
 using System.ComponentModel.Design;
-using UnityEngine;
 
-public class BattlePlanetModel 
+public class BattlePlanetModel
 {
     private List<GridTileBar> GridTile_ar = new List<GridTileBar>();
     public int ObstacleMap = 2;
@@ -19,8 +18,8 @@ public class BattlePlanetModel
     public static InitGlobalParams _initGlobalParams;
     private List<GridCrewScience> BasaPurchaseUnitScience_ar = new List<GridCrewScience>();
     public static int TypeIsland = 16;
-    public List<Country> DispositionCountry_ar = new List<Country>();
-    //public static int FleetId = 1;
+    private List<Country> DispositionCountry_ar = new List<Country>();
+
     private int FlagIdHero = 9;
     public VictoryStipulation VictoryScenario = new VictoryStipulation();
     public static int SizeSquad = 6;
@@ -28,7 +27,7 @@ public class BattlePlanetModel
     public static bool BlockSelectHero = false;
     private List<List<int>> ShoalSeaBasa_ar;
     public List<GoalTypeShip> GoalTypeShip_ar;
-    //public static String[] OfferNameHero_ar = new String[] { "fleet_00", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ" };
+
     public Island SelectIsland = null;
     private static BattlePlanetModel _BattlePlanetModel;
     public ContactStateProceeding _contactStateProceeding;
@@ -43,6 +42,17 @@ public class BattlePlanetModel
 
         }
         return _BattlePlanetModel;
+    }
+    public List<Country> GetDispositionCountryList() {
+        return this.DispositionCountry_ar;
+    }
+    public void InitDispositionCountry()
+    {
+        this.DispositionCountry_ar = new List<Country>();
+    }
+    public void AddDispositionCountry(Country country)
+    {
+        this.DispositionCountry_ar.Add(country);
     }
     public BattlePlanetModel()
     {
@@ -192,7 +202,6 @@ public class BattlePlanetModel
     public List<CommandStrategy> AnimationCommand()
     {
         List<CommandStrategy> CommandMoveAttackList = MapWorldModel.MapWorldModelSingleton().GetCommandMoveAttackList();
-         Debug.Log( "     move  x   move = "+ CommandMoveAttackList.Count);
         foreach (CommandStrategy item in CommandMoveAttackList)
         {
             //this.MoveFleet(item);
