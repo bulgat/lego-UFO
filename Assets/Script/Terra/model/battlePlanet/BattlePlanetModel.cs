@@ -6,6 +6,7 @@ using ZedAngular.Model.Terra;
 using ZedAngular.Model.Terra.scenario;
 using System.Reflection;
 using System.ComponentModel.Design;
+using UnityEngine;
 
 public class BattlePlanetModel 
 {
@@ -191,6 +192,7 @@ public class BattlePlanetModel
     public List<CommandStrategy> AnimationCommand()
     {
         List<CommandStrategy> CommandMoveAttackList = MapWorldModel.MapWorldModelSingleton().GetCommandMoveAttackList();
+         Debug.Log( "     move  x   move = "+ CommandMoveAttackList.Count);
         foreach (CommandStrategy item in CommandMoveAttackList)
         {
             //this.MoveFleet(item);

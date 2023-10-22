@@ -68,7 +68,7 @@ public static class GlobalConf
                              BattlePlanetModel.GetBattlePlanetModelSingleton().GetFlagIdPlayer()
                              );
 
-        System.Diagnostics.Debug.WriteLine("099 ____ turn = " + buttonEventList.Count());
+        System.Diagnostics.Debug.WriteLine(" ____ turn = " + buttonEventList.Count());
 
         return buttonEventList;
     }

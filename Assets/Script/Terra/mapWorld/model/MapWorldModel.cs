@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using ZedAngular.Model.Terra.scenario;
-
+using UnityEngine;
 public class MapWorldModel 
 {
 	private int _turnCount = 0;
@@ -38,6 +39,7 @@ public class MapWorldModel
 
 	private void AddCommandStrategy(List<CommandStrategy> Command) {
 		
+
 		_commandStrategyMap_ar.AddRange(Command);
 	}
 
@@ -46,7 +48,7 @@ public class MapWorldModel
 		
 		if (!_turnOn)
 		{
-			System.Diagnostics.Debug.WriteLine("Turn  "+ _turnOn);
+            UnityEngine.Debug.Log("Turn  "+ _turnOn);
 
 			TurnPush();
 
@@ -418,7 +420,8 @@ public class MapWorldModel
 	private ButtonEvent _eventModel;
 	public  void DevelopmentTurn()
 	{
-		
+        UnityEngine.Debug.Log(" DispositionCountry_ar = " + BattlePlanetModel.GetBattlePlanetModelSingleton().DispositionCountry_ar.Count);
+
 		// get copy island list.
 		List<Island> copyIsland_ar = MapWorldModel.MapWorldModelSingleton()._islandDemoMemento.GetCopyIslandArray();
 		_commandStrategyMap_ar = new List<CommandStrategy>();
@@ -438,7 +441,7 @@ public class MapWorldModel
 						_commandStrategyMap_ar,
 						BattlePlanetModel.GetBattlePlanetModelSingleton().GetGridTileList()
                 );
-		System.Diagnostics.Debug.WriteLine(_commandStrategyMap_ar.Count+"  eventModel = " + eventModel);
+        UnityEngine.Debug.Log(_commandStrategyMap_ar.Count+"  eventModel = " + eventModel);
 
 		// input command
 		foreach (CommandStrategy commandStrategy in _commandStrategyMap_ar)
@@ -503,7 +506,7 @@ public class MapWorldModel
 	}
 	public List<CommandStrategy> GetCommandMoveAttackList()
 	{
-		
+        UnityEngine.Debug.Log("GetCommandMoveAttackList = "+ _commandStrategyMap_ar.Count);
 		return _commandStrategyMap_ar;
 	}
 	public  void PickUpCommandCaptureIsland(CommandStrategy commandStrategy)

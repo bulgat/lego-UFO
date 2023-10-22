@@ -345,7 +345,7 @@ List<PathMove> tilePathList = GetPathList();
             }
             else
             {
-                // Debug.Log(fleet+"     move  x   move  "+ modelFleet);
+                
                 //  fleetUnit.SetAnimation("gogo", 1, "gogo", 5);
                 fleetUnit.SetAnimation("attack");
                // fleetUnit.SetAnimation("gogo",3, "gogo", 7);

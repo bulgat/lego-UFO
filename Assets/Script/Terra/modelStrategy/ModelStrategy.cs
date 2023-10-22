@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine;
 using System;
+using System.Diagnostics;
+
 public class ModelStrategy 
 {
     public static ButtonEvent GreatImpDrivingAI(
@@ -18,6 +20,8 @@ public class ModelStrategy
             List<GridTileBar> GridTile_ar
             )
     {
+        UnityEngine.Debug.Log("====== GreatImpDrivingAI ====="+ DispositionCountry_ar.Count);
+
         for (int Imperial = 0; Imperial < DispositionCountry_ar.Count; Imperial++)
         {
 
@@ -36,6 +40,7 @@ public class ModelStrategy
                 }
                 else
                 {
+                    UnityEngine.Debug.Log("WAR");
                     // war
 
                     ButtonEvent buttonEvent = WarMove(DispositionCountry_ar, Imperial, NameHero_ar, Grid_ar,
