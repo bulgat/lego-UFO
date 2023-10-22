@@ -162,7 +162,7 @@ public class GridScenario: GridScenarioAbstract,IGridScenario
 		sea_ar.Add(new Point(12, 12));
 		sea_ar.Add(new Point(12, 11));
 
-
+//InitSetHeroSelect();
 
         battlePlanetModel.SetGridTileList(new CreateGridScenario().CreateGridInit(mountaun_ar, road_ar,
 				sea_ar, battlePlanetModel.GetShoalSeaBasa_ar(), battlePlanetModel));
@@ -173,9 +173,10 @@ public class GridScenario: GridScenarioAbstract,IGridScenario
 
         battlePlanetModel.VictoryScenario.ScenarioNumber = 0;
 
+
         System.Diagnostics.Debug.WriteLine("02 GridScenario land = " + battlePlanetModel._prototypeHeroDemo.GetHeroFleet().Count);
         //Main._victoryWin.SetVictoryImage(GraficBibleConstant.VictoryCompleteWin0);
-        InitSetHeroSelect();
+        
 	}
 	public int ImageMission()
 	{

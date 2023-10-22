@@ -73,7 +73,7 @@ public class InitGlobalParams
         battlePlanetModel.GoalTypeShip_ar = new List<GoalTypeShip>();
         battlePlanetModel.GoalTypeShip_ar.Add(drakar);
 
-        battlePlanetModel.InitDispositionCountry();
+        //battlePlanetModel.InitDispositionCountry();
 	}
 
 }

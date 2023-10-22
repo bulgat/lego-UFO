@@ -76,7 +76,7 @@ public class CreateGridScenario
 
 	public void AddCountry(BattlePlanetModel battlePlanetModel)
 	{
-		battlePlanetModel.InitDispositionCountry();
+		//battlePlanetModel.InitDispositionCountry();
 
         battlePlanetModel.AddDispositionCountry(new Country(1, 1, 3, false));
         battlePlanetModel.AddDispositionCountry(new Country(battlePlanetModel.GetFlagIdPlayer(),

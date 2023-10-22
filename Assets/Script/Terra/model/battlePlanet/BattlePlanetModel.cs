@@ -6,6 +6,7 @@ using ZedAngular.Model.Terra;
 using ZedAngular.Model.Terra.scenario;
 using System.Reflection;
 using System.ComponentModel.Design;
+using UnityEngine;
 
 public class BattlePlanetModel
 {
@@ -48,10 +49,12 @@ public class BattlePlanetModel
     }
     public void InitDispositionCountry()
     {
+        Debug.Log("INIT  DispositionCountry");
         this.DispositionCountry_ar = new List<Country>();
     }
     public void AddDispositionCountry(Country country)
     {
+        Debug.Log("AddDispositionCountry");
         this.DispositionCountry_ar.Add(country);
     }
     public BattlePlanetModel()
